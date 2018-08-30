@@ -1,0 +1,430 @@
+sample:
+  users:
+    -
+      id: ysh
+      name: 임성환
+      password: passw0rd!
+      email: ysh@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: kjh
+      name: 고재훈
+      password: passw0rd!
+      email: kjh@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: purchaser
+      name: 구매자
+      password: passw0rd!
+      email: purchaser@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: purchaser2
+      name: 구매자2
+      password: passw0rd!
+      email: purchaser2@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: salesman
+      name: 영업담당자
+      password: passw0rd!
+      email: salesman@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: salesman2
+      name: 영업담당자2
+      password: passw0rd!
+      email: salesman2@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: process-manager
+      name: 공정관리자
+      password: passw0rd!
+      email: process-manager@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: process-manager2
+      name: 공정관리자2
+      password: passw0rd!
+      email: process-manager2@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: produce-manager
+      name: 제조관리자
+      password: passw0rd!
+      email: produce-manager@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: produce-manager2
+      name: 제조관리자2
+      password: passw0rd!
+      email: produce-manager2@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: worker1
+      name: 작업자1
+      password: passw0rd!
+      email: worker1@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+    -
+      id: worker2
+      name: 작업자2
+      password: passw0rd!
+      email: worker2@kd-ace.co.kr
+      mobile-phone-number: "+821011111111"
+  departments:
+    -
+      id: management
+      name: 관리
+      managerId: produce-manager2
+    -
+      id: finance
+      name: 재경
+      managerId: purchaser
+    -
+      id: produce
+      name: 생산
+      managerId: produce-manager
+    -
+      id: qc
+      name: QC
+      managerId: ysh
+    -
+      id: sales
+      name: 영업
+      managerId: salesman
+
+
+  companies:
+    -
+      id: CUST1
+      name: 고객사1
+      registration-number: "0000000001"
+      representative: 고객 대표자2
+      telephone-number: "+821011111111"
+      mobile-phone-number: "+821011111111"
+      fax-number: "+821011111111"
+      email: system@kd-ace.co.kr
+      enabled: true
+      customer: true
+      address:
+        postal-code: 13496
+        street: 경기도 성남시 분당구 장미로 42
+        detail: 야탑리더스 410호
+    -
+      id: CUST2
+      name: 고객사2
+      registration-number: "0000000002"
+      representative: 고객 대표자2
+      telephone-number: "+821011111111"
+      mobile-phone-number: "+821011111111"
+      fax-number: "+821011111111"
+      email: system@kd-ace.co.kr
+      enabled: true
+      customer: true
+      address:
+        postal-code: 13496
+        street: 경기도 성남시 분당구 장미로 42
+        detail: 야탑리더스 410호
+    -
+      id: SUPP1
+      name: 공급사1
+      registration-number: "0000000003"
+      representative: 공급 대표자1
+      telephone-number: "+821011111111"
+      mobile-phone-number: "+821011111111"
+      fax-number: "+821011111111"
+      email: system@kd-ace.co.kr
+      enabled: true
+      supplier: true
+      address:
+        postal-code: 13496
+        street: 경기도 성남시 분당구 장미로 42
+        detail: 야탑리더스 410호
+    -
+      id: SUPP2
+      name: 공급사2
+      registration-number: "0000000004"
+      representative: 공급 대표자2
+      telephone-number: "+821011111111"
+      mobile-phone-number: "+821011111111"
+      fax-number: "+821011111111"
+      email: system@kd-ace.co.kr
+      enabled: true
+      supplier: true
+      address:
+        postal-code: 13496
+        street: 경기도 성남시 분당구 장미로 42
+        detail: 야탑리더스 410호
+
+  projects:
+    - id: sample-project1
+      name: 샘플 프로젝트1
+      customer-id: CUST1
+      manager-id: ysh
+      customer-manager-contact:
+        name: "고객1 회사 담당자"
+        email: "manager@company.com"
+        telephone-number: "+821011111111"
+        mobile-phone-number: "+821011111111"
+        fax-number: "+821011111111"
+    -
+      id: sample-project2
+      name: 샘플 프로젝트2
+      customer-id: CUST2
+      manager-id: ysh
+      customer-manager-contact:
+        name: "고객2 회사 담당자"
+        email: "manager@company.com"
+        telephone-number: "+821011111111"
+        mobile-phone-number: "+821011111111"
+        fax-number: "+821011111111"
+    -
+      id: sample-project3
+      name: 샘플 프로젝트3
+      customer-id: CUST1
+      manager-id: salesman
+      customer-manager-contact:
+        name: "고객1 회사 담당자"
+        email: "manager@company.com"
+        telephone-number: "+821011111111"
+        mobile-phone-number: "+821011111111"
+        fax-number: "+821011111111"
+
+  process-types:
+    - id: printSheet-uv
+      name: 인쇄 - UV
+      base-unit-cost: 100
+      info-type-id: pico.erp.config.process.info.PrintingProcessInfo
+      cost-rates:
+        direct-labor: 0.4
+        indirect-labor: 0.1
+        indirect-material: 0.25
+        indirect-expenses: 0.25
+      difficulty-grades:
+        - difficulty: EASY
+          description: 하기 쉬움
+          cost-rate: 0.95
+        - difficulty: NORMAL
+          description: 보통 정도 수준
+          cost-rate: 1
+        - difficulty: HARD
+          description: 이러 저러한 상황이라 어려움
+          cost-rate: 1.1
+        - difficulty: VERY_HARD
+          description: 이러 저러한 상황에 특이 사항이라 매우 어려움
+          cost-rate: 1.2
+    - id: coating-cr
+      name: 코팅 - CR
+      base-unit-cost: 90
+      info-type-id: pico.erp.config.process.info.CoatingProcessInfo
+      cost-rates:
+        direct-labor: 0.4
+        indirect-labor: 0.1
+        indirect-material: 0.25
+        indirect-expenses: 0.25
+      difficulty-grades:
+        - difficulty: EASY
+          description: 하기 쉬움
+          cost-rate: 0.95
+        - difficulty: NORMAL
+          description: 보통 정도 수준
+          cost-rate: 1
+        - difficulty: HARD
+          description: 이러 저러한 상황이라 어려움
+          cost-rate: 1.1
+        - difficulty: VERY_HARD
+          description: 이러 저러한 상황에 특이 사항이라 매우 어려움
+          cost-rate: 1.2
+    - id: packaging
+      name: 포장
+      base-unit-cost: 95
+      info-type-id: pico.erp.config.process.info.PackagingProcessInfo
+      cost-rates:
+        direct-labor: 0.7
+        indirect-labor: 0.1
+        indirect-material: 0.1
+        indirect-expenses: 0.1
+      difficulty-grades:
+        - difficulty: EASY
+          description: 하기 쉬움
+          cost-rate: 0.95
+        - difficulty: NORMAL
+          description: 보통 정도 수준
+          cost-rate: 1
+        - difficulty: HARD
+          description: 이러 저러한 상황이라 어려움
+          cost-rate: 1.1
+        - difficulty: VERY_HARD
+          description: 이러 저러한 상황에 특이 사항이라 매우 어려움
+          cost-rate: 1.2
+    - id: thomson
+      name: 톰슨
+      base-unit-cost: 105
+      info-type-id: pico.erp.config.process.info.ThomsonProcessInfo
+      cost-rates:
+        direct-labor: 0.4
+        indirect-labor: 0.1
+        indirect-material: 0.25
+        indirect-expenses: 0.25
+      difficulty-grades:
+        - difficulty: EASY
+          description: 하기 쉬움
+          cost-rate: 0.95
+        - difficulty: NORMAL
+          description: 보통 정도 수준
+          cost-rate: 1
+        - difficulty: HARD
+          description: 이러 저러한 상황이라 어려움
+          cost-rate: 1.1
+        - difficulty: VERY_HARD
+          description: 이러 저러한 상황에 특이 사항이라 매우 어려움
+          cost-rate: 1.2
+    - id: molding-press
+      name: 압착성형
+      base-unit-cost: 120
+      info-type-id: pico.erp.config.process.info.PressMoldingProcessInfo
+      cost-rates:
+        direct-labor: 0.4
+        indirect-labor: 0.1
+        indirect-material: 0.25
+        indirect-expenses: 0.25
+      difficulty-grades:
+        - difficulty: EASY
+          description: 하기 쉬움
+          cost-rate: 0.95
+        - difficulty: NORMAL
+          description: 보통 정도 수준
+          cost-rate: 1
+        - difficulty: HARD
+          description: 이러 저러한 상황이라 어려움
+          cost-rate: 1.1
+        - difficulty: VERY_HARD
+          description: 이러 저러한 상황에 특이 사항이라 매우 어려움
+          cost-rate: 1.2
+  item-categories:
+    - id: category-1
+      name: 인쇄
+      description: 인쇄 설명
+    - id: category-2
+      name: 포장
+      description: 포장 설명
+    - id: category-3
+      name: 종이
+      description: 종이 설명
+    - id: category-4
+      name: 기타
+      description: 기타 설명
+    - id: category-5
+      name: 완성품
+      description: 기타 설명
+    - id: category-23
+      parent-id: category-2
+      name: 아웃박스
+      description: 아웃박스 설명
+    - id: category-34
+      parent-id: category-3
+      name: 인쇄종이
+      description: 인쇄종이 설명
+
+  items:
+    - id: item-1
+      name: HG105-0311
+      base-unit-cost: 100
+      category-id: category-5
+      customer-id: CUST1
+      unit: EA
+      type: PRODUCT
+    - id: item-2
+      base-unit-cost: 90
+      name: HG105-0311 - 카드
+      category-id: category-3
+      customer-id: CUST1
+      unit: EA
+      type: SEMI_PRODUCT
+      spec-type-id: pico.erp.config.item.spec.PaperItemSpecVariables
+    - id: item-3
+      base-unit-cost: 80
+      name: HG105-0311 - 카드 - 코팅완료
+      category-id: category-5
+      customer-id: CUST1
+      unit: EA
+      type: WORK_IN_PROCESS
+    - id: item-4
+      base-unit-cost: 70
+      name: HG105-0311 - 카드 - 인쇄완료
+      category-id: category-5
+      customer-id: CUST1
+      unit: EA
+      type: WORK_IN_PROCESS
+    - id: item-5
+      base-unit-cost: 60
+      name: HG105-0311 - PET
+      category-id: category-5
+      customer-id: CUST1
+      unit: EA
+      type: SEMI_PRODUCT
+
+  bom-drafts:
+    - id: bom-1
+      item-id: item-1
+    - id: bom-2
+      item-id: item-2
+    - id: bom-3
+      item-id: item-3
+    - id: bom-4
+      item-id: item-4
+    - id: bom-5
+      item-id: item-5
+
+  bom-add-materials:
+    - id: bom-1
+      material:
+        id: bom-2
+        quantity: 1
+    - id: bom-2
+      material:
+        id: bom-3
+        quantity: 1
+    - id: bom-3
+      material:
+        id: bom-4
+        quantity: 1
+    - id: bom-4
+      material:
+        id: bom-5
+        quantity: 1
+
+  bom-determines:
+    - id: bom-5
+    - id: bom-4
+    - id: bom-3
+#    -
+#      id: item-1/1
+#    -
+#      id: item-2/1
+  quotation-drafts:
+    - id: quotation-1
+      name: 첫째 견적
+      project-id: sample-project1
+      customer-id: CUST1
+      expiry-policy: IN_YEAR
+      manager-id: salesman
+
+  quotation-bom-items:
+    - id: quotation-1
+      item:
+        id: quotation-1-item-1
+        description: 아이템 하나 설명
+        remark: 아이템 하나 비고
+        quantity: 1
+        unit-price:
+          original: 0
+          direct-labor: 0
+          indirect-labor: 0
+          indirect-material: 0
+          direct-material: 0
+          indirect-expenses: 0
+          discount-rate: 0
+        bom-id: bom-1
+

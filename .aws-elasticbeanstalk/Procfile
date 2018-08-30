@@ -1,0 +1,1 @@
+web: java -javaagent:/scouter/scouter.agent.jar -Dscouter.config=/scouter/scouter.conf -Dobj_name=${SCOUTER_OBJ_NAME} -Dfile.encoding=UTF-8 -Duser.language=ko-KR -Djava.security.egd=file:/dev/./urandom -jar ${project.jar.baseName}-${project.version}-boot.${project.jar.extension} server
