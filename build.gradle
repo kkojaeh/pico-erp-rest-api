@@ -5,6 +5,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'net.ltgt.apt'
+apply plugin: 'net.ltgt.apt-idea'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'io.github.divinespear.jpa-schema-generate'
 apply plugin: 'org.springframework.boot'
