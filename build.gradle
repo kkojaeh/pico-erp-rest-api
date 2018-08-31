@@ -21,95 +21,88 @@ ext {
 apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/master/parent.gradle'
 apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/master/impl.gradle'
 
-afterEvaluate {
+dependencies {
 
-  dependencies {
-
-    // api
-    compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
-    compile("com.github.kkojaeh.pico-erp-user:user-api:${userVersion}")
-    compile("com.github.kkojaeh.pico-erp-audit:audit-api:${auditVersion}")
-    compile("com.github.kkojaeh.pico-erp-company:company-api:${companyVersion}")
-    compile("com.github.kkojaeh.pico-erp-attachment:attachment-api:${attachmentVersion}")
-    compile("com.github.kkojaeh.pico-erp-process:process-api:${processVersion}")
-    compile("com.github.kkojaeh.pico-erp-project:project-api:${projectVersion}")
-    compile("com.github.kkojaeh.pico-erp-quotation:quotation-api:${quotationVersion}")
-    compile("com.github.kkojaeh.pico-erp-item:item-api:${itemVersion}")
-    compile("com.github.kkojaeh.pico-erp-comment:comment-api:${commentVersion}")
-    compile("com.github.kkojaeh.pico-erp-work-day:work-day-api:${workDayVersion}")
-    compile("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-api:${orderAcceptanceVersion}")
+  // api
+  compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
+  compile("com.github.kkojaeh.pico-erp-user:user-api:${userVersion}")
+  compile("com.github.kkojaeh.pico-erp-audit:audit-api:${auditVersion}")
+  compile("com.github.kkojaeh.pico-erp-company:company-api:${companyVersion}")
+  compile("com.github.kkojaeh.pico-erp-attachment:attachment-api:${attachmentVersion}")
+  compile("com.github.kkojaeh.pico-erp-process:process-api:${processVersion}")
+  compile("com.github.kkojaeh.pico-erp-project:project-api:${projectVersion}")
+  compile("com.github.kkojaeh.pico-erp-quotation:quotation-api:${quotationVersion}")
+  compile("com.github.kkojaeh.pico-erp-item:item-api:${itemVersion}")
+  compile("com.github.kkojaeh.pico-erp-comment:comment-api:${commentVersion}")
+  compile("com.github.kkojaeh.pico-erp-work-day:work-day-api:${workDayVersion}")
+  compile("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-api:${orderAcceptanceVersion}")
 
 
-    compileOnly("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
-    compileOnly("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
+  compileOnly("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
+  compileOnly("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
-    runtime("com.github.kkojaeh.pico-erp-company:company-test-cfg:${companyVersion}")
+  runtime("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
+  runtime("com.github.kkojaeh.pico-erp-company:company-test-cfg:${companyVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
-    runtime("com.github.kkojaeh.pico-erp-attachment:attachment-test-cfg:${attachmentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-attachment:attachment-test-cfg:${attachmentVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-process:process-impl:${processVersion}")
-    runtime("com.github.kkojaeh.pico-erp-process:process-test-cfg:${processVersion}")
+  runtime("com.github.kkojaeh.pico-erp-process:process-impl:${processVersion}")
+  runtime("com.github.kkojaeh.pico-erp-process:process-test-cfg:${processVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-project:project-impl:${projectVersion}")
-    runtime("com.github.kkojaeh.pico-erp-project:project-test-cfg:${projectVersion}")
+  runtime("com.github.kkojaeh.pico-erp-project:project-impl:${projectVersion}")
+  runtime("com.github.kkojaeh.pico-erp-project:project-test-cfg:${projectVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-quotation:quotation-impl:${quotationVersion}")
-    runtime("com.github.kkojaeh.pico-erp-quotation:quotation-test-cfg:${quotationVersion}")
+  runtime("com.github.kkojaeh.pico-erp-quotation:quotation-impl:${quotationVersion}")
+  runtime("com.github.kkojaeh.pico-erp-quotation:quotation-test-cfg:${quotationVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
-    runtime("com.github.kkojaeh.pico-erp-item:item-test-cfg:${itemVersion}")
+  runtime("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
+  runtime("com.github.kkojaeh.pico-erp-item:item-test-cfg:${itemVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-comment:comment-impl:${commentVersion}")
-    runtime("com.github.kkojaeh.pico-erp-comment:comment-test-cfg:${commentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-comment:comment-impl:${commentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-comment:comment-test-cfg:${commentVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-work-day:work-day-impl:${workDayVersion}")
-    runtime("com.github.kkojaeh.pico-erp-work-day:work-day-test-cfg:${workDayVersion}")
+  runtime("com.github.kkojaeh.pico-erp-work-day:work-day-impl:${workDayVersion}")
+  runtime("com.github.kkojaeh.pico-erp-work-day:work-day-test-cfg:${workDayVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-bom:bom-impl:${bomVersion}")
-    runtime("com.github.kkojaeh.pico-erp-bom:bom-test-cfg:${bomVersion}")
+  runtime("com.github.kkojaeh.pico-erp-bom:bom-impl:${bomVersion}")
+  runtime("com.github.kkojaeh.pico-erp-bom:bom-test-cfg:${bomVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-user:user-impl:${userVersion}")
-    runtime("com.github.kkojaeh.pico-erp-user:user-test-cfg:${userVersion}")
+  runtime("com.github.kkojaeh.pico-erp-user:user-impl:${userVersion}")
+  runtime("com.github.kkojaeh.pico-erp-user:user-test-cfg:${userVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-audit:audit-impl:${auditVersion}")
-    runtime("com.github.kkojaeh.pico-erp-audit:audit-test-cfg:${auditVersion}")
+  runtime("com.github.kkojaeh.pico-erp-audit:audit-impl:${auditVersion}")
+  runtime("com.github.kkojaeh.pico-erp-audit:audit-test-cfg:${auditVersion}")
 
-    runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-impl:${orderAcceptanceVersion}")
-    runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-test-cfg:${orderAcceptanceVersion}")
+  runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-impl:${orderAcceptanceVersion}")
+  runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-test-cfg:${orderAcceptanceVersion}")
 
 
-    compile('com.google.firebase:firebase-admin:6.1.0')
+  compile('com.google.firebase:firebase-admin:6.1.0')
 
-    compile('org.springframework.boot:spring-boot-starter-actuator')
+  compile('org.springframework.boot:spring-boot-starter-actuator')
 
-    compile('org.springframework.boot:spring-boot-starter-security')
+  compile('org.springframework.boot:spring-boot-starter-security')
 
-    compile('io.springfox:springfox-swagger2:2.8.0')
-    compile('io.springfox:springfox-data-rest:2.8.0')
-    compile('io.springfox:springfox-swagger-ui:2.8.0')
+  compile('io.springfox:springfox-swagger2:2.8.0')
+  compile('io.springfox:springfox-data-rest:2.8.0')
+  compile('io.springfox:springfox-swagger-ui:2.8.0')
 
-    compile('com.amazonaws:aws-java-sdk-s3')
+  compile('com.amazonaws:aws-java-sdk-s3')
 
-    compile('commons-fileupload:commons-fileupload:1.3.3')
+  compile('commons-fileupload:commons-fileupload:1.3.3')
 
-    compile('io.sentry:sentry:1.7.5')
+  compile('io.sentry:sentry:1.7.5')
 
-    compile('org.springframework.boot:spring-boot-starter-web')
+  compile('org.springframework.boot:spring-boot-starter-web')
 
-    // hibernate second level cache by memcached for 5.2.x
-    runtime('com.github.mihaicostin:hibernate-l2-memcached:5.2.10.0')
+  // hibernate second level cache by memcached for 5.2.x
+  runtime('com.github.mihaicostin:hibernate-l2-memcached:5.2.10.0')
 
-    runtime('mysql:mysql-connector-java')
+  runtime('mysql:mysql-connector-java')
 
-  }
-
-  bootRepackage {
-    mainClass = 'pico.erp.restapiserver.Application'
-    classifier = 'boot'
-  }
 }
+
 
 release {
   failOnCommitNeeded = false
@@ -136,7 +129,6 @@ release {
     pushToBranchPrefix = ''
     commitVersionFileOnly = false
   }
-
 }
 
 task "aws-elasticbeanstalk-artifact"(type: Zip) {
@@ -172,4 +164,9 @@ task "aws-lambda-artifact"(type: Zip) {
   }
   destinationDir = file("${buildDir}/aws-lambda")
   archiveName = "rest-api-server.zip"
+}
+
+bootRepackage {
+  mainClass = 'pico.erp.restapiserver.RestApiApplication'
+  classifier = 'boot'
 }
