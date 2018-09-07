@@ -35,6 +35,7 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-quotation:quotation-api:${quotationVersion}")
   compile("com.github.kkojaeh.pico-erp-item:item-api:${itemVersion}")
   compile("com.github.kkojaeh.pico-erp-comment:comment-api:${commentVersion}")
+  compile("com.github.kkojaeh.pico-erp-facility:facility-api:${facilityVersion}")
   compile("com.github.kkojaeh.pico-erp-work-day:work-day-api:${workDayVersion}")
   compile("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-api:${orderAcceptanceVersion}")
 
@@ -43,41 +44,43 @@ dependencies {
   compileOnly("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
-  runtime("com.github.kkojaeh.pico-erp-company:company-test-cfg:${companyVersion}")
+  runtime("com.github.kkojaeh.pico-erp-company:company-test:${companyVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
-  runtime("com.github.kkojaeh.pico-erp-attachment:attachment-test-cfg:${attachmentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-attachment:attachment-test:${attachmentVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-process:process-impl:${processVersion}")
-  runtime("com.github.kkojaeh.pico-erp-process:process-test-cfg:${processVersion}")
+  runtime("com.github.kkojaeh.pico-erp-process:process-test:${processVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-project:project-impl:${projectVersion}")
-  runtime("com.github.kkojaeh.pico-erp-project:project-test-cfg:${projectVersion}")
+  runtime("com.github.kkojaeh.pico-erp-project:project-test:${projectVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-quotation:quotation-impl:${quotationVersion}")
-  runtime("com.github.kkojaeh.pico-erp-quotation:quotation-test-cfg:${quotationVersion}")
+  runtime("com.github.kkojaeh.pico-erp-quotation:quotation-test:${quotationVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
-  runtime("com.github.kkojaeh.pico-erp-item:item-test-cfg:${itemVersion}")
+  runtime("com.github.kkojaeh.pico-erp-item:item-test:${itemVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-comment:comment-impl:${commentVersion}")
-  runtime("com.github.kkojaeh.pico-erp-comment:comment-test-cfg:${commentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-comment:comment-test:${commentVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-work-day:work-day-impl:${workDayVersion}")
-  runtime("com.github.kkojaeh.pico-erp-work-day:work-day-test-cfg:${workDayVersion}")
+  runtime("com.github.kkojaeh.pico-erp-work-day:work-day-test:${workDayVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-bom:bom-impl:${bomVersion}")
-  runtime("com.github.kkojaeh.pico-erp-bom:bom-test-cfg:${bomVersion}")
+  runtime("com.github.kkojaeh.pico-erp-bom:bom-test:${bomVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-user:user-impl:${userVersion}")
-  runtime("com.github.kkojaeh.pico-erp-user:user-test-cfg:${userVersion}")
+  runtime("com.github.kkojaeh.pico-erp-user:user-test:${userVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-audit:audit-impl:${auditVersion}")
-  runtime("com.github.kkojaeh.pico-erp-audit:audit-test-cfg:${auditVersion}")
+  runtime("com.github.kkojaeh.pico-erp-audit:audit-test:${auditVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-impl:${orderAcceptanceVersion}")
-  runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-test-cfg:${orderAcceptanceVersion}")
+  runtime("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-test:${orderAcceptanceVersion}")
 
+  runtime("com.github.kkojaeh.pico-erp-facility:facility-impl:${facilityVersion}")
+  runtime("com.github.kkojaeh.pico-erp-facility:facility-test:${facilityVersion}")
 
   compile('com.google.firebase:firebase-admin:6.1.0')
 
