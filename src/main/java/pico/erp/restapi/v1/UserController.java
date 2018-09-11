@@ -43,7 +43,6 @@ import pico.erp.user.UserRequests.RevokeRoleRequest;
 import pico.erp.user.UserRequests.UpdateRequest;
 import pico.erp.user.UserService;
 import pico.erp.user.UserXporter;
-import pico.erp.user.data.GrantedMenuView;
 import pico.erp.user.data.UserData;
 import pico.erp.user.data.UserId;
 import pico.erp.user.data.UserRoleGrantedOrNotView;
@@ -99,14 +98,6 @@ public class UserController {
     return userQuery.findAllUserRoleGrantedOrNot(id);
   }
 
-  @ApiOperation(value = "내 메뉴 조회")
-  @PreAuthorize("isAuthenticated()")
-  @GetMapping(value = "/me/menus", consumes = MediaType.ALL_VALUE)
-  public Collection<GrantedMenuView> getGrantedMenus(
-    @AuthenticationPrincipal AuthorizedUser userDetails) {
-    return userQuery.findAllGrantedMenus(UserId.from(userDetails.getUsername()));
-  }
-
   @ApiOperation(value = "내 정보 조회")
   @PreAuthorize("isAuthenticated()")
   @GetMapping(value = "/me", consumes = MediaType.ALL_VALUE)
@@ -131,6 +122,7 @@ public class UserController {
       .stream()
       .map(GrantedAuthority::getAuthority)
       .anyMatch(authority -> "ROLE_USER_MANAGER".equals(authority));
+
     UserData user = userService.get(id);
 
     if (!isManager) {
