@@ -32,14 +32,13 @@ import org.springframework.web.multipart.MultipartFile;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
-import pico.erp.user.DepartmentQuery;
-import pico.erp.user.DepartmentRequests;
-import pico.erp.user.DepartmentRequests.DeleteRequest;
-import pico.erp.user.DepartmentService;
-import pico.erp.user.DepartmentXporter;
 import pico.erp.user.data.DepartmentData;
 import pico.erp.user.data.DepartmentId;
 import pico.erp.user.data.DepartmentView;
+import pico.erp.user.department.DepartmentQuery;
+import pico.erp.user.department.DepartmentRequests;
+import pico.erp.user.department.DepartmentService;
+import pico.erp.user.department.DepartmentXporter;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -85,7 +84,7 @@ public class DepartmentController {
   @DeleteMapping("/departments/{id}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void delete(@PathVariable("id") DepartmentId id) {
-    departmentService.delete(new DeleteRequest(id));
+    departmentService.delete(new DepartmentRequests.DeleteRequest(id));
   }
 
   @SneakyThrows

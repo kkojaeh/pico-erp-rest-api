@@ -22,11 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.item.ItemCategoryQuery;
-import pico.erp.item.ItemCategoryRequests.CreateRequest;
-import pico.erp.item.ItemCategoryRequests.DeleteRequest;
-import pico.erp.item.ItemCategoryRequests.UpdateRequest;
-import pico.erp.item.ItemCategoryService;
+import pico.erp.item.category.ItemCategoryQuery;
+import pico.erp.item.category.ItemCategoryRequests;
+import pico.erp.item.category.ItemCategoryService;
 import pico.erp.item.data.ItemCategoryData;
 import pico.erp.item.data.ItemCategoryHierarchyView;
 import pico.erp.item.data.ItemCategoryId;
@@ -69,7 +67,8 @@ public class ItemCategoryController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/categories")
   @PreAuthorize("hasRole('ITEM_MANAGER')")
-  public ItemCategoryData create(@RequestBody CreateRequest request) {
+  public ItemCategoryData create(@RequestBody ItemCategoryRequests.CreateRequest request) {
+
     return itemCategoryService.create(request);
   }
 
@@ -79,7 +78,7 @@ public class ItemCategoryController {
   @PreAuthorize("hasRole('ITEM_MANAGER')")
   public void delete(@PathVariable("id") ItemCategoryId id) {
     itemCategoryService.delete(
-      new DeleteRequest(id)
+      new ItemCategoryRequests.DeleteRequest(id)
     );
   }
 
@@ -104,7 +103,7 @@ public class ItemCategoryController {
   @PutMapping("/categories/{id}")
   @PreAuthorize("hasRole('ITEM_MANAGER')")
   public void update(@PathVariable("id") ItemCategoryId id,
-    @RequestBody UpdateRequest request) {
+    @RequestBody ItemCategoryRequests.UpdateRequest request) {
     request.setId(id);
     itemCategoryService.update(request);
   }

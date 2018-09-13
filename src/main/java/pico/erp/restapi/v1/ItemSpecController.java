@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.item.ItemSpecRequests;
-import pico.erp.item.ItemSpecService;
 import pico.erp.item.data.ItemSpecData;
 import pico.erp.item.data.ItemSpecId;
+import pico.erp.item.spec.ItemSpecRequests;
+import pico.erp.item.spec.ItemSpecService;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 

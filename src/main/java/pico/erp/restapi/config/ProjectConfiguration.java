@@ -6,19 +6,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
-import pico.erp.project.ProjectChargeRequests;
-import pico.erp.project.ProjectChargeService;
-import pico.erp.project.ProjectSaleItemRequests;
-import pico.erp.project.ProjectSaleItemRequests.DeleteRequest;
-import pico.erp.project.ProjectSaleItemService;
 import pico.erp.project.ProjectService;
-import pico.erp.project.data.ProjectChargeId;
-import pico.erp.project.data.ProjectSaleItemId;
-import pico.erp.quotation.QuotationAdditionService;
+import pico.erp.project.charge.ProjectChargeRequests;
+import pico.erp.project.charge.ProjectChargeService;
+import pico.erp.project.charge.data.ProjectChargeId;
+import pico.erp.project.sale.item.ProjectSaleItemRequests;
+import pico.erp.project.sale.item.ProjectSaleItemService;
+import pico.erp.project.sale.item.data.ProjectSaleItemId;
 import pico.erp.quotation.QuotationEvents.CanceledEvent;
 import pico.erp.quotation.QuotationEvents.CommittedEvent;
-import pico.erp.quotation.QuotationItemService;
 import pico.erp.quotation.QuotationService;
+import pico.erp.quotation.addition.QuotationAdditionService;
+import pico.erp.quotation.item.QuotationItemService;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Configuration
@@ -64,7 +63,7 @@ public class ProjectConfiguration {
       if (exists) {
         val saleItem = projectSaleItemService.get(project.getId(), item.getItemId());
         projectSaleItemService.delete(
-          new DeleteRequest(saleItem.getId())
+          new ProjectSaleItemRequests.DeleteRequest(saleItem.getId())
         );
       }
     });

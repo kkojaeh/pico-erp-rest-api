@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import pico.erp.attachment.AttachmentItemRequests;
-import pico.erp.attachment.AttachmentItemService;
 import pico.erp.attachment.AttachmentService;
 import pico.erp.attachment.data.AttachmentId;
-import pico.erp.attachment.data.AttachmentItemData;
-import pico.erp.attachment.data.AttachmentItemId;
+import pico.erp.attachment.item.AttachmentItemRequests;
+import pico.erp.attachment.item.AttachmentItemService;
+import pico.erp.attachment.item.data.AttachmentItemData;
+import pico.erp.attachment.item.data.AttachmentItemId;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 

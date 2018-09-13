@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ServiceLoader;
 import pico.erp.attachment.AttachmentRequests.ClearRequest;
 import pico.erp.attachment.AttachmentService;
-import pico.erp.item.ItemLotRequests.ExpireRequest;
-import pico.erp.item.ItemLotService;
+import pico.erp.item.lot.ItemLotRequests;
+import pico.erp.item.lot.ItemLotService;
 import pico.erp.quotation.QuotationRequests;
 import pico.erp.quotation.QuotationService;
 import pico.erp.shared.ApplicationIntegrator;
@@ -47,7 +47,7 @@ public class Jobs {
    */
   public void expireItemLots() {
     integrator.getBean(ItemLotService.class).expire(
-      new ExpireRequest(
+      new ItemLotRequests.ExpireRequest(
         OffsetDateTime.now()
       )
     );

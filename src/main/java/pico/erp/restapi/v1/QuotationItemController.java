@@ -21,12 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.quotation.QuotationItemRequests;
-import pico.erp.quotation.QuotationItemRequests.CreateRequest;
-import pico.erp.quotation.QuotationItemService;
 import pico.erp.quotation.data.QuotationId;
-import pico.erp.quotation.data.QuotationItemData;
-import pico.erp.quotation.data.QuotationItemId;
+import pico.erp.quotation.item.QuotationItemRequests;
+import pico.erp.quotation.item.QuotationItemService;
+import pico.erp.quotation.item.data.QuotationItemData;
+import pico.erp.quotation.item.data.QuotationItemId;
 import pico.erp.restapi.Versions;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -51,7 +50,7 @@ public class QuotationItemController {
   @PostMapping("/quotations/{quotationId}/items")
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
   public void create(@PathVariable("quotationId") QuotationId quotationId,
-    @RequestBody CreateRequest request) {
+    @RequestBody QuotationItemRequests.CreateRequest request) {
     request.setQuotationId(quotationId);
     quotationItemService.create(request);
   }

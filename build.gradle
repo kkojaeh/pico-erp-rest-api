@@ -42,6 +42,7 @@ dependencies {
 
   compileOnly("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
   compileOnly("com.github.kkojaeh.pico-erp-item:item-impl:${itemVersion}")
+  compileOnly("com.github.kkojaeh.pico-erp-process:process-impl:${processVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
   runtime("com.github.kkojaeh.pico-erp-company:company-test:${companyVersion}")

@@ -33,17 +33,15 @@ import org.springframework.web.multipart.MultipartFile;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
-import pico.erp.user.GroupQuery;
-import pico.erp.user.GroupRequests;
-import pico.erp.user.GroupRequests.AddUserRequest;
-import pico.erp.user.GroupRequests.RemoveUserRequest;
-import pico.erp.user.GroupService;
-import pico.erp.user.GroupXporter;
 import pico.erp.user.data.GroupData;
 import pico.erp.user.data.GroupId;
 import pico.erp.user.data.GroupJoinedUserView;
 import pico.erp.user.data.GroupRoleGrantedOrNotView;
 import pico.erp.user.data.GroupView;
+import pico.erp.user.group.GroupQuery;
+import pico.erp.user.group.GroupRequests;
+import pico.erp.user.group.GroupService;
+import pico.erp.user.group.GroupXporter;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -73,7 +71,7 @@ public class GroupController {
   @PostMapping("/groups/{id}/users")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void addUser(@PathVariable("id") GroupId id,
-    @RequestBody AddUserRequest request) {
+    @RequestBody GroupRequests.AddUserRequest request) {
     request.setId(id);
     groupService.addUser(request);
   }
@@ -159,7 +157,7 @@ public class GroupController {
   @DeleteMapping("/groups/{id}/users")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void removeUser(@PathVariable("id") GroupId id,
-    @RequestBody RemoveUserRequest request) {
+    @RequestBody GroupRequests.RemoveUserRequest request) {
     request.setId(id);
     groupService.removeUser(request);
   }

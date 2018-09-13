@@ -18,9 +18,9 @@ import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
-import pico.erp.attachment.AttachmentStorageStrategy;
-import pico.erp.attachment.data.AttachmentItemInfo;
-import pico.erp.attachment.data.AttachmentStorageKey;
+import pico.erp.attachment.item.data.AttachmentItemInfo;
+import pico.erp.attachment.storage.AttachmentStorageStrategy;
+import pico.erp.attachment.storage.data.AttachmentStorageKey;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AwsS3AttachmentStorageStrategy implements AttachmentStorageStrategy {

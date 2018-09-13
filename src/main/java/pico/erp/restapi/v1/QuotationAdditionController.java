@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.quotation.QuotationAdditionRequests;
-import pico.erp.quotation.QuotationAdditionService;
-import pico.erp.quotation.data.QuotationAdditionData;
-import pico.erp.quotation.data.QuotationAdditionId;
+import pico.erp.quotation.addition.QuotationAdditionRequests;
+import pico.erp.quotation.addition.QuotationAdditionService;
+import pico.erp.quotation.addition.data.QuotationAdditionData;
+import pico.erp.quotation.addition.data.QuotationAdditionId;
 import pico.erp.quotation.data.QuotationId;
 import pico.erp.restapi.Versions;
 

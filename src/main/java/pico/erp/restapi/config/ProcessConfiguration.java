@@ -13,8 +13,8 @@ import pico.erp.config.process.info.PressMoldingProcessInfo;
 import pico.erp.config.process.info.PrintCoatingProcessInfo;
 import pico.erp.config.process.info.PrintingProcessInfo;
 import pico.erp.config.process.info.ThomsonProcessInfo;
-import pico.erp.process.data.ProcessInfoType;
-import pico.erp.process.impl.ClassBasedProcessInfoType;
+import pico.erp.process.info.type.ClassBasedProcessInfoType;
+import pico.erp.process.info.type.data.ProcessInfoType;
 import pico.erp.shared.Public;
 
 @Configuration
