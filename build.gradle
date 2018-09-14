@@ -172,6 +172,6 @@ task "aws-lambda-artifact"(type: Zip) {
 }
 
 bootRepackage {
-  mainClass = 'pico.erp.restapiserver.RestApiApplication'
+  mainClass = 'pico.erp.restapi.RestApiApplication'
   classifier = 'boot'
 }
