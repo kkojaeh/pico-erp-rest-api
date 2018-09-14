@@ -5,10 +5,10 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pico.erp.shared.Public;
-import pico.erp.workday.data.WorkDayCategory;
-import pico.erp.workday.data.WorkDayCategoryId;
+import pico.erp.workday.category.data.WorkDayCategory;
+import pico.erp.workday.category.data.WorkDayCategory.WorkDayCategoryImpl;
+import pico.erp.workday.category.data.WorkDayCategoryId;
 import pico.erp.workday.data.WorkTimeData;
-import pico.erp.workday.impl.WorkDayCategoryImpl;
 
 @Configuration
 public class WorkDayConfiguration {
