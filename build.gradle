@@ -12,11 +12,11 @@ apply plugin: 'org.springframework.boot'
 
 ext {
   linkHomepage = 'https://kkojaeh.github.io/pico-erp-server/#/'
-  linkCi = 'https://travis-ci.org/kkojaeh/pico-erp-packaging-config'
-  linkIssue = 'https://github.com/kkojaeh/pico-erp-packaging-config/issues'
-  linkScmUrl = 'https://github.com/kkojaeh/pico-erp-packaging-config'
-  linkScmConnection = 'scm:git:git://github.com/kkojaeh/pico-erp-packaging-config.git'
-  linkScmDevConnection = 'scm:git:ssh://git@github.com/kkojaeh/pico-erp-packaging-config.git'
+  linkCi = 'https://travis-ci.org/kkojaeh/pico-erp-rest-api'
+  linkIssue = 'https://github.com/kkojaeh/pico-erp-rest-api/issues'
+  linkScmUrl = 'https://github.com/kkojaeh/pico-erp-rest-api'
+  linkScmConnection = 'scm:git:git://github.com/kkojaeh/pico-erp-rest-api.git'
+  linkScmDevConnection = 'scm:git:ssh://git@github.com/kkojaeh/pico-erp-rest-api.git'
 }
 
 apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/master/parent.gradle'

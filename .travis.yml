@@ -45,17 +45,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-  - provider: s3
-    access_key_id: $AWS_LAMBDA_ACCESS_KEY_ID
-    secret_access_key:
-      secure: $AWS_LAMBDA_SECRET_ACCESS_KEY
-    region: $AWS_LAMBDA_REGION
-    bucket: $AWS_LAMBDA_BUCKET_DEV
-    upload-dir: dev/rest-api-server
-    local_dir: build/aws-lambda
-    skip_cleanup: true
-    on:
-      branch: master
   # 운영 서버 deploy
   - provider: elasticbeanstalk
     access_key_id: $EB_ACCESS_KEY_ID
@@ -70,26 +59,15 @@ deploy:
     skip_cleanup: true
     on:
       tags: true
-  - provider: s3
-    access_key_id: $AWS_LAMBDA_ACCESS_KEY_ID
-    secret_access_key:
-      secure: $AWS_LAMBDA_SECRET_ACCESS_KEY
-    region: $AWS_LAMBDA_REGION
-    bucket: $AWS_LAMBDA_BUCKET_PRD
-    upload-dir: prd/rest-api-server
-    local_dir: build/aws-lambda
-    skip_cleanup: true
-    on:
-      tags: true
 
 after_script:
-  - if [ "$TRAVIS_BRANCH" = "$TRAVIS_TAG" ];
-    then
-      aws lambda update-function-code --function-name "pico-erp-after-midnight-prd" --region $AWS_LAMBDA_REGION --s3-bucket $AWS_LAMBDA_BUCKET_PRD --s3-key prd/rest-api-server/rest-api-server.zip >> /dev/null;
-    fi
-  - if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ];
-    then
-      aws lambda update-function-code --function-name "pico-erp-after-midnight-dev" --region $AWS_LAMBDA_REGION --s3-bucket $AWS_LAMBDA_BUCKET_DEV --s3-key dev/rest-api-server/rest-api-server.zip >> /dev/null;
-    fi
+#  - if [ "$TRAVIS_BRANCH" = "$TRAVIS_TAG" ];
+#    then
+#      aws lambda update-function-code --function-name "pico-erp-after-midnight-prd" --region $AWS_LAMBDA_REGION --s3-bucket $AWS_LAMBDA_BUCKET_PRD --s3-key prd/rest-api-server/rest-api-server.zip >> /dev/null;
+#    fi
+#  - if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ];
+#    then
+#      aws lambda update-function-code --function-name "pico-erp-after-midnight-dev" --region $AWS_LAMBDA_REGION --s3-bucket $AWS_LAMBDA_BUCKET_DEV --s3-key dev/rest-api-server/rest-api-server.zip >> /dev/null;
+#    fi
 
 

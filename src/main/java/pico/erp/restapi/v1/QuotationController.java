@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.quotation.QuotationQuery;
+import pico.erp.quotation.QuotationRequests;
 import pico.erp.quotation.QuotationRequests.CancelRequest;
 import pico.erp.quotation.QuotationRequests.CommitRequest;
 import pico.erp.quotation.QuotationRequests.DeleteRequest;
@@ -202,6 +203,13 @@ public class QuotationController {
     @RequestBody UpdateRequest request) {
     request.setId(id);
     quotationService.update(request);
+  }
+
+  @ApiOperation(value = "견적 만료")
+  @DeleteMapping("/expire")
+  @PreAuthorize("hasAnyRole('QUOTATION_MANAGER')")
+  public void expire(@RequestBody QuotationRequests.ExpireRequest request) {
+    quotationService.expire(request);
   }
 
 
