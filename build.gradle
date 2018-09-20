@@ -36,7 +36,7 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-item:item-api:${itemVersion}")
   compile("com.github.kkojaeh.pico-erp-comment:comment-api:${commentVersion}")
   compile("com.github.kkojaeh.pico-erp-facility:facility-api:${facilityVersion}")
-  compile("com.github.kkojaeh.pico-erp-work-day:work-day-api:${workDayVersion}")
+  compile("com.github.kkojaeh.pico-erp-work-schedule:work-schedule-api:${workScheduleVersion}")
   compile("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-api:${orderAcceptanceVersion}")
 
 
@@ -65,8 +65,8 @@ dependencies {
   runtime("com.github.kkojaeh.pico-erp-comment:comment-impl:${commentVersion}")
   runtime("com.github.kkojaeh.pico-erp-comment:comment-test:${commentVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-work-day:work-day-impl:${workDayVersion}")
-  runtime("com.github.kkojaeh.pico-erp-work-day:work-day-test:${workDayVersion}")
+  runtime("com.github.kkojaeh.pico-erp-work-schedule:work-schedule-impl:${workScheduleVersion}")
+  runtime("com.github.kkojaeh.pico-erp-work-schedule:work-schedule-test:${workScheduleVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-bom:bom-impl:${bomVersion}")
   runtime("com.github.kkojaeh.pico-erp-bom:bom-test:${bomVersion}")
