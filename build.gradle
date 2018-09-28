@@ -24,6 +24,8 @@ apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/master/impl.gradle'
 
 dependencies {
 
+  compile("org.projectlombok:lombok:${lombokVersion}")
+
   // api
   compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
   compile("com.github.kkojaeh.pico-erp-user:user-api:${userVersion}")

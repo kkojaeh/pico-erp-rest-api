@@ -1,6 +1,7 @@
 package pico.erp.restapi.config;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ public class WorkScheduleConfiguration {
     return new WorkScheduleCategoryImpl(
       WorkScheduleCategoryId.from("printing"),
       "인쇄 작업일",
+      ZoneId.of("Asia/Seoul"),
       Arrays.asList(
         new WorkScheduleTimeData(LocalTime.parse("09:00"), LocalTime.parse("12:00")),
         new WorkScheduleTimeData(LocalTime.parse("13:00"), LocalTime.parse("18:00"))
