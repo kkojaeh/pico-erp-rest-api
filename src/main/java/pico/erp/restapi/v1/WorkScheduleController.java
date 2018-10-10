@@ -25,14 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
+import pico.erp.work.schedule.WorkScheduleData;
+import pico.erp.work.schedule.WorkScheduleId;
 import pico.erp.work.schedule.WorkScheduleQuery;
 import pico.erp.work.schedule.WorkScheduleRequests;
 import pico.erp.work.schedule.WorkScheduleService;
-import pico.erp.work.schedule.category.data.WorkScheduleCategory;
-import pico.erp.work.schedule.category.data.WorkScheduleCategoryId;
-import pico.erp.work.schedule.data.WorkScheduleData;
-import pico.erp.work.schedule.data.WorkScheduleId;
-import pico.erp.work.schedule.data.WorkScheduleView;
+import pico.erp.work.schedule.WorkScheduleView;
+import pico.erp.work.schedule.category.WorkScheduleCategory;
+import pico.erp.work.schedule.category.WorkScheduleCategoryId;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("work-schedule-controller-v1")

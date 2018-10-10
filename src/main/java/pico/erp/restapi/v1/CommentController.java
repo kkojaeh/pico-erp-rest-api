@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import pico.erp.comment.CommentId;
 import pico.erp.comment.CommentQuery;
 import pico.erp.comment.CommentRequests.AddRequest;
 import pico.erp.comment.CommentRequests.RemoveRequest;
 import pico.erp.comment.CommentService;
-import pico.erp.comment.data.CommentId;
-import pico.erp.comment.data.CommentView;
-import pico.erp.comment.subject.data.CommentSubjectId;
+import pico.erp.comment.CommentView;
+import pico.erp.comment.subject.CommentSubjectId;
 import pico.erp.restapi.Versions;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)

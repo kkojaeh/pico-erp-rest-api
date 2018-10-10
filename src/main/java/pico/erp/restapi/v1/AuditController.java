@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pico.erp.audit.AuditId;
 import pico.erp.audit.AuditService;
-import pico.erp.audit.data.AuditId;
-import pico.erp.audit.data.CommitData;
+import pico.erp.audit.CommitData;
 import pico.erp.restapi.Versions;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)

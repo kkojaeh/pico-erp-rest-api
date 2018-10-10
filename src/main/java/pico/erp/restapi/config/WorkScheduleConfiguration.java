@@ -6,10 +6,10 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pico.erp.shared.Public;
-import pico.erp.work.schedule.category.data.WorkScheduleCategory;
-import pico.erp.work.schedule.category.data.WorkScheduleCategory.WorkScheduleCategoryImpl;
-import pico.erp.work.schedule.category.data.WorkScheduleCategoryId;
-import pico.erp.work.schedule.data.WorkScheduleTimeData;
+import pico.erp.work.schedule.category.WorkScheduleCategory;
+import pico.erp.work.schedule.category.WorkScheduleCategory.WorkScheduleCategoryImpl;
+import pico.erp.work.schedule.category.WorkScheduleCategoryId;
+import pico.erp.work.schedule.time.WorkScheduleTimeData;
 
 @Configuration
 public class WorkScheduleConfiguration {

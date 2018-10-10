@@ -2,9 +2,9 @@ package pico.erp.restapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pico.erp.facility.category.data.FacilityCategory;
-import pico.erp.facility.category.data.FacilityCategory.FacilityCategoryImpl;
-import pico.erp.facility.category.data.FacilityCategoryId;
+import pico.erp.facility.category.FacilityCategory;
+import pico.erp.facility.category.FacilityCategory.FacilityCategoryImpl;
+import pico.erp.facility.category.FacilityCategoryId;
 import pico.erp.shared.Public;
 
 @Configuration

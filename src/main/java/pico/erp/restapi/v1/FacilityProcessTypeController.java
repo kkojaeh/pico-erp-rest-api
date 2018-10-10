@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.facility.data.FacilityId;
+import pico.erp.facility.FacilityId;
+import pico.erp.facility.process.type.FacilityProcessTypeData;
+import pico.erp.facility.process.type.FacilityProcessTypeId;
 import pico.erp.facility.process.type.FacilityProcessTypeRequests;
 import pico.erp.facility.process.type.FacilityProcessTypeService;
-import pico.erp.facility.process.type.data.FacilityProcessTypeData;
-import pico.erp.facility.process.type.data.FacilityProcessTypeId;
 import pico.erp.restapi.Versions;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)

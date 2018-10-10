@@ -3,7 +3,7 @@ package pico.erp.config.item.spec;
 import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
 import lombok.Data;
-import pico.erp.item.data.ItemSpecVariables;
+import pico.erp.item.spec.ItemSpecVariables;
 
 @Data
 @Attributes(title = "인쇄", description = "인쇄 공정에 필요한 정보")

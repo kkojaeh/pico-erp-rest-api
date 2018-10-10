@@ -36,17 +36,17 @@ import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.AuthorizedUser;
 import pico.erp.shared.data.LabeledValuable;
+import pico.erp.user.UserData;
+import pico.erp.user.UserId;
 import pico.erp.user.UserQuery;
 import pico.erp.user.UserRequests;
 import pico.erp.user.UserRequests.GrantRoleRequest;
 import pico.erp.user.UserRequests.RevokeRoleRequest;
 import pico.erp.user.UserRequests.UpdateRequest;
+import pico.erp.user.UserRoleGrantedOrNotView;
 import pico.erp.user.UserService;
+import pico.erp.user.UserView;
 import pico.erp.user.UserXporter;
-import pico.erp.user.data.UserData;
-import pico.erp.user.data.UserId;
-import pico.erp.user.data.UserRoleGrantedOrNotView;
-import pico.erp.user.data.UserView;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)

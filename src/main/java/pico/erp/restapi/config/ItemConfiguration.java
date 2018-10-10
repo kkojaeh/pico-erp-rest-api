@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pico.erp.config.item.spec.PaperItemSpecVariables;
-import pico.erp.item.data.ItemSpecType;
-import pico.erp.item.impl.ClassBasedItemSpecType;
+import pico.erp.item.spec.type.ClassBasedItemSpecType;
+import pico.erp.item.spec.type.ItemSpecType;
 import pico.erp.shared.Public;
 
 @Configuration

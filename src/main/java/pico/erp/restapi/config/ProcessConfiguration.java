@@ -14,7 +14,7 @@ import pico.erp.config.process.info.PrintCoatingProcessInfo;
 import pico.erp.config.process.info.PrintingProcessInfo;
 import pico.erp.config.process.info.ThomsonProcessInfo;
 import pico.erp.process.info.type.ClassBasedProcessInfoType;
-import pico.erp.process.info.type.data.ProcessInfoType;
+import pico.erp.process.info.type.ProcessInfoType;
 import pico.erp.shared.Public;
 
 @Configuration

@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import pico.erp.quotation.QuotationId;
+import pico.erp.quotation.addition.QuotationAdditionData;
+import pico.erp.quotation.addition.QuotationAdditionId;
 import pico.erp.quotation.addition.QuotationAdditionRequests;
 import pico.erp.quotation.addition.QuotationAdditionService;
-import pico.erp.quotation.addition.data.QuotationAdditionData;
-import pico.erp.quotation.addition.data.QuotationAdditionId;
-import pico.erp.quotation.data.QuotationId;
 import pico.erp.restapi.Versions;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)

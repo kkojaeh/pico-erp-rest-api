@@ -30,6 +30,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import pico.erp.quotation.QuotationData;
+import pico.erp.quotation.QuotationExpiryPolicyKind;
+import pico.erp.quotation.QuotationId;
+import pico.erp.quotation.QuotationPrintSheetOptions;
 import pico.erp.quotation.QuotationQuery;
 import pico.erp.quotation.QuotationRequests;
 import pico.erp.quotation.QuotationRequests.CancelRequest;
@@ -41,14 +45,9 @@ import pico.erp.quotation.QuotationRequests.PrepareRequest;
 import pico.erp.quotation.QuotationRequests.PrintSheetRequest;
 import pico.erp.quotation.QuotationRequests.UpdateRequest;
 import pico.erp.quotation.QuotationService;
-import pico.erp.quotation.data.QuotationData;
-import pico.erp.quotation.data.QuotationExpiryPolicyKind;
-import pico.erp.quotation.data.QuotationId;
-import pico.erp.quotation.data.QuotationPrintSheetOptions;
-import pico.erp.quotation.data.QuotationStatusCountPerMonthAggregateView;
-import pico.erp.quotation.data.QuotationStatusCountPerMonthAggregateView.QuotationStatusCountPerMonthAggregateOptions;
-import pico.erp.quotation.data.QuotationStatusKind;
-import pico.erp.quotation.data.QuotationView;
+import pico.erp.quotation.QuotationStatusCountPerMonthAggregateView;
+import pico.erp.quotation.QuotationStatusKind;
+import pico.erp.quotation.QuotationView;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.LabeledValue;
@@ -87,8 +86,8 @@ public class QuotationController {
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
   @GetMapping(value = "/aggregate/statuses/count/month", consumes = MediaType.ALL_VALUE)
   public Collection<QuotationStatusCountPerMonthAggregateView> aggregate(
-    QuotationStatusCountPerMonthAggregateOptions options) {
-    return quotationQuery.aggregateCountStatusPerMonth(options);
+    QuotationStatusCountPerMonthAggregateView.Filter filter) {
+    return quotationQuery.aggregateCountStatusPerMonth(filter);
   }
 
   @ApiOperation(value = "견적 취소")

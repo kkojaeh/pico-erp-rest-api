@@ -8,8 +8,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
 import pico.erp.comment.CommentEvents.MentionedEvent;
 import pico.erp.shared.Public;
+import pico.erp.user.UserData;
 import pico.erp.user.UserService;
-import pico.erp.user.data.UserData;
 
 @Configuration
 public class CommentConfiguration {

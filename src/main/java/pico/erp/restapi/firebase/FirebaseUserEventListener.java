@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+import pico.erp.user.UserData;
 import pico.erp.user.UserEvents.CreatedEvent;
 import pico.erp.user.UserEvents.DeletedEvent;
 import pico.erp.user.UserEvents.UpdatedEvent;
 import pico.erp.user.UserService;
-import pico.erp.user.data.UserData;
 
 @Component
 public class FirebaseUserEventListener {

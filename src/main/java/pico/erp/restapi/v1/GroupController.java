@@ -33,14 +33,14 @@ import org.springframework.web.multipart.MultipartFile;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
-import pico.erp.user.data.GroupData;
-import pico.erp.user.data.GroupId;
-import pico.erp.user.data.GroupJoinedUserView;
-import pico.erp.user.data.GroupRoleGrantedOrNotView;
-import pico.erp.user.data.GroupView;
+import pico.erp.user.group.GroupData;
+import pico.erp.user.group.GroupId;
+import pico.erp.user.group.GroupJoinedUserView;
 import pico.erp.user.group.GroupQuery;
 import pico.erp.user.group.GroupRequests;
+import pico.erp.user.group.GroupRoleGrantedOrNotView;
 import pico.erp.user.group.GroupService;
+import pico.erp.user.group.GroupView;
 import pico.erp.user.group.GroupXporter;
 
 
