@@ -28,7 +28,7 @@ script:
   - aws s3 cp $S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL build/.aws-lambda/firebase-adminsdk.json
   - aws s3 cp $S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL build/.aws-elasticbeanstalk/firebase-adminsdk.json
   - aws s3 cp $S3_SCOUTER_CONF_FILE_URL build/.aws-elasticbeanstalk/scouter.conf
-  - gradle bootRepackage aws-elasticbeanstalk-artifact aws-lambda-artifact
+  - gradle bootRepackage aws-elasticbeanstalk-artifact
 
 deploy:
   # 개발 서버 deploy
@@ -61,13 +61,3 @@ deploy:
       tags: true
 
 after_script:
-#  - if [ "$TRAVIS_BRANCH" = "$TRAVIS_TAG" ];
-#    then
-#      aws lambda update-function-code --function-name "pico-erp-after-midnight-prd" --region $AWS_LAMBDA_REGION --s3-bucket $AWS_LAMBDA_BUCKET_PRD --s3-key prd/rest-api-server/rest-api-server.zip >> /dev/null;
-#    fi
-#  - if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ];
-#    then
-#      aws lambda update-function-code --function-name "pico-erp-after-midnight-dev" --region $AWS_LAMBDA_REGION --s3-bucket $AWS_LAMBDA_BUCKET_DEV --s3-key dev/rest-api-server/rest-api-server.zip >> /dev/null;
-#    fi
-
-

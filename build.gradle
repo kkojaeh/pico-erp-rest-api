@@ -152,17 +152,6 @@ task "aws-elasticbeanstalk-artifact"(type: Zip) {
   archiveName = "rest-api-server.zip"
 }
 
-task "aws-lambda-artifact"(type: Zip) {
-  from "${buildDir}/.aws-lambda"
-  from compileJava
-  from processResources
-  into('lib') {
-    from configurations.runtime
-  }
-  destinationDir = file("${buildDir}/aws-lambda")
-  archiveName = "rest-api-server.zip"
-}
-
 bootRepackage {
   mainClass = 'pico.erp.restapi.RestApiApplication'
   classifier = 'boot'
