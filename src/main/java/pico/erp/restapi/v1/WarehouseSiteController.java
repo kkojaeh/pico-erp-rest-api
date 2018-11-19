@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
-import pico.erp.warehouse.location.site.WarehouseSiteData;
-import pico.erp.warehouse.location.site.WarehouseSiteId;
-import pico.erp.warehouse.location.site.WarehouseSiteRequests;
-import pico.erp.warehouse.location.site.WarehouseSiteService;
+import pico.erp.warehouse.location.site.SiteData;
+import pico.erp.warehouse.location.site.SiteId;
+import pico.erp.warehouse.location.site.SiteRequests;
+import pico.erp.warehouse.location.site.SiteService;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("warehouse-location-site-controller-v1")
@@ -38,46 +38,46 @@ public class WarehouseSiteController {
 
   @Lazy
   @Autowired
-  private WarehouseSiteService warehouseSiteService;
+  private SiteService siteService;
 
 
   @ApiOperation(value = "창고 사이트 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/sites")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody WarehouseSiteRequests.CreateRequest request) {
-    warehouseSiteService.create(request);
+  public void create(@RequestBody SiteRequests.CreateRequest request) {
+    siteService.create(request);
   }
 
 
   @ApiOperation(value = "창고 사이트 삭제")
   @DeleteMapping("/location/sites/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void delete(@PathVariable("id") WarehouseSiteId id) {
-    warehouseSiteService.delete(new WarehouseSiteRequests.DeleteRequest(id));
+  public void delete(@PathVariable("id") SiteId id) {
+    siteService.delete(new SiteRequests.DeleteRequest(id));
   }
 
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/sites/{id}", consumes = MediaType.ALL_VALUE)
-  public WarehouseSiteData get(@PathVariable("id") WarehouseSiteId id) {
-    return warehouseSiteService.get(id);
+  public SiteData get(@PathVariable("id") SiteId id) {
+    return siteService.get(id);
   }
 
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/sites", consumes = MediaType.ALL_VALUE)
-  public List<WarehouseSiteData> getAll() {
-    return warehouseSiteService.getAll();
+  public List<SiteData> getAll() {
+    return siteService.getAll();
   }
 
   @ApiOperation(value = "창고 사이트 수정")
   @PutMapping("/location/sites/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void update(@PathVariable("id") WarehouseSiteId id,
-    @RequestBody WarehouseSiteRequests.UpdateRequest request) {
+  public void update(@PathVariable("id") SiteId id,
+    @RequestBody SiteRequests.UpdateRequest request) {
     request.setId(id);
-    warehouseSiteService.update(request);
+    siteService.update(request);
   }
 
 }

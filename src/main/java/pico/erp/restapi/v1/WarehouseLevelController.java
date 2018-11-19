@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
-import pico.erp.warehouse.location.bay.WarehouseBayId;
-import pico.erp.warehouse.location.level.WarehouseLevelData;
-import pico.erp.warehouse.location.level.WarehouseLevelId;
-import pico.erp.warehouse.location.level.WarehouseLevelRequests;
-import pico.erp.warehouse.location.level.WarehouseLevelService;
+import pico.erp.warehouse.location.bay.BayId;
+import pico.erp.warehouse.location.level.LevelData;
+import pico.erp.warehouse.location.level.LevelId;
+import pico.erp.warehouse.location.level.LevelRequests;
+import pico.erp.warehouse.location.level.LevelService;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("warehouse-location-level-controller-v1")
@@ -39,46 +39,46 @@ public class WarehouseLevelController {
 
   @Lazy
   @Autowired
-  private WarehouseLevelService warehouseLevelService;
+  private LevelService levelService;
 
 
   @ApiOperation(value = "창고 층 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/levels")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody WarehouseLevelRequests.CreateRequest request) {
-    warehouseLevelService.create(request);
+  public void create(@RequestBody LevelRequests.CreateRequest request) {
+    levelService.create(request);
   }
 
 
   @ApiOperation(value = "창고 층 삭제")
   @DeleteMapping("/location/levels/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void delete(@PathVariable("id") WarehouseLevelId id) {
-    warehouseLevelService.delete(new WarehouseLevelRequests.DeleteRequest(id));
+  public void delete(@PathVariable("id") LevelId id) {
+    levelService.delete(new LevelRequests.DeleteRequest(id));
   }
 
   @ApiOperation(value = "창고 층 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/levels/{id}", consumes = MediaType.ALL_VALUE)
-  public WarehouseLevelData get(@PathVariable("id") WarehouseLevelId id) {
-    return warehouseLevelService.get(id);
+  public LevelData get(@PathVariable("id") LevelId id) {
+    return levelService.get(id);
   }
 
   @ApiOperation(value = "창고 층 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/bays/{bayId}/levels", consumes = MediaType.ALL_VALUE)
-  public List<WarehouseLevelData> getAll(@PathVariable("bayId") WarehouseBayId bayId) {
-    return warehouseLevelService.getAll(bayId);
+  public List<LevelData> getAll(@PathVariable("bayId") BayId bayId) {
+    return levelService.getAll(bayId);
   }
 
   @ApiOperation(value = "창고 층 수정")
   @PutMapping("/location/levels/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void update(@PathVariable("id") WarehouseLevelId id,
-    @RequestBody WarehouseLevelRequests.UpdateRequest request) {
+  public void update(@PathVariable("id") LevelId id,
+    @RequestBody LevelRequests.UpdateRequest request) {
     request.setId(id);
-    warehouseLevelService.update(request);
+    levelService.update(request);
   }
 
 }

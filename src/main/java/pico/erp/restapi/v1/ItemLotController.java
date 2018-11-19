@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,8 +25,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.item.lot.ItemLotData;
 import pico.erp.item.lot.ItemLotId;
+import pico.erp.item.lot.ItemLotQuery;
 import pico.erp.item.lot.ItemLotRequests;
 import pico.erp.item.lot.ItemLotService;
+import pico.erp.item.lot.ItemLotView;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 
@@ -40,6 +45,10 @@ public class ItemLotController {
   @Lazy
   @Autowired
   private ItemLotService itemLotService;
+
+  @Lazy
+  @Autowired
+  private ItemLotQuery itemLotQuery;
 
   @Autowired
   private MessageSource messageSource;
@@ -83,6 +92,14 @@ public class ItemLotController {
     @RequestBody ItemLotRequests.UpdateRequest request) {
     request.setId(id);
     itemLotService.update(request);
+  }
+
+  @CacheControl(maxAge = 300)
+  @ApiOperation(value = "품목 LOT 조회")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER', 'ITEM_ACCESSOR')")
+  @GetMapping(value = "/lots", consumes = MediaType.ALL_VALUE)
+  public Page<ItemLotView> retrieve(@ModelAttribute ItemLotView.Filter filter, Pageable pageable) {
+    return itemLotQuery.retrieve(filter, pageable);
   }
 
 }

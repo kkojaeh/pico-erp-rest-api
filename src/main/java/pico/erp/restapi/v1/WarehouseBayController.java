@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
-import pico.erp.warehouse.location.bay.WarehouseBayData;
-import pico.erp.warehouse.location.bay.WarehouseBayId;
-import pico.erp.warehouse.location.bay.WarehouseBayRequests;
-import pico.erp.warehouse.location.bay.WarehouseBayService;
-import pico.erp.warehouse.location.rack.WarehouseRackId;
+import pico.erp.warehouse.location.bay.BayData;
+import pico.erp.warehouse.location.bay.BayId;
+import pico.erp.warehouse.location.bay.BayRequests;
+import pico.erp.warehouse.location.bay.BayService;
+import pico.erp.warehouse.location.rack.RackId;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("warehouse-location-bay-controller-v1")
@@ -39,46 +39,46 @@ public class WarehouseBayController {
 
   @Lazy
   @Autowired
-  private WarehouseBayService warehouseBayService;
+  private BayService bayService;
 
 
   @ApiOperation(value = "창고 사이트 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/bays")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody WarehouseBayRequests.CreateRequest request) {
-    warehouseBayService.create(request);
+  public void create(@RequestBody BayRequests.CreateRequest request) {
+    bayService.create(request);
   }
 
 
   @ApiOperation(value = "창고 사이트 삭제")
   @DeleteMapping("/location/bays/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void delete(@PathVariable("id") WarehouseBayId id) {
-    warehouseBayService.delete(new WarehouseBayRequests.DeleteRequest(id));
+  public void delete(@PathVariable("id") BayId id) {
+    bayService.delete(new BayRequests.DeleteRequest(id));
   }
 
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/bays/{id}", consumes = MediaType.ALL_VALUE)
-  public WarehouseBayData get(@PathVariable("id") WarehouseBayId id) {
-    return warehouseBayService.get(id);
+  public BayData get(@PathVariable("id") BayId id) {
+    return bayService.get(id);
   }
 
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/racks/{rackId}/bays", consumes = MediaType.ALL_VALUE)
-  public List<WarehouseBayData> getAll(@PathVariable("rackId") WarehouseRackId rackId) {
-    return warehouseBayService.getAll(rackId);
+  public List<BayData> getAll(@PathVariable("rackId") RackId rackId) {
+    return bayService.getAll(rackId);
   }
 
   @ApiOperation(value = "창고 사이트 수정")
   @PutMapping("/location/bays/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void update(@PathVariable("id") WarehouseBayId id,
-    @RequestBody WarehouseBayRequests.UpdateRequest request) {
+  public void update(@PathVariable("id") BayId id,
+    @RequestBody BayRequests.UpdateRequest request) {
     request.setId(id);
-    warehouseBayService.update(request);
+    bayService.update(request);
   }
 
 }

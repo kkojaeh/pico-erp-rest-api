@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
-import pico.erp.warehouse.location.rack.WarehouseRackData;
-import pico.erp.warehouse.location.rack.WarehouseRackId;
-import pico.erp.warehouse.location.rack.WarehouseRackRequests;
-import pico.erp.warehouse.location.rack.WarehouseRackService;
-import pico.erp.warehouse.location.zone.WarehouseZoneId;
+import pico.erp.warehouse.location.rack.RackData;
+import pico.erp.warehouse.location.rack.RackId;
+import pico.erp.warehouse.location.rack.RackRequests;
+import pico.erp.warehouse.location.rack.RackService;
+import pico.erp.warehouse.location.zone.ZoneId;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("warehouse-location-rack-controller-v1")
@@ -39,46 +39,46 @@ public class WarehouseRackController {
 
   @Lazy
   @Autowired
-  private WarehouseRackService warehouseRackService;
+  private RackService rackService;
 
 
   @ApiOperation(value = "창고 사이트 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/racks")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody WarehouseRackRequests.CreateRequest request) {
-    warehouseRackService.create(request);
+  public void create(@RequestBody RackRequests.CreateRequest request) {
+    rackService.create(request);
   }
 
 
   @ApiOperation(value = "창고 사이트 삭제")
   @DeleteMapping("/location/racks/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void delete(@PathVariable("id") WarehouseRackId id) {
-    warehouseRackService.delete(new WarehouseRackRequests.DeleteRequest(id));
+  public void delete(@PathVariable("id") RackId id) {
+    rackService.delete(new RackRequests.DeleteRequest(id));
   }
 
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/racks/{id}", consumes = MediaType.ALL_VALUE)
-  public WarehouseRackData get(@PathVariable("id") WarehouseRackId id) {
-    return warehouseRackService.get(id);
+  public RackData get(@PathVariable("id") RackId id) {
+    return rackService.get(id);
   }
 
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/zones/{zoneId}/racks", consumes = MediaType.ALL_VALUE)
-  public List<WarehouseRackData> getAll(@PathVariable("zoneId") WarehouseZoneId zoneId) {
-    return warehouseRackService.getAll(zoneId);
+  public List<RackData> getAll(@PathVariable("zoneId") ZoneId zoneId) {
+    return rackService.getAll(zoneId);
   }
 
   @ApiOperation(value = "창고 사이트 수정")
   @PutMapping("/location/racks/{id}")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void update(@PathVariable("id") WarehouseRackId id,
-    @RequestBody WarehouseRackRequests.UpdateRequest request) {
+  public void update(@PathVariable("id") RackId id,
+    @RequestBody RackRequests.UpdateRequest request) {
     request.setId(id);
-    warehouseRackService.update(request);
+    rackService.update(request);
   }
 
 }

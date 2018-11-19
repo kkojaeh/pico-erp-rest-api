@@ -55,6 +55,14 @@ public class CompanyController {
   @Autowired
   private CompanyQuery companyQuery;
 
+  @ApiOperation(value = "회사 조회")
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping(value = "/owner", consumes = MediaType.ALL_VALUE)
+  public CompanyData owner() {
+    return companyService.getOwner();
+  }
+
+
   @ApiOperation(value = "회사 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/companies")
