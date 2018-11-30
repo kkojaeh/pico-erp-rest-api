@@ -22,68 +22,68 @@ public class ProcessConfiguration {
 
   @Public
   @Bean
+  public ProcessInfoType bondingProcessInfo() {
+    return new ClassBasedProcessInfoType("bonding", BondingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
   public ProcessInfoType coatingProcessInfo() {
-    return new ClassBasedProcessInfoType(CoatingProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType outputProcessInfo() {
-    return new ClassBasedProcessInfoType(OutputProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType packagingProcessInfo() {
-    return new ClassBasedProcessInfoType(PackagingProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType pressMoldingProcessInfo() {
-    return new ClassBasedProcessInfoType(PressMoldingProcessInfo.class);
+    return new ClassBasedProcessInfoType("coating", CoatingProcessInfo.class);
   }
 
   @Public
   @Bean
   public ProcessInfoType designingProcessInfo() {
-    return new ClassBasedProcessInfoType(DesigningProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType thomsonProcessInfo() {
-    return new ClassBasedProcessInfoType(ThomsonProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType bondingProcessInfo() {
-    return new ClassBasedProcessInfoType(BondingProcessInfo.class);
+    return new ClassBasedProcessInfoType("designing", DesigningProcessInfo.class);
   }
 
   @Public
   @Bean
   public ProcessInfoType embossingProcessInfo() {
-    return new ClassBasedProcessInfoType(EmbossingProcessInfo.class);
+    return new ClassBasedProcessInfoType("embossing", EmbossingProcessInfo.class);
   }
 
   @Public
   @Bean
   public ProcessInfoType foilingProcessInfo() {
-    return new ClassBasedProcessInfoType(FoilingProcessInfo.class);
+    return new ClassBasedProcessInfoType("foiling", FoilingProcessInfo.class);
   }
 
   @Public
   @Bean
-  public ProcessInfoType printProcessInfo() {
-    return new ClassBasedProcessInfoType(PrintingProcessInfo.class);
+  public ProcessInfoType outputProcessInfo() {
+    return new ClassBasedProcessInfoType("output", OutputProcessInfo.class);
+  }
+
+  @Public
+  @Bean
+  public ProcessInfoType packagingProcessInfo() {
+    return new ClassBasedProcessInfoType("packaging", PackagingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
+  public ProcessInfoType pressMoldingProcessInfo() {
+    return new ClassBasedProcessInfoType("press-molding", PressMoldingProcessInfo.class);
   }
 
   @Public
   @Bean
   public ProcessInfoType printCoatingProcessInfo() {
-    return new ClassBasedProcessInfoType(PrintCoatingProcessInfo.class);
+    return new ClassBasedProcessInfoType("print-coating", PrintCoatingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
+  public ProcessInfoType printProcessInfo() {
+    return new ClassBasedProcessInfoType("printing", PrintingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
+  public ProcessInfoType thomsonProcessInfo() {
+    return new ClassBasedProcessInfoType("thomson", ThomsonProcessInfo.class);
   }
 
 

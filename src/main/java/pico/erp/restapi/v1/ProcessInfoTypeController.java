@@ -44,7 +44,7 @@ public class ProcessInfoTypeController {
 
   @ApiOperation(value = "공정 정보 유형 조회")
   @PreAuthorize("hasAnyRole('PROCESS_TYPE_MANAGER', 'PROCESS_ACCESSOR')")
-  @GetMapping(value = "/process-info-types/{id:[a-zA-Z_0-9\\.]+}", consumes = MediaType.ALL_VALUE)
+  @GetMapping(value = "/process-info-types/{id:[a-zA-Z\\-_0-9\\.]+}", consumes = MediaType.ALL_VALUE)
   public ProcessInfoTypeData getProcessInfoType(@PathVariable("id") ProcessInfoTypeId id) {
     return processInfoTypeService.get(id);
   }
