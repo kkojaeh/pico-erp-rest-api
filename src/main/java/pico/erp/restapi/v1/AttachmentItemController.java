@@ -132,6 +132,7 @@ public class AttachmentItemController {
     @RequestPart MultipartFile file, @RequestParam("name") String name) {
     return attachmentItemService.create(
       AttachmentItemRequests.CreateRequest.builder()
+        .id(AttachmentItemId.generate())
         .attachmentId(attachmentId)
         .name(name)
         .contentLength(file.getSize())

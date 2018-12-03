@@ -45,6 +45,7 @@ public class AttachmentController {
   @PreAuthorize("isAuthenticated()")
   @PostMapping(value = "/attachments")
   public AttachmentData create(@RequestBody CreateRequest request) {
+    request.setId(AttachmentId.generate());
     AttachmentData result = attachmentService.create(request);
     return result;
   }
