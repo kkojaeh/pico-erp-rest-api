@@ -2,7 +2,6 @@ package pico.erp.restapi.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.order.acceptance.OrderAcceptanceData;
@@ -67,14 +65,6 @@ public class OrderAcceptanceController {
     @RequestBody OrderAcceptanceRequests.AcceptRequest request) {
     request.setId(id);
     orderAcceptanceService.accept(request);
-  }
-
-  @CacheControl(maxAge = 300)
-  @ApiOperation(value = "주문 접수 선택을 위한 키워드 검색")
-  @PreAuthorize("isAuthenticated()")
-  @GetMapping(value = "/order-acceptance-query-labels", consumes = MediaType.ALL_VALUE)
-  public List<? extends LabeledValuable> asLabels(@RequestParam("query") String keyword) {
-    return orderAcceptanceQuery.asLabels(keyword, labelQueryLimit);
   }
 
   @ApiOperation(value = "주문 접수 생성")

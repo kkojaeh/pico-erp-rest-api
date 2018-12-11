@@ -3,13 +3,16 @@ package pico.erp.restapi.v1;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,14 +23,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import pico.erp.item.category.ItemCategoryData;
 import pico.erp.item.category.ItemCategoryHierarchyView;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.category.ItemCategoryQuery;
 import pico.erp.item.category.ItemCategoryRequests;
 import pico.erp.item.category.ItemCategoryService;
+import pico.erp.item.category.ItemCategoryTransporter;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
@@ -52,6 +58,10 @@ public class ItemCategoryController {
 
   @Autowired
   private MessageSource messageSource;
+
+  @Lazy
+  @Autowired
+  private ItemCategoryTransporter itemCategoryTransporter;
 
 
   @CacheControl(maxAge = 300)
@@ -106,6 +116,26 @@ public class ItemCategoryController {
     @RequestBody ItemCategoryRequests.UpdateRequest request) {
     request.setId(id);
     itemCategoryService.update(request);
+  }
+
+  @SneakyThrows
+  @ApiOperation(value = "공정 유형 export as xlsx")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @GetMapping(value = "/xlsx/categories", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(
+    ItemCategoryTransporter.ExportRequest request) {
+    return SharedController.asResponse(itemCategoryTransporter.exportExcel(request));
+  }
+
+  @SneakyThrows
+  @ApiOperation(value = "공정 유형 import by xlsx")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @PostMapping(value = "/xlsx/categories", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public boolean importBy(@RequestPart MultipartFile file,
+    ItemCategoryTransporter.ImportRequest request) {
+    request.setInputStream(file.getInputStream());
+    itemCategoryTransporter.importExcel(request);
+    return true;
   }
 
 

@@ -36,8 +36,8 @@ import pico.erp.process.type.ProcessTypeId;
 import pico.erp.process.type.ProcessTypeQuery;
 import pico.erp.process.type.ProcessTypeRequests;
 import pico.erp.process.type.ProcessTypeService;
+import pico.erp.process.type.ProcessTypeTransporter;
 import pico.erp.process.type.ProcessTypeView;
-import pico.erp.process.type.ProcessTypeXporter;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
@@ -66,7 +66,7 @@ public class ProcessTypeController {
 
   @Lazy
   @Autowired
-  private ProcessTypeXporter processTypeXporter;
+  private ProcessTypeTransporter processTypeTransporter;
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "공정 유형 선택을 위한 키워드 검색")
@@ -95,10 +95,10 @@ public class ProcessTypeController {
   @SneakyThrows
   @ApiOperation(value = "공정 유형 export as xlsx")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  @GetMapping(value = "/export/process-types/xlsx", consumes = MediaType.ALL_VALUE)
+  @GetMapping(value = "/xlsx/process-types", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> exportAs(
-    ProcessTypeXporter.ExportRequest request) {
-    return SharedController.asResponse(processTypeXporter.exportExcel(request));
+    ProcessTypeTransporter.ExportRequest request) {
+    return SharedController.asResponse(processTypeTransporter.exportExcel(request));
   }
 
   @ApiOperation(value = "공정 유형 조회")
@@ -111,11 +111,11 @@ public class ProcessTypeController {
   @SneakyThrows
   @ApiOperation(value = "공정 유형 import by xlsx")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  @PostMapping(value = "/import/process-types/xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/xlsx/process-types", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file,
-    ProcessTypeXporter.ImportRequest request) {
+    ProcessTypeTransporter.ImportRequest request) {
     request.setInputStream(file.getInputStream());
-    processTypeXporter.importExcel(request);
+    processTypeTransporter.importExcel(request);
     return true;
   }
 

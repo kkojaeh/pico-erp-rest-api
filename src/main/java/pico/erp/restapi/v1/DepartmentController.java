@@ -37,8 +37,8 @@ import pico.erp.user.department.DepartmentId;
 import pico.erp.user.department.DepartmentQuery;
 import pico.erp.user.department.DepartmentRequests;
 import pico.erp.user.department.DepartmentService;
+import pico.erp.user.department.DepartmentTransporter;
 import pico.erp.user.department.DepartmentView;
-import pico.erp.user.department.DepartmentXporter;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -61,7 +61,7 @@ public class DepartmentController {
 
   @Lazy
   @Autowired
-  private DepartmentXporter departmentXporter;
+  private DepartmentTransporter departmentTransporter;
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "부서 선택을 위한 키워드 검색")
@@ -90,9 +90,9 @@ public class DepartmentController {
   @SneakyThrows
   @ApiOperation(value = "부서 export as xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  @GetMapping(value = "/export/departments/xlsx", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> exportAs(DepartmentXporter.ExportRequest request) {
-    return SharedController.asResponse(departmentXporter.exportExcel(request));
+  @GetMapping(value = "/xlsx/departments", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(DepartmentTransporter.ExportRequest request) {
+    return SharedController.asResponse(departmentTransporter.exportExcel(request));
   }
 
   @ApiOperation(value = "부서 조회")
@@ -106,11 +106,11 @@ public class DepartmentController {
   @SneakyThrows
   @ApiOperation(value = "부서 import by xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  @PostMapping(value = "/import/departments/xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/xlsx/departments", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file,
-    DepartmentXporter.ImportRequest request) {
+    DepartmentTransporter.ImportRequest request) {
     request.setInputStream(file.getInputStream());
-    departmentXporter.importExcel(request);
+    departmentTransporter.importExcel(request);
     return true;
   }
 

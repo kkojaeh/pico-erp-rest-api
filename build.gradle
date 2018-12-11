@@ -41,6 +41,7 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-work-schedule:work-schedule-api:${workScheduleVersion}")
   compile("com.github.kkojaeh.pico-erp-order-acceptance:order-acceptance-api:${orderAcceptanceVersion}")
   compile("com.github.kkojaeh.pico-erp-warehouse:warehouse-api:${warehouseVersion}")
+  compile("com.github.kkojaeh.pico-erp-bom:bom-api:${bomVersion}")
 
 
   compileOnly("com.github.kkojaeh.pico-erp-attachment:attachment-impl:${attachmentVersion}")
@@ -56,6 +57,8 @@ dependencies {
   runtime("com.github.kkojaeh.pico-erp-project:project-test:${projectVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-quotation:quotation-test:${quotationVersion}")
+
+  runtime("com.github.kkojaeh.pico-erp-quotation:quotation-impl:${quotationVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-item:item-test:${itemVersion}")
 

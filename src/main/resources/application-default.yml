@@ -283,7 +283,7 @@ sample:
     - id: molding-press
       name: 압착성형
       base-unit-cost: 120
-      info-type-id: pico.erp.config.process.info.PressMoldingProcessInfo
+      info-type-id: pico.erp.config.process.info.MoldingProcessInfo
       cost-rates:
         direct-labor: 0.4
         indirect-labor: 0.1
@@ -342,7 +342,7 @@ sample:
       customer-id: CUST1
       unit: EA
       type: SEMI_PRODUCT
-      spec-type-id: pico.erp.config.item.spec.PaperItemSpecVariables
+      spec-type-id: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
     - id: item-3
       base-unit-cost: 80
       name: HG105-0311 - 카드 - 코팅완료

@@ -2,12 +2,14 @@ package pico.erp.config.item.spec;
 
 import com.github.reinert.jjschema.Attributes;
 import com.github.reinert.jjschema.SchemaIgnore;
+import java.math.BigDecimal;
 import lombok.Data;
-import pico.erp.item.spec.ItemSpecVariables;
+import pico.erp.item.ItemInfo;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 
 @Data
-@Attributes(title = "인쇄", description = "인쇄 공정에 필요한 정보")
-public class PaperItemSpecVariables implements ItemSpecVariables {
+@Attributes(title = "원지 스펙", description = "원지 정보")
+public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
 
   @Attributes(title = "평량", enums = {"180", "200", "220", "240", "260", "280", "300", "350", "400",
     "450", "500", "550"}, required = true)
@@ -36,6 +38,18 @@ public class PaperItemSpecVariables implements ItemSpecVariables {
   @Override
   public boolean isValid() {
     return grammage != null && width != null && height != null && incisionCount != null;
+  }
+
+  @Override
+  public BigDecimal calculateUnitCost(ItemInfo item) {
+    double paperConstant = 0.5;
+    BigDecimal unitCost = item.getBaseUnitCost().multiply(
+      new BigDecimal(grammage)
+        .multiply(new BigDecimal(width).divide(new BigDecimal(1000)))
+        .multiply(new BigDecimal(height).divide(new BigDecimal(1000)))
+        .divide(new BigDecimal(incisionCount).multiply(new BigDecimal(paperConstant)))
+    );
+    return unitCost.setScale(2, BigDecimal.ROUND_HALF_UP);
   }
 
 }

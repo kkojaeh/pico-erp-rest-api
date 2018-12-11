@@ -40,8 +40,8 @@ import pico.erp.user.group.GroupQuery;
 import pico.erp.user.group.GroupRequests;
 import pico.erp.user.group.GroupRoleGrantedOrNotView;
 import pico.erp.user.group.GroupService;
+import pico.erp.user.group.GroupTransporter;
 import pico.erp.user.group.GroupView;
-import pico.erp.user.group.GroupXporter;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -65,7 +65,7 @@ public class GroupController {
 
   @Lazy
   @Autowired
-  private GroupXporter groupXporter;
+  private GroupTransporter groupTransporter;
 
   @ApiOperation(value = "그룹 사용자 추가")
   @PostMapping("/groups/{id}/users")
@@ -106,9 +106,9 @@ public class GroupController {
   @SneakyThrows
   @ApiOperation(value = "그룹 export as xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  @GetMapping(value = "/export/groups/xlsx", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> exportAs(GroupXporter.ExportRequest request) {
-    return SharedController.asResponse(groupXporter.exportExcel(request));
+  @GetMapping(value = "/xlsx/groups", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(GroupTransporter.ExportRequest request) {
+    return SharedController.asResponse(groupTransporter.exportExcel(request));
   }
 
   @ApiOperation(value = "그룹 포함 사용자 조회")
@@ -146,10 +146,10 @@ public class GroupController {
   @SneakyThrows
   @ApiOperation(value = "그룹 import by xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  @PostMapping(value = "/import/groups/xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public boolean importBy(@RequestPart MultipartFile file, GroupXporter.ImportRequest request) {
+  @PostMapping(value = "/xlsx/groups", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public boolean importBy(@RequestPart MultipartFile file, GroupTransporter.ImportRequest request) {
     request.setInputStream(file.getInputStream());
-    groupXporter.importExcel(request);
+    groupTransporter.importExcel(request);
     return true;
   }
 

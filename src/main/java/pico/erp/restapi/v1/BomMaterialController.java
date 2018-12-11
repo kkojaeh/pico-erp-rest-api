@@ -81,4 +81,15 @@ public class BomMaterialController {
     bomMaterialService.update(request);
   }
 
+  @ApiOperation(value = "BOM 자재 수정")
+  @PutMapping("/boms/{bomId}/materials/{materialId}/order")
+  @PreAuthorize("hasRole('BOM_MANAGER')")
+  public void changeOrder(@PathVariable("bomId") BomId bomId,
+    @PathVariable("materialId") BomId materialId,
+    @RequestBody BomMaterialRequests.ChangeOrderRequest request) {
+    request.setBomId(bomId);
+    request.setMaterialId(materialId);
+    bomMaterialService.changeOrder(request);
+  }
+
 }

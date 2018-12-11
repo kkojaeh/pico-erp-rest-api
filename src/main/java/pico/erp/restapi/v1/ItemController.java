@@ -2,21 +2,23 @@ package pico.erp.restapi.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +30,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import pico.erp.item.ItemData;
 import pico.erp.item.ItemId;
 import pico.erp.item.ItemQuery;
@@ -38,6 +42,7 @@ import pico.erp.item.ItemRequests.ActivateRequest;
 import pico.erp.item.ItemRequests.DeactivateRequest;
 import pico.erp.item.ItemService;
 import pico.erp.item.ItemStatusKind;
+import pico.erp.item.ItemTransporter;
 import pico.erp.item.ItemTypeKind;
 import pico.erp.item.ItemView;
 import pico.erp.restapi.Versions;
@@ -63,6 +68,11 @@ public class ItemController {
   @Lazy
   @Autowired
   private ItemQuery itemQuery;
+
+  @Lazy
+  @Autowired
+  private ItemTransporter itemTransporter;
+
 
   @Autowired
   private MessageSource messageSource;
@@ -108,14 +118,6 @@ public class ItemController {
   @GetMapping(value = "/items/{id}", consumes = MediaType.ALL_VALUE)
   public ItemData get(@PathVariable("id") ItemId id) {
     return itemService.get(id);
-  }
-
-
-  @ApiOperation(value = "품목 스펙 메타데이터 조회")
-  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR', 'BOM_MANAGER', 'BOM_ACCESSOR')")
-  @GetMapping(value = "/items/{id}/spec-metadata", consumes = MediaType.ALL_VALUE)
-  public Serializable getSpecMetadata(@PathVariable("id") ItemId id) {
-    return itemService.getSpecMetadata(id);
   }
 
   @CacheControl(maxAge = 300)
@@ -175,6 +177,26 @@ public class ItemController {
     @RequestBody ItemRequests.UpdateRequest request) {
     request.setId(id);
     itemService.update(request);
+  }
+
+  @SneakyThrows
+  @ApiOperation(value = "공정 유형 export as xlsx")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @GetMapping(value = "/xlsx/items", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(
+    ItemTransporter.ExportRequest request) {
+    return SharedController.asResponse(itemTransporter.exportExcel(request));
+  }
+
+  @SneakyThrows
+  @ApiOperation(value = "공정 유형 import by xlsx")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @PostMapping(value = "/xlsx/items", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public boolean importBy(@RequestPart MultipartFile file,
+    ItemTransporter.ImportRequest request) {
+    request.setInputStream(file.getInputStream());
+    itemTransporter.importExcel(request);
+    return true;
   }
 
 }

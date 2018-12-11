@@ -39,7 +39,7 @@ import pico.erp.process.ProcessRequests.UpdateRequest;
 import pico.erp.process.ProcessService;
 import pico.erp.process.ProcessStatusKind;
 import pico.erp.process.ProcessView;
-import pico.erp.process.difficulty.grade.ProcessDifficultyKind;
+import pico.erp.process.difficulty.ProcessDifficultyKind;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.LabeledValue;

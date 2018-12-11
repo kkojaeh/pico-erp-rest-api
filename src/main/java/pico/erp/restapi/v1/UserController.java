@@ -45,8 +45,8 @@ import pico.erp.user.UserRequests.RevokeRoleRequest;
 import pico.erp.user.UserRequests.UpdateRequest;
 import pico.erp.user.UserRoleGrantedOrNotView;
 import pico.erp.user.UserService;
+import pico.erp.user.UserTransporter;
 import pico.erp.user.UserView;
-import pico.erp.user.UserXporter;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -69,7 +69,7 @@ public class UserController {
 
   @Lazy
   @Autowired
-  private UserXporter userXporter;
+  private UserTransporter userTransporter;
 
 
   @CacheControl(maxAge = 300)
@@ -108,9 +108,9 @@ public class UserController {
   @SneakyThrows
   @ApiOperation(value = "사용자 export as xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  @GetMapping(value = "/export/users/xlsx", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> exportAs(UserXporter.ExportRequest request) {
-    return SharedController.asResponse(userXporter.exportExcel(request));
+  @GetMapping(value = "/xlsx/users", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(UserTransporter.ExportRequest request) {
+    return SharedController.asResponse(userTransporter.exportExcel(request));
   }
 
   @ApiOperation(value = "사용자 조회")
@@ -146,10 +146,10 @@ public class UserController {
   @SneakyThrows
   @ApiOperation(value = "사용자 import by xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  @PostMapping(value = "/import/users/xlsx", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public boolean importBy(@RequestPart MultipartFile file, UserXporter.ImportRequest request) {
+  @PostMapping(value = "/xlsx/users", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public boolean importBy(@RequestPart MultipartFile file, UserTransporter.ImportRequest request) {
     request.setInputStream(file.getInputStream());
-    userXporter.importExcel(request);
+    userTransporter.importExcel(request);
     return true;
   }
 

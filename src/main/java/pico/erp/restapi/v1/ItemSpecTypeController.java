@@ -50,7 +50,7 @@ public class ItemSpecTypeController {
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "품목 스펙 유형 조회")
   @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR', 'BOM_MANAGER', 'BOM_ACCESSOR')")
-  @GetMapping(value = "/spec-types/{id:[a-zA-Z_0-9\\.]+}", consumes = MediaType.ALL_VALUE)
+  @GetMapping(value = "/spec-types/{id:[a-zA-Z\\-_0-9\\.]+}", consumes = MediaType.ALL_VALUE)
   public ItemSpecTypeData getItemSpecType(@PathVariable("id") ItemSpecTypeId id) {
     return itemSpecTypeService.get(id);
   }
