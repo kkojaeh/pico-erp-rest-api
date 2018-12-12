@@ -104,7 +104,7 @@ public class GroupController {
 
 
   @SneakyThrows
-  @ApiOperation(value = "그룹 export as xlsx")
+  @ApiOperation(value = "export as xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @GetMapping(value = "/xlsx/groups", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> exportAs(GroupTransporter.ExportRequest request) {
@@ -144,7 +144,7 @@ public class GroupController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "그룹 import by xlsx")
+  @ApiOperation(value = "import by xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @PostMapping(value = "/xlsx/groups", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file, GroupTransporter.ImportRequest request) {

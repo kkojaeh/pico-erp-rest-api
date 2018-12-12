@@ -106,7 +106,7 @@ public class UserController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "사용자 export as xlsx")
+  @ApiOperation(value = "export as xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @GetMapping(value = "/xlsx/users", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> exportAs(UserTransporter.ExportRequest request) {
@@ -144,7 +144,7 @@ public class UserController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "사용자 import by xlsx")
+  @ApiOperation(value = "import by xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @PostMapping(value = "/xlsx/users", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file, UserTransporter.ImportRequest request) {

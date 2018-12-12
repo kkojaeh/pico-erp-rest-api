@@ -180,8 +180,8 @@ public class ItemController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "공정 유형 export as xlsx")
-  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @ApiOperation(value = "export as xlsx")
+  @PreAuthorize("hasRole('ITEM_MANAGER')")
   @GetMapping(value = "/xlsx/items", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> exportAs(
     ItemTransporter.ExportRequest request) {
@@ -189,8 +189,8 @@ public class ItemController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "공정 유형 import by xlsx")
-  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @ApiOperation(value = "import by xlsx")
+  @PreAuthorize("hasRole('ITEM_MANAGER')")
   @PostMapping(value = "/xlsx/items", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file,
     ItemTransporter.ImportRequest request) {

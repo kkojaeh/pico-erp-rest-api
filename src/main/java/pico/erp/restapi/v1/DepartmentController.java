@@ -88,7 +88,7 @@ public class DepartmentController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "부서 export as xlsx")
+  @ApiOperation(value = "export as xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @GetMapping(value = "/xlsx/departments", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> exportAs(DepartmentTransporter.ExportRequest request) {
@@ -104,7 +104,7 @@ public class DepartmentController {
 
 
   @SneakyThrows
-  @ApiOperation(value = "부서 import by xlsx")
+  @ApiOperation(value = "import by xlsx")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @PostMapping(value = "/xlsx/departments", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file,

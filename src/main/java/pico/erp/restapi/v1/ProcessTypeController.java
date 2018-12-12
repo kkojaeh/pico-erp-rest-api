@@ -93,7 +93,7 @@ public class ProcessTypeController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "공정 유형 export as xlsx")
+  @ApiOperation(value = "export as xlsx")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
   @GetMapping(value = "/xlsx/process-types", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> exportAs(
@@ -109,7 +109,7 @@ public class ProcessTypeController {
   }
 
   @SneakyThrows
-  @ApiOperation(value = "공정 유형 import by xlsx")
+  @ApiOperation(value = "import by xlsx")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
   @PostMapping(value = "/xlsx/process-types", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean importBy(@RequestPart MultipartFile file,
