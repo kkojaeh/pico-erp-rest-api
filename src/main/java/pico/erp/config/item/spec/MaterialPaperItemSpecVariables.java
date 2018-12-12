@@ -15,7 +15,7 @@ public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
     "450", "500", "550"}, required = true)
   private Integer grammage = 180;
 
-  @Attributes(title = "가로(mm) [545 ≦ n ≦ 1020]", minimum = 545, maximum = 1020, maxLength = 4, required = true, format = "number")
+  @Attributes(title = "가로(mm) [545 ≦ n ≦ 1500]", minimum = 545, maximum = 1500, maxLength = 4, required = true, format = "number")
   private Integer width = 545;
 
   @Attributes(title = "세로(mm) [364 ≦ n ≦ 720]", minimum = 364, maximum = 720, maxLength = 3, required = true, format = "number")
