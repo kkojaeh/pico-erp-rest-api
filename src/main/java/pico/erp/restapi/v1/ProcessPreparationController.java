@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.process.ProcessId;
-import pico.erp.process.preprocess.PreprocessData;
-import pico.erp.process.preprocess.PreprocessId;
-import pico.erp.process.preprocess.PreprocessRequests;
-import pico.erp.process.preprocess.PreprocessService;
+import pico.erp.process.preparation.ProcessPreparationData;
+import pico.erp.process.preparation.ProcessPreparationId;
+import pico.erp.process.preparation.ProcessPreparationRequests;
+import pico.erp.process.preparation.ProcessPreparationService;
 import pico.erp.restapi.Versions;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -33,14 +33,14 @@ import pico.erp.restapi.Versions;
 @RequestMapping(value = "/process", produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @CrossOrigin
 @Slf4j
-public class PreprocessController {
+public class ProcessPreparationController {
 
   @Value("${label.query.limit}")
   long labelQueryLimit;
 
   @Lazy
   @Autowired
-  private PreprocessService preprocessService;
+  private ProcessPreparationService preparationService;
 
 
   @Autowired
@@ -48,40 +48,40 @@ public class PreprocessController {
 
   @ApiOperation(value = "공정 유형 생성")
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping("/preprocesses")
+  @PostMapping("/preparations")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void create(@RequestBody PreprocessRequests.CreateRequest request) {
-    preprocessService.create(request);
+  public void create(@RequestBody ProcessPreparationRequests.CreateRequest request) {
+    preparationService.create(request);
   }
 
   @ApiOperation(value = "공정 유형 삭제")
-  @DeleteMapping("/preprocesses/{id}")
+  @DeleteMapping("/preparations/{id}")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void delete(@PathVariable("id") PreprocessId id) {
-    preprocessService.delete(new PreprocessRequests.DeleteRequest(id));
+  public void delete(@PathVariable("id") ProcessPreparationId id) {
+    preparationService.delete(new ProcessPreparationRequests.DeleteRequest(id));
   }
 
   @ApiOperation(value = "공정 유형 조회")
   @PreAuthorize("hasAnyRole('PROCESS_TYPE_MANAGER', 'PROCESS_ACCESSOR')")
-  @GetMapping(value = "/preprocesses/{id}", consumes = MediaType.ALL_VALUE)
-  public PreprocessData get(@PathVariable("id") PreprocessId id) {
-    return preprocessService.get(id);
+  @GetMapping(value = "/preparations/{id}", consumes = MediaType.ALL_VALUE)
+  public ProcessPreparationData get(@PathVariable("id") ProcessPreparationId id) {
+    return preparationService.get(id);
   }
 
   @ApiOperation(value = "공정 유형 검색")
   @PreAuthorize("hasAnyRole('PROCESS_TYPE_MANAGER', 'PROCESS_ACCESSOR')")
-  @GetMapping(value = "/processes/{processId}/preprocesses", consumes = MediaType.ALL_VALUE)
-  public List<PreprocessData> retrieve(@PathVariable("processId") ProcessId processId) {
-    return preprocessService.getAll(processId);
+  @GetMapping(value = "/processes/{processId}/preparations", consumes = MediaType.ALL_VALUE)
+  public List<ProcessPreparationData> retrieve(@PathVariable("processId") ProcessId processId) {
+    return preparationService.getAll(processId);
   }
 
   @ApiOperation(value = "공정 유형 수정")
-  @PutMapping("/preprocesses/{id}")
+  @PutMapping("/preparations/{id}")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void update(@PathVariable("id") PreprocessId id,
-    @RequestBody PreprocessRequests.UpdateRequest request) {
+  public void update(@PathVariable("id") ProcessPreparationId id,
+    @RequestBody ProcessPreparationRequests.UpdateRequest request) {
     request.setId(id);
-    preprocessService.update(request);
+    preparationService.update(request);
   }
 
 }

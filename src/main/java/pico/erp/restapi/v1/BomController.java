@@ -31,7 +31,6 @@ import pico.erp.bom.BomQuery;
 import pico.erp.bom.BomRequests.DeleteRequest;
 import pico.erp.bom.BomRequests.DetermineRequest;
 import pico.erp.bom.BomRequests.DraftRequest;
-import pico.erp.bom.BomRequests.UpdateRequest;
 import pico.erp.bom.BomRevisionView;
 import pico.erp.bom.BomService;
 import pico.erp.bom.BomStatusKind;
@@ -126,14 +125,6 @@ public class BomController {
           messageSource.getMessage(kind.getNameCode(), null, locale)
         )
       );
-  }
-
-  @ApiOperation(value = "BOM 수정")
-  @PutMapping("/boms/{id}")
-  @PreAuthorize("hasRole('BOM_MANAGER')")
-  public void update(@PathVariable("id") BomId id, @RequestBody UpdateRequest request) {
-    request.setId(id);
-    bomService.update(request);
   }
 
 }

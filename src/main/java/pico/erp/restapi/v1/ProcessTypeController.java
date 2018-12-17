@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import pico.erp.process.preprocess.type.PreprocessTypeId;
+import pico.erp.process.preparation.type.ProcessPreparationTypeId;
 import pico.erp.process.type.ProcessTypeData;
 import pico.erp.process.type.ProcessTypeId;
 import pico.erp.process.type.ProcessTypeQuery;
@@ -138,7 +138,7 @@ public class ProcessTypeController {
 
   @ApiOperation(value = "공정 유형 사전공정 유형 추가")
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping("//process-types/{id}/preprocess-types")
+  @PostMapping("/process-types/{id}/preparation-types")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
   public void add(
     @PathVariable("id") ProcessTypeId id,
@@ -148,14 +148,14 @@ public class ProcessTypeController {
   }
 
   @ApiOperation(value = "공정 유형 사전공정 유형 제거")
-  @DeleteMapping("/process-types/{id}/preprocess-types/{preprocessTypeId}")
+  @DeleteMapping("/process-types/{id}/preparation-types/{preparationTypeId}")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
   public void remove(
     @PathVariable("id") ProcessTypeId id,
-    @PathVariable("preprocessTypeId") PreprocessTypeId preprocessTypeId,
+    @PathVariable("preparationTypeId") ProcessPreparationTypeId preparationTypeId,
     @RequestBody ProcessTypeRequests.RemovePreprocessTypeRequest request) {
     request.setId(id);
-    request.setPreprocessTypeId(preprocessTypeId);
+    request.setPreparationTypeId(preparationTypeId);
     processTypeService.remove(request);
   }
 

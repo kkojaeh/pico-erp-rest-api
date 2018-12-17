@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.item.ItemId;
 import pico.erp.process.ProcessData;
 import pico.erp.process.ProcessId;
 import pico.erp.process.ProcessQuery;
@@ -87,13 +86,6 @@ public class ProcessController {
   @GetMapping(value = "/processes/{id}", consumes = MediaType.ALL_VALUE)
   public ProcessData get(@PathVariable("id") ProcessId id) {
     return processService.get(id);
-  }
-
-  @ApiOperation(value = "공정 조회")
-  @PreAuthorize("hasAnyRole('PROCESS_MANAGER', 'PROCESS_ACCESSOR')")
-  @GetMapping(value = "/items/{itemId}", consumes = MediaType.ALL_VALUE)
-  public ProcessData get(@PathVariable("itemId") ItemId itemId) {
-    return processService.get(itemId);
   }
 
   @CacheControl(maxAge = 3600)
