@@ -1,4 +1,7 @@
 buildscript {
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+  }
   apply from: 'https://github.com/kkojaeh/pico-erp-gradle/raw/master/buildscript.gradle'
 }
 
@@ -155,7 +158,7 @@ task "aws-elasticbeanstalk-artifact"(type: Zip) {
   archiveName = "rest-api-server.zip"
 }
 
-bootRepackage {
-  mainClass = 'pico.erp.restapi.RestApiApplication'
+bootJar {
+  mainClassName = 'pico.erp.restapi.RestApiApplication'
   classifier = 'boot'
 }

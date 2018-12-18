@@ -23,7 +23,7 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   @Attributes(title = "방향", enums = {"양면", "단면"})
   private String side = "";
 
-  public static void main(String... args) {
+  /*public static void main(String... args) {
     val pet = new PetItemSpecVariables();
     pet.setWidth(280);
     System.out.println(pet.getSummary());
@@ -46,7 +46,7 @@ public class PetItemSpecVariables implements ItemSpecVariables {
     System.out.println(kilogramPerMeter.multiply(requestMeter));
     System.out.println(kilogramPerMeter.multiply(requestMeter).multiply(costPerKg));
   }
-
+*/
   @Override
   public BigDecimal calculateUnitCost(ItemInfo item) {
     val weightConstant = new BigDecimal(1.4);

@@ -25,10 +25,9 @@ before_script:
 
 script:
   - gradle clean
-  - aws s3 cp $S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL build/.aws-lambda/firebase-adminsdk.json
   - aws s3 cp $S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL build/.aws-elasticbeanstalk/firebase-adminsdk.json
   - aws s3 cp $S3_SCOUTER_CONF_FILE_URL build/.aws-elasticbeanstalk/scouter.conf
-  - gradle bootRepackage aws-elasticbeanstalk-artifact
+  - gradle build aws-elasticbeanstalk-artifact
 
 deploy:
   # 개발 서버 deploy
