@@ -96,3 +96,16 @@ attachment:
 sentry:
   exception:
     exclude-patterns: pico.erp.*
+
+client:
+  location-origin: ${CLIENT_LOCATION_ORIGIN:http://localhost:8081}
+
+notify:
+  mattermost:
+    url: ${NOTIFY_MATTERMOST_URL}
+    access-token: ${NOTIFY_MATTERMOST_ACCESS_TOKEN}
+    team-name: ${NOTIFY_MATTERMOST_TEAM_NAME}
+    sender-email: ${NOTIFY_MATTERMOST_SENDER_EMAIL}
+    group-channel-names:
+      "purchase-request-charger": "purchase-request-charger"
+

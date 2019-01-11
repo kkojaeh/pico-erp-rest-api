@@ -68,6 +68,17 @@ public class ProcessTypeController {
   @Autowired
   private ProcessTypeTransporter processTypeTransporter;
 
+  @ApiOperation(value = "공정 유형 사전공정 유형 추가")
+  @ResponseStatus(HttpStatus.CREATED)
+  @PostMapping("/process-types/{id}/preparation-types")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  public void add(
+    @PathVariable("id") ProcessTypeId id,
+    @RequestBody ProcessTypeRequests.AddPreprocessTypeRequest request) {
+    request.setId(id);
+    processTypeService.add(request);
+  }
+
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "공정 유형 선택을 위한 키워드 검색")
   @PreAuthorize("isAuthenticated()")
@@ -119,6 +130,18 @@ public class ProcessTypeController {
     return true;
   }
 
+  @ApiOperation(value = "공정 유형 사전공정 유형 제거")
+  @DeleteMapping("/process-types/{id}/preparation-types/{preparationTypeId}")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  public void remove(
+    @PathVariable("id") ProcessTypeId id,
+    @PathVariable("preparationTypeId") ProcessPreparationTypeId preparationTypeId,
+    @RequestBody ProcessTypeRequests.RemovePreprocessTypeRequest request) {
+    request.setId(id);
+    request.setPreparationTypeId(preparationTypeId);
+    processTypeService.remove(request);
+  }
+
   @ApiOperation(value = "공정 유형 검색")
   @PreAuthorize("hasAnyRole('PROCESS_TYPE_MANAGER', 'PROCESS_ACCESSOR')")
   @GetMapping(value = "/process-types", consumes = MediaType.ALL_VALUE)
@@ -134,29 +157,6 @@ public class ProcessTypeController {
     @RequestBody ProcessTypeRequests.UpdateRequest request) {
     request.setId(id);
     processTypeService.update(request);
-  }
-
-  @ApiOperation(value = "공정 유형 사전공정 유형 추가")
-  @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping("/process-types/{id}/preparation-types")
-  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void add(
-    @PathVariable("id") ProcessTypeId id,
-    @RequestBody ProcessTypeRequests.AddPreprocessTypeRequest request) {
-    request.setId(id);
-    processTypeService.add(request);
-  }
-
-  @ApiOperation(value = "공정 유형 사전공정 유형 제거")
-  @DeleteMapping("/process-types/{id}/preparation-types/{preparationTypeId}")
-  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void remove(
-    @PathVariable("id") ProcessTypeId id,
-    @PathVariable("preparationTypeId") ProcessPreparationTypeId preparationTypeId,
-    @RequestBody ProcessTypeRequests.RemovePreprocessTypeRequest request) {
-    request.setId(id);
-    request.setPreparationTypeId(preparationTypeId);
-    processTypeService.remove(request);
   }
 
 }

@@ -1,62 +1,62 @@
 language: java
 cache:
   directories:
-    - $HOME/.m2
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - $HOME/.m2
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
 
 install:
-  - sudo pip install --upgrade pip
-  - sudo pip install awscli --ignore-installed urllib3
+- sudo pip install --upgrade pip
+- sudo pip install awscli --ignore-installed urllib3
 
 before_script:
-  - aws configure set aws_access_key_id $S3_ACCESS_KEY_ID
-  - aws configure set aws_secret_access_key $S3_SECRET_ACCESS_KEY
-  - if [ "$TRAVIS_BRANCH" = "$TRAVIS_TAG" ];
-    then
-      export S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL=$S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL_PRD;
-      export SCOUTER_OBJ_NAME="pico-erp-api-prd";
-    fi
-  - if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ];
-    then
-      export S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL=$S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL_DEV;
-      export SCOUTER_OBJ_NAME="pico-erp-api-dev";
-    fi
+- aws configure set aws_access_key_id $S3_ACCESS_KEY_ID
+- aws configure set aws_secret_access_key $S3_SECRET_ACCESS_KEY
+- if [ "$TRAVIS_BRANCH" = "$TRAVIS_TAG" ];
+  then
+  export S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL=$S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL_PRD;
+  export SCOUTER_OBJ_NAME="pico-erp-api-prd";
+  fi
+- if [ "$TRAVIS_BRANCH" != "$TRAVIS_TAG" ];
+  then
+  export S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL=$S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL_DEV;
+  export SCOUTER_OBJ_NAME="pico-erp-api-dev";
+  fi
 
 script:
-  - ./gradlew clean
-  - aws s3 cp $S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL build/.aws-elasticbeanstalk/firebase-adminsdk.json
-  - aws s3 cp $S3_SCOUTER_CONF_FILE_URL build/.aws-elasticbeanstalk/scouter.conf
-  - ./gradlew build aws-elasticbeanstalk-artifact
+- ./gradlew clean
+- aws s3 cp $S3_FIREBASE_SERVICE_ACCOUNT_KEY_FILE_URL build/.aws-elasticbeanstalk/firebase-adminsdk.json
+- aws s3 cp $S3_SCOUTER_CONF_FILE_URL build/.aws-elasticbeanstalk/scouter.conf
+- ./gradlew build aws-elasticbeanstalk-artifact
 
 deploy:
-  # 개발 서버 deploy
-  - provider: elasticbeanstalk
-    access_key_id: $EB_ACCESS_KEY_ID
-    secret_access_key:
-      secure: $EB_SECRET_ACCESS_KEY
-    region: $EB_REGION
-    app: $EB_APP
-    env: $EB_ENV_API_DEV
-    bucket_name: $EB_BUCKET_DEV
-    bucket_path: dev/rest-api-server
-    zip_file: build/aws-elasticbeanstalk/rest-api-server.zip
-    skip_cleanup: true
-    on:
-      branch: master
-  # 운영 서버 deploy
-  - provider: elasticbeanstalk
-    access_key_id: $EB_ACCESS_KEY_ID
-    secret_access_key:
-      secure: $EB_SECRET_ACCESS_KEY
-    region: $EB_REGION
-    app: $EB_APP
-    env: $EB_ENV_API_PRD
-    bucket_name: $EB_BUCKET_PRD
-    bucket_path: prd/rest-api-server
-    zip_file: build/aws-elasticbeanstalk/rest-api-server.zip
-    skip_cleanup: true
-    on:
-      tags: true
+# 개발 서버 deploy
+- provider: elasticbeanstalk
+  access_key_id: $EB_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $EB_SECRET_ACCESS_KEY
+  region: $EB_REGION
+  app: $EB_APP
+  env: $EB_ENV_API_DEV
+  bucket_name: $EB_BUCKET_DEV
+  bucket_path: dev/rest-api-server
+  zip_file: build/aws-elasticbeanstalk/rest-api-server.zip
+  skip_cleanup: true
+  on:
+    branch: master
+# 운영 서버 deploy
+- provider: elasticbeanstalk
+  access_key_id: $EB_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $EB_SECRET_ACCESS_KEY
+  region: $EB_REGION
+  app: $EB_APP
+  env: $EB_ENV_API_PRD
+  bucket_name: $EB_BUCKET_PRD
+  bucket_path: prd/rest-api-server
+  zip_file: build/aws-elasticbeanstalk/rest-api-server.zip
+  skip_cleanup: true
+  on:
+    tags: true
 
 after_script:

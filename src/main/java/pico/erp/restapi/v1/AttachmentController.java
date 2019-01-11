@@ -41,6 +41,13 @@ public class AttachmentController {
   @Autowired
   private AttachmentService attachmentService;
 
+  @ApiOperation(value = "첨부 정리")
+  @PreAuthorize("isAuthenticated()")
+  @DeleteMapping(value = "/clear")
+  public void clear(@RequestBody AttachmentRequests.ClearRequest request) {
+    attachmentService.clear(request);
+  }
+
   @ApiOperation(value = "첨부 생성")
   @PreAuthorize("isAuthenticated()")
   @PostMapping(value = "/attachments")
@@ -55,21 +62,6 @@ public class AttachmentController {
   @GetMapping(value = "/attachments/{id}", consumes = MediaType.ALL_VALUE)
   public AttachmentData get(@PathVariable("id") AttachmentId id) {
     return attachmentService.get(id);
-  }
-
-  @CacheControl(maxAge = 60 * 60 * 24 * 30)
-  @ApiOperation(value = "아이콘 다운로드(extension)")
-  @GetMapping(value = "/icons/{extension:[\\.\\w]+}", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> getIcon(
-    @PathVariable(value = "extension") String extension) {
-
-    val image = attachmentService
-      .getIcon(fileTypeMap.getContentType(extension));
-
-    return ResponseEntity.ok()
-      .contentLength(image.getContentLength())
-      .contentType(MediaType.valueOf(image.getContentType()))
-      .body(new InputStreamResource(image.getInputStream()));
   }
 
   @CacheControl(maxAge = 60 * 60 * 24 * 30)
@@ -88,11 +80,19 @@ public class AttachmentController {
       .body(new InputStreamResource(image.getInputStream()));
   }
 
-  @ApiOperation(value = "첨부 정리")
-  @PreAuthorize("isAuthenticated()")
-  @DeleteMapping(value = "/clear")
-  public void clear(@RequestBody AttachmentRequests.ClearRequest request) {
-    attachmentService.clear(request);
+  @CacheControl(maxAge = 60 * 60 * 24 * 30)
+  @ApiOperation(value = "아이콘 다운로드(extension)")
+  @GetMapping(value = "/icons/{extension:[\\.\\w]+}", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> getIcon(
+    @PathVariable(value = "extension") String extension) {
+
+    val image = attachmentService
+      .getIcon(fileTypeMap.getContentType(extension));
+
+    return ResponseEntity.ok()
+      .contentLength(image.getContentLength())
+      .contentType(MediaType.valueOf(image.getContentType()))
+      .body(new InputStreamResource(image.getInputStream()));
   }
 
 }

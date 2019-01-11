@@ -59,7 +59,7 @@ public class OrderAcceptanceController {
   private OrderAcceptanceQuery orderAcceptanceQuery;
 
   @ApiOperation(value = "주문 접수")
-  @PutMapping("/order-acceptances/{id}/accept")
+  @PutMapping("/acceptances/{id}/accept")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void accept(@PathVariable("id") OrderAcceptanceId id,
     @RequestBody OrderAcceptanceRequests.AcceptRequest request) {
@@ -69,14 +69,14 @@ public class OrderAcceptanceController {
 
   @ApiOperation(value = "주문 접수 생성")
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping("/order-acceptances")
+  @PostMapping("/acceptances")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void create(@RequestBody OrderAcceptanceRequests.CreateRequest request) {
     orderAcceptanceService.create(request);
   }
 
   @ApiOperation(value = "주문 접수 삭제")
-  @DeleteMapping("/order-acceptances/{id}")
+  @DeleteMapping("/acceptances/{id}")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void delete(@PathVariable("id") OrderAcceptanceId id) {
     orderAcceptanceService.delete(new OrderAcceptanceRequests.DeleteRequest(id));
@@ -84,14 +84,14 @@ public class OrderAcceptanceController {
 
   @ApiOperation(value = "주문 접수 조회")
   @PreAuthorize("hasAnyRole('ORDER_ACCEPTANCE_MANAGER', 'ORDER_ACCEPTANCE_ACCESSOR')")
-  @GetMapping(value = "/order-acceptances/{id}", consumes = MediaType.ALL_VALUE)
+  @GetMapping(value = "/acceptances/{id}", consumes = MediaType.ALL_VALUE)
   public OrderAcceptanceData get(@PathVariable("id") OrderAcceptanceId id) {
     return orderAcceptanceService.get(id);
   }
 
   @ApiOperation(value = "주문 접수 검색")
   @PreAuthorize("hasAnyRole('ORDER_ACCEPTANCE_MANAGER', 'ORDER_ACCEPTANCE_ACCESSOR')")
-  @GetMapping(value = "/order-acceptances", consumes = MediaType.ALL_VALUE)
+  @GetMapping(value = "/acceptances", consumes = MediaType.ALL_VALUE)
   public Page<OrderAcceptanceView> retrieve(
     @ModelAttribute OrderAcceptanceView.Filter filter,
     Pageable pageable) {
@@ -113,7 +113,7 @@ public class OrderAcceptanceController {
   }
 
   @ApiOperation(value = "주문 접수 수정")
-  @PutMapping("/order-acceptances/{id}")
+  @PutMapping("/acceptances/{id}")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void update(@PathVariable("id") OrderAcceptanceId id,
     @RequestBody OrderAcceptanceRequests.UpdateRequest request) {

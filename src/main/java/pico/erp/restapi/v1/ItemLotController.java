@@ -85,6 +85,14 @@ public class ItemLotController {
     return itemLotService.get(id);
   }
 
+  @CacheControl(maxAge = 300)
+  @ApiOperation(value = "품목 LOT 조회")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER', 'ITEM_ACCESSOR')")
+  @GetMapping(value = "/lots", consumes = MediaType.ALL_VALUE)
+  public Page<ItemLotView> retrieve(@ModelAttribute ItemLotView.Filter filter, Pageable pageable) {
+    return itemLotQuery.retrieve(filter, pageable);
+  }
+
   @ApiOperation(value = "품목 LOT 수정")
   @PutMapping("/lots/{id}")
   @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER')")
@@ -92,14 +100,6 @@ public class ItemLotController {
     @RequestBody ItemLotRequests.UpdateRequest request) {
     request.setId(id);
     itemLotService.update(request);
-  }
-
-  @CacheControl(maxAge = 300)
-  @ApiOperation(value = "품목 LOT 조회")
-  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER', 'ITEM_ACCESSOR')")
-  @GetMapping(value = "/lots", consumes = MediaType.ALL_VALUE)
-  public Page<ItemLotView> retrieve(@ModelAttribute ItemLotView.Filter filter, Pageable pageable) {
-    return itemLotQuery.retrieve(filter, pageable);
   }
 
 }

@@ -2,6 +2,7 @@ package pico.erp.restapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pico.erp.config.item.spec.CorrugatedFiberBoardItemSpecVariables;
 import pico.erp.config.item.spec.MaterialPaperItemSpecVariables;
 import pico.erp.config.item.spec.PetItemSpecVariables;
 import pico.erp.item.spec.type.ClassBasedItemSpecType;
@@ -10,6 +11,13 @@ import pico.erp.shared.Public;
 
 @Configuration
 public class ItemConfiguration {
+
+  @Public
+  @Bean
+  public ItemSpecType<CorrugatedFiberBoardItemSpecVariables> corrugatedFiberBoardItemSpecType() {
+    return new ClassBasedItemSpecType<>("corrugated-fiber-board",
+      CorrugatedFiberBoardItemSpecVariables.class);
+  }
 
   @Public
   @Bean

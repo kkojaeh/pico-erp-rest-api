@@ -62,6 +62,21 @@ public class BomController {
   @Autowired
   private MessageSource messageSource;
 
+  @CacheControl(maxAge = 3600, policy = CachePolicy.PRIVATE)
+  @ApiOperation(value = "BOM 상태 목록")
+  @PreAuthorize("permitAll")
+  @GetMapping(value = "/bom-status-labels", consumes = MediaType.ALL_VALUE)
+  public Stream<? extends LabeledValuable> bomStatusLabels() {
+    Locale locale = LocaleContextHolder.getLocale();
+    return Stream.of(BomStatusKind.values())
+      .map(kind ->
+        new LabeledValue(
+          kind.name(),
+          messageSource.getMessage(kind.getNameCode(), null, locale)
+        )
+      );
+  }
+
   @ApiOperation(value = "BOM 삭제")
   @DeleteMapping("/boms/{id}")
   @PreAuthorize("hasRole('BOM_MANAGER')")
@@ -93,13 +108,6 @@ public class BomController {
     return bomQuery.findRevisions(itemId);
   }
 
-  @ApiOperation(value = "BOM 조회")
-  @PreAuthorize("hasAnyRole('BOM_MANAGER', 'BOM_ACCESSOR')")
-  @GetMapping(value = "/boms/{id}", consumes = MediaType.ALL_VALUE)
-  public BomData get(@PathVariable("id") BomId id) {
-    return bomService.get(id);
-  }
-
   @ApiOperation(value = "BOM 조회", notes = "revision 이 0 이하이면 최근 버전으로 조회")
   @PreAuthorize("hasAnyRole('BOM_MANAGER', 'BOM_ACCESSOR')")
   @GetMapping(value = "/items/{itemId}/{revision}", consumes = MediaType.ALL_VALUE)
@@ -112,19 +120,11 @@ public class BomController {
     }
   }
 
-  @CacheControl(maxAge = 3600, policy = CachePolicy.PRIVATE)
-  @ApiOperation(value = "BOM 상태 목록")
-  @PreAuthorize("permitAll")
-  @GetMapping(value = "/bom-status-labels", consumes = MediaType.ALL_VALUE)
-  public Stream<? extends LabeledValuable> bomStatusLabels() {
-    Locale locale = LocaleContextHolder.getLocale();
-    return Stream.of(BomStatusKind.values())
-      .map(kind ->
-        new LabeledValue(
-          kind.name(),
-          messageSource.getMessage(kind.getNameCode(), null, locale)
-        )
-      );
+  @ApiOperation(value = "BOM 조회")
+  @PreAuthorize("hasAnyRole('BOM_MANAGER', 'BOM_ACCESSOR')")
+  @GetMapping(value = "/boms/{id}", consumes = MediaType.ALL_VALUE)
+  public BomData get(@PathVariable("id") BomId id) {
+    return bomService.get(id);
   }
 
 }

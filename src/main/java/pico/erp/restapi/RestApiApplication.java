@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ServiceLoader;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServletResponse;
@@ -90,10 +92,24 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import pico.erp.audit.AuditApi;
+import pico.erp.bom.BomApi;
+import pico.erp.comment.CommentApi;
+import pico.erp.company.CompanyApi;
+import pico.erp.facility.FacilityApi;
+import pico.erp.item.ItemApi;
+import pico.erp.notify.NotifyApi;
+import pico.erp.order.acceptance.OrderAcceptanceApi;
+import pico.erp.process.ProcessApi;
+import pico.erp.project.ProjectApi;
+import pico.erp.purchase.order.PurchaseOrderApi;
+import pico.erp.purchase.request.PurchaseRequestApi;
+import pico.erp.quotation.QuotationApi;
 import pico.erp.restapi.firebase.FirebaseAuthenticationProvider;
 import pico.erp.restapi.firebase.FirebaseAuthenticationTokenFilter;
 import pico.erp.restapi.sentry.SentryErrorHandler;
 import pico.erp.restapi.web.CacheControlHandlerInterceptor;
+import pico.erp.shared.ApplicationId;
 import pico.erp.shared.ApplicationIntegrator;
 import pico.erp.shared.ApplicationStarter;
 import pico.erp.shared.Public;
@@ -104,6 +120,9 @@ import pico.erp.shared.impl.DateConverter;
 import pico.erp.shared.impl.LocalDateConverter;
 import pico.erp.shared.impl.LocalTimeConverter;
 import pico.erp.shared.impl.OffsetDateTimeConverter;
+import pico.erp.user.UserApi;
+import pico.erp.warehouse.WarehouseApi;
+import pico.erp.work.schedule.WorkScheduleApi;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -183,16 +202,38 @@ public class RestApiApplication implements ApplicationStarter {
     ServiceLoader<ApplicationStarter> loader = ServiceLoader.load(ApplicationStarter.class);
     List<ApplicationStarter> starters = new LinkedList<>();
     loader.forEach(starters::add);
-    Collections.sort(starters);
-    starters.forEach(starter -> integrator.add(starter.start(args)));
+    ApplicationStarter.sort(starters).forEach(starter -> integrator.add(starter.start(args)));
     integrator.integrate()
       .integrateMessageSource()
       .complete();
   }
 
   @Override
-  public int getOrder() {
-    return Integer.MAX_VALUE;
+  public Set<ApplicationId> getDependencies() {
+    return Stream.of(
+      AuditApi.ID,
+      UserApi.ID,
+      CompanyApi.ID,
+      ProcessApi.ID,
+      ProjectApi.ID,
+      QuotationApi.ID,
+      ItemApi.ID,
+      CommentApi.ID,
+      FacilityApi.ID,
+      WorkScheduleApi.ID,
+      OrderAcceptanceApi.ID,
+      WarehouseApi.ID,
+      BomApi.ID,
+      PurchaseRequestApi.ID,
+      WarehouseApi.ID,
+      PurchaseOrderApi.ID,
+      NotifyApi.ID
+    ).collect(Collectors.toSet());
+  }
+
+  @Override
+  public ApplicationId getId() {
+    return ApplicationId.from("rest-api");
   }
 
   @Override

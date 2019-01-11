@@ -92,32 +92,6 @@ public class ItemCategoryController {
     );
   }
 
-
-  @CacheControl(maxAge = 300)
-  @ApiOperation(value = "품목 분류 조회")
-  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR')")
-  @GetMapping(value = "/categories/{id}", consumes = MediaType.ALL_VALUE)
-  public ItemCategoryData get(@PathVariable("id") ItemCategoryId id) {
-    return itemCategoryService.get(id);
-  }
-
-  @ApiOperation(value = "품목 분류 검색")
-  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR')")
-  @GetMapping(value = "/categories", consumes = MediaType.ALL_VALUE)
-  public List<ItemCategoryHierarchyView> retrieve() {
-    return itemCategoryQuery.findAllAsHierarchy();
-  }
-
-
-  @ApiOperation(value = "품목 분류 수정")
-  @PutMapping("/categories/{id}")
-  @PreAuthorize("hasRole('ITEM_MANAGER')")
-  public void update(@PathVariable("id") ItemCategoryId id,
-    @RequestBody ItemCategoryRequests.UpdateRequest request) {
-    request.setId(id);
-    itemCategoryService.update(request);
-  }
-
   @SneakyThrows
   @ApiOperation(value = "export as xlsx")
   @PreAuthorize("hasRole('ITEM_MANAGER')")
@@ -125,6 +99,14 @@ public class ItemCategoryController {
   public ResponseEntity<InputStreamResource> exportAs(
     ItemCategoryTransporter.ExportRequest request) {
     return SharedController.asResponse(itemCategoryTransporter.exportExcel(request));
+  }
+
+  @CacheControl(maxAge = 300)
+  @ApiOperation(value = "품목 분류 조회")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR')")
+  @GetMapping(value = "/categories/{id}", consumes = MediaType.ALL_VALUE)
+  public ItemCategoryData get(@PathVariable("id") ItemCategoryId id) {
+    return itemCategoryService.get(id);
   }
 
   @SneakyThrows
@@ -136,6 +118,22 @@ public class ItemCategoryController {
     request.setInputStream(file.getInputStream());
     itemCategoryTransporter.importExcel(request);
     return true;
+  }
+
+  @ApiOperation(value = "품목 분류 검색")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR')")
+  @GetMapping(value = "/categories", consumes = MediaType.ALL_VALUE)
+  public List<ItemCategoryHierarchyView> retrieve() {
+    return itemCategoryQuery.findAllAsHierarchy();
+  }
+
+  @ApiOperation(value = "품목 분류 수정")
+  @PutMapping("/categories/{id}")
+  @PreAuthorize("hasRole('ITEM_MANAGER')")
+  public void update(@PathVariable("id") ItemCategoryId id,
+    @RequestBody ItemCategoryRequests.UpdateRequest request) {
+    request.setId(id);
+    itemCategoryService.update(request);
   }
 
 

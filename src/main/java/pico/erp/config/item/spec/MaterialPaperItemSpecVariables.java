@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 import pico.erp.item.ItemInfo;
 import pico.erp.item.spec.variables.ItemSpecVariables;
+import pico.erp.shared.data.UnitKind;
 
 @Data
 @Attributes(title = "원지 스펙", description = "원지 정보")
@@ -29,15 +30,20 @@ public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
   @Attributes(title = "절수", minimum = 1, maximum = 4, enums = {"1", "2", "3", "4"})
   private Integer incisionCount = 1;
 
-  @Override
-  public String getSummary() {
-    return String.format("%d (%d×%d) / %d", grammage, width, height, incisionCount);
-  }
+  @SchemaIgnore
+  private UnitKind unit = UnitKind.SHEET;
 
   @SchemaIgnore
+  private UnitKind purchaseUnit = UnitKind.SHEET;
+
   @Override
-  public boolean isValid() {
-    return grammage != null && width != null && height != null && incisionCount != null;
+  public BigDecimal calculatePurchaseQuantity(BigDecimal quantity) {
+    return quantity;
+  }
+
+  @Override
+  public BigDecimal calculatePurchaseUnitCost(ItemInfo item) {
+    return calculateUnitCost(item);
   }
 
   @Override
@@ -51,5 +57,19 @@ public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
     );
     return unitCost.setScale(2, BigDecimal.ROUND_HALF_UP);
   }
+
+  @Override
+  public String getSummary() {
+    return String
+      .format("%d (%d*%d) / %d", grammage, Math.max(width, height), Math.min(width, height),
+        incisionCount);
+  }
+
+  @SchemaIgnore
+  @Override
+  public boolean isValid() {
+    return grammage != null && width != null && height != null && incisionCount != null;
+  }
+
 
 }

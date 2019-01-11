@@ -74,20 +74,20 @@ public class QuotationController {
   @Autowired
   private QuotationQuery quotationQuery;
 
-  @CacheControl(maxAge = 300)
-  @ApiOperation(value = "견적 선택을 위한 키워드 검색")
-  @PreAuthorize("isAuthenticated()")
-  @GetMapping(value = "/quotation-labels", consumes = MediaType.ALL_VALUE)
-  public List<? extends LabeledValuable> asLabels(@RequestParam("query") String keyword) {
-    return quotationQuery.asLabels(keyword, labelQueryLimit);
-  }
-
   @ApiOperation(value = "월별 상태 수 집계")
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
   @GetMapping(value = "/aggregate/statuses/count/month", consumes = MediaType.ALL_VALUE)
   public Collection<QuotationStatusCountPerMonthAggregateView> aggregate(
     QuotationStatusCountPerMonthAggregateView.Filter filter) {
     return quotationQuery.aggregateCountStatusPerMonth(filter);
+  }
+
+  @CacheControl(maxAge = 300)
+  @ApiOperation(value = "견적 선택을 위한 키워드 검색")
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping(value = "/quotation-labels", consumes = MediaType.ALL_VALUE)
+  public List<? extends LabeledValuable> asLabels(@RequestParam("query") String keyword) {
+    return quotationQuery.asLabels(keyword, labelQueryLimit);
   }
 
   @ApiOperation(value = "견적 취소")
@@ -130,6 +130,13 @@ public class QuotationController {
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
   public void delete(@PathVariable("id") QuotationId id) {
     quotationService.delete(new DeleteRequest(id));
+  }
+
+  @ApiOperation(value = "견적 만료")
+  @DeleteMapping("/expire")
+  @PreAuthorize("hasAnyRole('QUOTATION_MANAGER')")
+  public void expire(@RequestBody QuotationRequests.ExpireRequest request) {
+    quotationService.expire(request);
   }
 
   @CacheControl(maxAge = 3600)
@@ -202,13 +209,6 @@ public class QuotationController {
     @RequestBody UpdateRequest request) {
     request.setId(id);
     quotationService.update(request);
-  }
-
-  @ApiOperation(value = "견적 만료")
-  @DeleteMapping("/expire")
-  @PreAuthorize("hasAnyRole('QUOTATION_MANAGER')")
-  public void expire(@RequestBody QuotationRequests.ExpireRequest request) {
-    quotationService.expire(request);
   }
 
 

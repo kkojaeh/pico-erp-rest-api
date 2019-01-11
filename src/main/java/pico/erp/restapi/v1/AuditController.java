@@ -78,18 +78,18 @@ public class AuditController {
     return auditService.get(AuditId.from("item-category", id));
   }
 
-  @ApiOperation(value = "공정 유형 변경 조회")
-  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  @GetMapping(value = "/process-type/{id}", consumes = MediaType.ALL_VALUE)
-  public List<CommitData> processType(@PathVariable("id") String id) {
-    return auditService.get(AuditId.from("process-type", id));
-  }
-
   @ApiOperation(value = "사전 공정 유형 변경 조회")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
   @GetMapping(value = "/preprocess-type/{id}", consumes = MediaType.ALL_VALUE)
   public List<CommitData> preprocessType(@PathVariable("id") String id) {
     return auditService.get(AuditId.from("preprocess-type", id));
+  }
+
+  @ApiOperation(value = "공정 유형 변경 조회")
+  @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
+  @GetMapping(value = "/process-type/{id}", consumes = MediaType.ALL_VALUE)
+  public List<CommitData> processType(@PathVariable("id") String id) {
+    return auditService.get(AuditId.from("process-type", id));
   }
 
   @ApiOperation(value = "프로젝트 변경 조회")

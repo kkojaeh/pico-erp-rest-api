@@ -112,12 +112,32 @@ public class ItemController {
     );
   }
 
+  @SneakyThrows
+  @ApiOperation(value = "export as xlsx")
+  @PreAuthorize("hasRole('ITEM_MANAGER')")
+  @GetMapping(value = "/xlsx/items", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(
+    ItemTransporter.ExportRequest request) {
+    return SharedController.asResponse(itemTransporter.exportExcel(request));
+  }
+
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "품목 조회")
   @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR')")
   @GetMapping(value = "/items/{id}", consumes = MediaType.ALL_VALUE)
   public ItemData get(@PathVariable("id") ItemId id) {
     return itemService.get(id);
+  }
+
+  @SneakyThrows
+  @ApiOperation(value = "import by xlsx")
+  @PreAuthorize("hasRole('ITEM_MANAGER')")
+  @PostMapping(value = "/xlsx/items", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public boolean importBy(@RequestPart MultipartFile file,
+    ItemTransporter.ImportRequest request) {
+    request.setInputStream(file.getInputStream());
+    itemTransporter.importExcel(request);
+    return true;
   }
 
   @CacheControl(maxAge = 300)
@@ -169,7 +189,6 @@ public class ItemController {
     return itemQuery.retrieve(filter, pageable);
   }
 
-
   @ApiOperation(value = "품목 수정")
   @PutMapping("/items/{id}")
   @PreAuthorize("hasRole('ITEM_MANAGER')")
@@ -177,26 +196,6 @@ public class ItemController {
     @RequestBody ItemRequests.UpdateRequest request) {
     request.setId(id);
     itemService.update(request);
-  }
-
-  @SneakyThrows
-  @ApiOperation(value = "export as xlsx")
-  @PreAuthorize("hasRole('ITEM_MANAGER')")
-  @GetMapping(value = "/xlsx/items", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> exportAs(
-    ItemTransporter.ExportRequest request) {
-    return SharedController.asResponse(itemTransporter.exportExcel(request));
-  }
-
-  @SneakyThrows
-  @ApiOperation(value = "import by xlsx")
-  @PreAuthorize("hasRole('ITEM_MANAGER')")
-  @PostMapping(value = "/xlsx/items", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public boolean importBy(@RequestPart MultipartFile file,
-    ItemTransporter.ImportRequest request) {
-    request.setInputStream(file.getInputStream());
-    itemTransporter.importExcel(request);
-    return true;
   }
 
 }

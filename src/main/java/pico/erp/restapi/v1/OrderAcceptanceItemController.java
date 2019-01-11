@@ -43,7 +43,7 @@ public class OrderAcceptanceItemController {
 
   @ApiOperation(value = "주문 접수 품목 생성")
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping("/order-acceptances/{orderAcceptanceId}/items")
+  @PostMapping("/acceptances/{orderAcceptanceId}/items")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void create(@PathVariable("orderAcceptanceId") OrderAcceptanceId orderAcceptanceId,
     @RequestBody OrderAcceptanceItemRequests.CreateRequest request) {
@@ -52,7 +52,7 @@ public class OrderAcceptanceItemController {
   }
 
   @ApiOperation(value = "주문 접수 품목 삭제")
-  @DeleteMapping("/order-acceptances/{orderAcceptanceId}/items/{id}")
+  @DeleteMapping("/acceptances/{orderAcceptanceId}/items/{id}")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void delete(@PathVariable("orderAcceptanceId") OrderAcceptanceId orderAcceptanceId,
     @PathVariable("id") OrderAcceptanceItemId id) {
@@ -61,14 +61,14 @@ public class OrderAcceptanceItemController {
 
   @ApiOperation(value = "주문 접수 품목 조회")
   @PreAuthorize("hasAnyRole('ORDER_ACCEPTANCE_MANAGER', 'ORDER_ACCEPTANCE_ACCESSOR')")
-  @GetMapping(value = "/order-acceptances/{orderAcceptanceId}/items", consumes = MediaType.ALL_VALUE)
+  @GetMapping(value = "/acceptances/{orderAcceptanceId}/items", consumes = MediaType.ALL_VALUE)
   public List<OrderAcceptanceItemData> getAll(
     @PathVariable("orderAcceptanceId") OrderAcceptanceId orderAcceptanceId) {
     return orderAcceptanceItemService.getAll(orderAcceptanceId);
   }
 
   @ApiOperation(value = "주문 접수 품목 수정")
-  @PutMapping("/order-acceptances/{orderAcceptanceId}/items/{id}")
+  @PutMapping("/acceptances/{orderAcceptanceId}/items/{id}")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
   public void update(@PathVariable("orderAcceptanceId") OrderAcceptanceId orderAcceptanceId,
     @PathVariable("id") OrderAcceptanceItemId id,

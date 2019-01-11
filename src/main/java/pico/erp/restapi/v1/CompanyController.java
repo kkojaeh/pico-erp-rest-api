@@ -65,14 +65,6 @@ public class CompanyController {
   @Autowired
   private CompanyTransporter companyTransporter;
 
-  @ApiOperation(value = "회사 조회")
-  @PreAuthorize("isAuthenticated()")
-  @GetMapping(value = "/owner", consumes = MediaType.ALL_VALUE)
-  public CompanyData owner() {
-    return companyService.getOwner();
-  }
-
-
   @ApiOperation(value = "회사 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/companies")
@@ -88,6 +80,15 @@ public class CompanyController {
     companyService.delete(new DeleteRequest(id));
   }
 
+  @SneakyThrows
+  @ApiOperation(value = "export as xlsx")
+  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @GetMapping(value = "/xlsx/companies", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(
+    CompanyTransporter.ExportRequest request) {
+    return SharedController.asResponse(companyTransporter.exportExcel(request));
+  }
+
   @ApiOperation(value = "회사 조회")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
   @GetMapping(value = "/companies/{id}", consumes = MediaType.ALL_VALUE)
@@ -100,6 +101,24 @@ public class CompanyController {
   @GetMapping(value = "/registration-numbers/{number}", consumes = MediaType.ALL_VALUE)
   public CompanyData get(@PathVariable("number") RegistrationNumber number) {
     return companyService.get(number);
+  }
+
+  @SneakyThrows
+  @ApiOperation(value = "import by xlsx")
+  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PostMapping(value = "/xlsx/companies", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public boolean importBy(@RequestPart MultipartFile file,
+    CompanyTransporter.ImportRequest request) {
+    request.setInputStream(file.getInputStream());
+    companyTransporter.importExcel(request);
+    return true;
+  }
+
+  @ApiOperation(value = "회사 조회")
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping(value = "/owner", consumes = MediaType.ALL_VALUE)
+  public CompanyData owner() {
+    return companyService.getOwner();
   }
 
   @ApiOperation(value = "회사 검색")
@@ -126,26 +145,6 @@ public class CompanyController {
     @RequestBody UpdateRequest request) {
     request.setId(id);
     companyService.update(request);
-  }
-
-  @SneakyThrows
-  @ApiOperation(value = "export as xlsx")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
-  @GetMapping(value = "/xlsx/companies", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> exportAs(
-    CompanyTransporter.ExportRequest request) {
-    return SharedController.asResponse(companyTransporter.exportExcel(request));
-  }
-
-  @SneakyThrows
-  @ApiOperation(value = "import by xlsx")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
-  @PostMapping(value = "/xlsx/companies", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public boolean importBy(@RequestPart MultipartFile file,
-    CompanyTransporter.ImportRequest request) {
-    request.setInputStream(file.getInputStream());
-    companyTransporter.importExcel(request);
-    return true;
   }
 
 }

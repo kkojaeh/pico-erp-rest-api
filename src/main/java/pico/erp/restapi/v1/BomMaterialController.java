@@ -43,6 +43,17 @@ public class BomMaterialController {
   @Autowired
   private MessageSource messageSource;
 
+  @ApiOperation(value = "BOM 자재 수정")
+  @PutMapping("/boms/{bomId}/materials/{materialId}/order")
+  @PreAuthorize("hasRole('BOM_MANAGER')")
+  public void changeOrder(@PathVariable("bomId") BomId bomId,
+    @PathVariable("materialId") BomId materialId,
+    @RequestBody BomMaterialRequests.ChangeOrderRequest request) {
+    request.setBomId(bomId);
+    request.setMaterialId(materialId);
+    bomMaterialService.changeOrder(request);
+  }
+
   @ApiOperation(value = "BOM 자재 추가")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/boms/{bomId}/materials")
@@ -79,17 +90,6 @@ public class BomMaterialController {
     request.setBomId(bomId);
     request.setMaterialId(materialId);
     bomMaterialService.update(request);
-  }
-
-  @ApiOperation(value = "BOM 자재 수정")
-  @PutMapping("/boms/{bomId}/materials/{materialId}/order")
-  @PreAuthorize("hasRole('BOM_MANAGER')")
-  public void changeOrder(@PathVariable("bomId") BomId bomId,
-    @PathVariable("materialId") BomId materialId,
-    @RequestBody BomMaterialRequests.ChangeOrderRequest request) {
-    request.setBomId(bomId);
-    request.setMaterialId(materialId);
-    bomMaterialService.changeOrder(request);
   }
 
 }

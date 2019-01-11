@@ -36,6 +36,12 @@ public class ProcessConfiguration {
 
   @Public
   @Bean
+  public ProcessInfoType cuttingProcessInfo() {
+    return new ClassBasedProcessInfoType("cutting", CuttingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
   public ProcessInfoType designingProcessInfo() {
     return new ClassBasedProcessInfoType("designing", DesigningProcessInfo.class);
   }
@@ -54,6 +60,18 @@ public class ProcessConfiguration {
 
   @Public
   @Bean
+  public ProcessInfoType laminatingProcessInfo() {
+    return new ClassBasedProcessInfoType("laminating", LaminatingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
+  public ProcessInfoType moldingProcessInfo() {
+    return new ClassBasedProcessInfoType("molding", MoldingProcessInfo.class);
+  }
+
+  @Public
+  @Bean
   public ProcessInfoType outputProcessInfo() {
     return new ClassBasedProcessInfoType("output", OutputProcessInfo.class);
   }
@@ -62,12 +80,6 @@ public class ProcessConfiguration {
   @Bean
   public ProcessInfoType packagingProcessInfo() {
     return new ClassBasedProcessInfoType("packaging", PackagingProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType cuttingProcessInfo() {
-    return new ClassBasedProcessInfoType("cutting", CuttingProcessInfo.class);
   }
 
   @Public
@@ -86,18 +98,6 @@ public class ProcessConfiguration {
   @Bean
   public ProcessInfoType thomsonProcessInfo() {
     return new ClassBasedProcessInfoType("thomson", ThomsonProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType laminatingProcessInfo() {
-    return new ClassBasedProcessInfoType("laminating", LaminatingProcessInfo.class);
-  }
-
-  @Public
-  @Bean
-  public ProcessInfoType moldingProcessInfo() {
-    return new ClassBasedProcessInfoType("molding", MoldingProcessInfo.class);
   }
 
 

@@ -17,7 +17,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +35,7 @@ import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.AuthorizedUser;
 import pico.erp.shared.data.LabeledValuable;
+import pico.erp.user.UserApi.Roles;
 import pico.erp.user.UserData;
 import pico.erp.user.UserId;
 import pico.erp.user.UserQuery;
@@ -89,6 +89,13 @@ public class UserController {
     );
   }
 
+  @SneakyThrows
+  @ApiOperation(value = "export as xlsx")
+  @PreAuthorize("hasRole('USER_MANAGER')")
+  @GetMapping(value = "/xlsx/users", consumes = MediaType.ALL_VALUE)
+  public ResponseEntity<InputStreamResource> exportAs(UserTransporter.ExportRequest request) {
+    return SharedController.asResponse(userTransporter.exportExcel(request));
+  }
 
   @ApiOperation(value = "사용자 권한 부여 상태 조회")
   @GetMapping(value = "/users/{id}/roles", consumes = MediaType.ALL_VALUE)
@@ -98,30 +105,12 @@ public class UserController {
     return userQuery.findAllUserRoleGrantedOrNot(id);
   }
 
-  @ApiOperation(value = "내 정보 조회")
-  @PreAuthorize("isAuthenticated()")
-  @GetMapping(value = "/me", consumes = MediaType.ALL_VALUE)
-  public UserData getMe(@AuthenticationPrincipal AuthorizedUser userDetails) {
-    return userService.get(UserId.from(userDetails.getUsername()));
-  }
-
-  @SneakyThrows
-  @ApiOperation(value = "export as xlsx")
-  @PreAuthorize("hasRole('USER_MANAGER')")
-  @GetMapping(value = "/xlsx/users", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<InputStreamResource> exportAs(UserTransporter.ExportRequest request) {
-    return SharedController.asResponse(userTransporter.exportExcel(request));
-  }
-
   @ApiOperation(value = "사용자 조회")
   @PreAuthorize("isAuthenticated()")
   @GetMapping(value = "/users/{id}", consumes = MediaType.ALL_VALUE)
   public UserData get(@PathVariable("id") UserId id,
     @AuthenticationPrincipal AuthorizedUser userDetails) {
-    boolean isManager = userDetails.getAuthorities()
-      .stream()
-      .map(GrantedAuthority::getAuthority)
-      .anyMatch(authority -> "ROLE_USER_MANAGER".equals(authority));
+    boolean isManager = userDetails.hasRole(Roles.USER_MANAGER.getId());
 
     UserData user = userService.get(id);
 
@@ -132,6 +121,13 @@ public class UserController {
       user.setMobilePhoneNumber(null);
     }
     return user;
+  }
+
+  @ApiOperation(value = "내 정보 조회")
+  @PreAuthorize("isAuthenticated()")
+  @GetMapping(value = "/me", consumes = MediaType.ALL_VALUE)
+  public UserData getMe(@AuthenticationPrincipal AuthorizedUser userDetails) {
+    return userService.get(UserId.from(userDetails.getUsername()));
   }
 
   @ApiOperation(value = "사용자 권한 부여")
