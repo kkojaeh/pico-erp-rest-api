@@ -97,11 +97,13 @@ import pico.erp.bom.BomApi;
 import pico.erp.comment.CommentApi;
 import pico.erp.company.CompanyApi;
 import pico.erp.facility.FacilityApi;
+import pico.erp.invoice.InvoiceApi;
 import pico.erp.item.ItemApi;
 import pico.erp.notify.NotifyApi;
 import pico.erp.order.acceptance.OrderAcceptanceApi;
 import pico.erp.process.ProcessApi;
 import pico.erp.project.ProjectApi;
+import pico.erp.purchase.invoice.PurchaseInvoiceApi;
 import pico.erp.purchase.order.PurchaseOrderApi;
 import pico.erp.purchase.request.PurchaseRequestApi;
 import pico.erp.quotation.QuotationApi;
@@ -227,7 +229,9 @@ public class RestApiApplication implements ApplicationStarter {
       PurchaseRequestApi.ID,
       WarehouseApi.ID,
       PurchaseOrderApi.ID,
-      NotifyApi.ID
+      NotifyApi.ID,
+      InvoiceApi.ID,
+      PurchaseInvoiceApi.ID
     ).collect(Collectors.toSet());
   }
 
