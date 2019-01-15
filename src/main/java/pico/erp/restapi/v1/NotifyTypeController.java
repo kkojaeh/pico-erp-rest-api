@@ -2,7 +2,10 @@ package pico.erp.restapi.v1;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -70,7 +73,14 @@ public class NotifyTypeController {
   public String testCompileAsMarkdown(@PathVariable("id") NotifyTypeId id,
     @RequestBody NotifyTypeRequests.TestCompileRequest request) {
     request.setId(id);
-    return notifyTypeService.testCompile(request).asMarkdown();
+    try {
+      return notifyTypeService.testCompile(request).asMarkdown();
+    } catch (Throwable t) {
+      val writer = new StringWriter();
+      t.printStackTrace(new PrintWriter(writer));
+      return writer.toString();
+    }
+
   }
 
 }
