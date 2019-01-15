@@ -105,6 +105,7 @@ public class UserController {
     return userQuery.findAllUserRoleGrantedOrNot(id);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "사용자 조회")
   @PreAuthorize("isAuthenticated()")
   @GetMapping(value = "/users/{id}", consumes = MediaType.ALL_VALUE)
