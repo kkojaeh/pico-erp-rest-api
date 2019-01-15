@@ -189,8 +189,6 @@ task "aws-elasticbeanstalk-artifact"(type: Zip) {
 }
 
 bootJar {
-  //duplicatesStrategy = DuplicatesStrategy.FAIL
-
   mainClassName = 'pico.erp.restapi.RestApiApplication'
   classifier = 'boot'
   // 파일 명 중복으로 인해 추가
@@ -198,7 +196,6 @@ bootJar {
     details ->
       if(details.file.file && details.file.name.endsWith('.jar')){
         def groupName = details.file.parentFile.parentFile.parentFile.parentFile.name
-        println "${groupName}-${details.name}"
         details.name = "${groupName}-${details.name}"
       }
   }
