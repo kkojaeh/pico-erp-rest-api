@@ -26,6 +26,6 @@ public class InvoiceNotifySubjectTypeDefinition implements
 
   @Override
   public String getName() {
-    return "구매 요청";
+    return "송장 수령";
   }
 }
