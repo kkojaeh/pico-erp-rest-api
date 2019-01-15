@@ -4,6 +4,7 @@ import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import pico.erp.company.CompanyService;
 import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
@@ -23,6 +24,10 @@ public class PurchaseRequestCompletedNotifyTypeDefinition implements
   @Autowired
   private PurchaseRequestService purchaseRequestService;
 
+  @Lazy
+  @Autowired
+  private CompanyService companyService;
+
   @Autowired
   private NotifyContextFactory contextFactory;
 
@@ -31,7 +36,9 @@ public class PurchaseRequestCompletedNotifyTypeDefinition implements
     val context = contextFactory.factory();
     val data = context.getData();
     val purchaseRequest = purchaseRequestService.get(key);
+    val receiver = companyService.get(purchaseRequest.getReceiverId());
     data.put("purchaseRequest", purchaseRequest);
+    data.put("receiver", receiver);
     return context;
   }
 
