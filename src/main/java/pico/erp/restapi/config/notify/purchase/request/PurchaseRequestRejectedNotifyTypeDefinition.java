@@ -29,8 +29,9 @@ public class PurchaseRequestRejectedNotifyTypeDefinition implements
   @Override
   public Object createContext(PurchaseRequestId key) {
     val context = contextFactory.factory();
+    val data = context.getData();
     val purchaseRequest = purchaseRequestService.get(key);
-    context.put("purchaseRequest", purchaseRequest);
+    data.put("purchaseRequest", purchaseRequest);
     return context;
   }
 

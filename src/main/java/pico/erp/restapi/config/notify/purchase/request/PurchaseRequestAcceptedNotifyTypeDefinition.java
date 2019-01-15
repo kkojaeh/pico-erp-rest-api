@@ -34,10 +34,11 @@ public class PurchaseRequestAcceptedNotifyTypeDefinition implements
   @Override
   public Object createContext(PurchaseRequestId key) {
     val context = contextFactory.factory();
+    val data = context.getData();
     val purchaseRequest = purchaseRequestService.get(key);
     val accepter = userService.get(purchaseRequest.getAccepterId());
-    context.put("purchaseRequest", purchaseRequest);
-    context.put("accepter", accepter);
+    data.put("purchaseRequest", purchaseRequest);
+    data.put("accepter", accepter);
     return context;
   }
 

@@ -5,8 +5,10 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Locale;
 import lombok.SneakyThrows;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
@@ -46,11 +48,12 @@ public class NotifyContextFactoryImpl implements NotifyContextFactory {
 
   @Override
   public NotifyContext factory() {
+    val map = new HashMap();
     return NotifyContext.builder()
       .dateFormatter(NotifyContextFactoryImpl::dateFormatter)
       .dateTimeFormatter(NotifyContextFactoryImpl::dateTimeFormatter)
       .phoneNumberFormatter(NotifyContextFactoryImpl::phoneNumberFormatter)
-      .locationOrigin(clientProperties::getLocationOrigin)
+      .locationOrigin(clientProperties.getLocationOrigin())
       .build();
   }
 }

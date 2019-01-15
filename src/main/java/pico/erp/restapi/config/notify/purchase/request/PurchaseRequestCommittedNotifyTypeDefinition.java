@@ -1,6 +1,5 @@
 package pico.erp.restapi.config.notify.purchase.request;
 
-import java.util.HashMap;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -34,11 +33,12 @@ public class PurchaseRequestCommittedNotifyTypeDefinition implements
 
   @Override
   public Object createContext(PurchaseRequestId key) {
-    val context = new HashMap<String, Object>();
+    val context = contextFactory.factory();
+    val data = context.getData();
     val purchaseRequest = purchaseRequestService.get(key);
     val requester = userService.get(purchaseRequest.getRequesterId());
-    context.put("purchaseRequest", purchaseRequest);
-    context.put("requester", requester);
+    data.put("purchaseRequest", purchaseRequest);
+    data.put("requester", requester);
     return context;
   }
 

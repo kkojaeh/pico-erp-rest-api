@@ -39,10 +39,11 @@ public class InvoiceCreatedNotifyTypeDefinition implements NotifyTypeDefinition<
   @Override
   public Object createContext(InvoiceId key) {
     val context = contextFactory.factory();
+    val data = context.getData();
     val invoice = invoiceService.get(key);
-    context.put("receiver", companyService.get(invoice.getReceiverId()));
-    context.put("sender", companyService.get(invoice.getSenderId()));
-    context.put("invoice", invoice);
+    data.put("receiver", companyService.get(invoice.getReceiverId()));
+    data.put("sender", companyService.get(invoice.getSenderId()));
+    data.put("invoice", invoice);
     return context;
   }
 
