@@ -11,7 +11,6 @@ import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
 import pico.erp.restapi.config.notify.NotifyContextFactory;
-import pico.erp.restapi.config.notify.purchase.request.PurchaseRequestNotifySubjectTypeDefinition;
 import pico.erp.shared.Public;
 import pico.erp.user.UserService;
 
@@ -64,6 +63,6 @@ public class InvoiceCreatedNotifyTypeDefinition implements NotifyTypeDefinition<
 
   @Override
   public NotifySubjectTypeId getSubjectTypeId() {
-    return PurchaseRequestNotifySubjectTypeDefinition.ID;
+    return InvoiceNotifySubjectTypeDefinition.ID;
   }
 }
