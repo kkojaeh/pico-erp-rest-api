@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +62,15 @@ public class NotifyTypeController {
     @RequestBody NotifyTypeRequests.UpdateRequest request) {
     request.setId(id);
     notifyTypeService.update(request);
+  }
+
+  @ApiOperation(value = "알림 유형 템플릿 테스트")
+  @PreAuthorize("hasRole('NOTIFY_MANAGER')")
+  @PostMapping(value = "/types/{id}/test-compile/markdown", consumes = MediaType.ALL_VALUE)
+  public String testCompileAsMarkdown(@PathVariable("id") NotifyTypeId id,
+    @RequestBody NotifyTypeRequests.TestCompileRequest request) {
+    request.setId(id);
+    return notifyTypeService.testCompile(request).asMarkdown();
   }
 
 }

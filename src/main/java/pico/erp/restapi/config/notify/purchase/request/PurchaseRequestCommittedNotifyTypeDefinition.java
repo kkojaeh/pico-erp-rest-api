@@ -10,7 +10,7 @@ import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
 import pico.erp.purchase.request.PurchaseRequestId;
 import pico.erp.purchase.request.PurchaseRequestService;
-import pico.erp.restapi.ClientProperties;
+import pico.erp.restapi.config.notify.NotifyContextFactory;
 import pico.erp.shared.Public;
 import pico.erp.user.UserService;
 
@@ -30,7 +30,7 @@ public class PurchaseRequestCommittedNotifyTypeDefinition implements
   private UserService userService;
 
   @Autowired
-  private ClientProperties clientProperties;
+  private NotifyContextFactory contextFactory;
 
   @Override
   public Object createContext(PurchaseRequestId key) {
@@ -39,8 +39,12 @@ public class PurchaseRequestCommittedNotifyTypeDefinition implements
     val requester = userService.get(purchaseRequest.getRequesterId());
     context.put("purchaseRequest", purchaseRequest);
     context.put("requester", requester);
-    context.put("locationOrigin", clientProperties.getLocationOrigin());
     return context;
+  }
+
+  @Override
+  public PurchaseRequestId createKey(String key) {
+    return PurchaseRequestId.from(key);
   }
 
   @Override

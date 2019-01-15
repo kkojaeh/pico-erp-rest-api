@@ -1,6 +1,5 @@
 package pico.erp.restapi.config.notify.purchase.request;
 
-import java.util.HashMap;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -10,7 +9,7 @@ import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
 import pico.erp.purchase.request.PurchaseRequestId;
 import pico.erp.purchase.request.PurchaseRequestService;
-import pico.erp.restapi.ClientProperties;
+import pico.erp.restapi.config.notify.NotifyContextFactory;
 import pico.erp.shared.Public;
 
 @Public
@@ -25,15 +24,19 @@ public class PurchaseRequestRejectedNotifyTypeDefinition implements
   private PurchaseRequestService purchaseRequestService;
 
   @Autowired
-  private ClientProperties clientProperties;
+  private NotifyContextFactory contextFactory;
 
   @Override
   public Object createContext(PurchaseRequestId key) {
-    val context = new HashMap<String, Object>();
+    val context = contextFactory.factory();
     val purchaseRequest = purchaseRequestService.get(key);
     context.put("purchaseRequest", purchaseRequest);
-    context.put("locationOrigin", clientProperties.getLocationOrigin());
     return context;
+  }
+
+  @Override
+  public PurchaseRequestId createKey(String key) {
+    return PurchaseRequestId.from(key);
   }
 
   @Override

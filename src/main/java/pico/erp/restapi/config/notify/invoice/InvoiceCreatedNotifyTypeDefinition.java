@@ -1,6 +1,5 @@
 package pico.erp.restapi.config.notify.invoice;
 
-import java.util.HashMap;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -11,7 +10,7 @@ import pico.erp.invoice.InvoiceService;
 import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
-import pico.erp.restapi.ClientProperties;
+import pico.erp.restapi.config.notify.NotifyContextFactory;
 import pico.erp.restapi.config.notify.purchase.request.PurchaseRequestNotifySubjectTypeDefinition;
 import pico.erp.shared.Public;
 import pico.erp.user.UserService;
@@ -30,22 +29,26 @@ public class InvoiceCreatedNotifyTypeDefinition implements NotifyTypeDefinition<
   @Autowired
   private CompanyService companyService;
 
-  @Autowired
-  private ClientProperties clientProperties;
-
   @Lazy
   @Autowired
   private UserService userService;
 
+  @Autowired
+  private NotifyContextFactory contextFactory;
+
   @Override
   public Object createContext(InvoiceId key) {
-    val context = new HashMap<String, Object>();
+    val context = contextFactory.factory();
     val invoice = invoiceService.get(key);
     context.put("receiver", companyService.get(invoice.getReceiverId()));
     context.put("sender", companyService.get(invoice.getSenderId()));
     context.put("invoice", invoice);
-    context.put("locationOrigin", clientProperties.getLocationOrigin());
     return context;
+  }
+
+  @Override
+  public InvoiceId createKey(String key) {
+    return InvoiceId.from(key);
   }
 
   @Override
