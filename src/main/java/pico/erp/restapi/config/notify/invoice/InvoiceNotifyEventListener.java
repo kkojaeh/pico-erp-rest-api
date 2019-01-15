@@ -35,7 +35,6 @@ public class InvoiceNotifyEventListener {
     + InvoiceEvents.CreatedEvent.CHANNEL)
   public void onInvoiceCreated(InvoiceEvents.CreatedEvent event) {
     val id = event.getInvoiceId();
-    val purchaseRequest = invoiceService.get(id);
 
     notifyService.notify(
       NotifyRequests.NotifyGroupRequest.builder()
