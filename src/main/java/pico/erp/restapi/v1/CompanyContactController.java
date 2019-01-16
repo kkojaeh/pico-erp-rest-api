@@ -59,8 +59,8 @@ public class CompanyContactController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/contacts")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
-  public void create(@RequestBody CompanyContactRequests.CreateRequest request) {
-    companyContactService.create(request);
+  public CompanyContactData create(@RequestBody CompanyContactRequests.CreateRequest request) {
+    return companyContactService.create(request);
   }
 
 

@@ -46,10 +46,10 @@ public class ProjectSaleItemController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/projects/{projectId}/sale-items")
   @PreAuthorize("hasRole('PROJECT_MANAGER')")
-  public void create(@PathVariable("projectId") ProjectId projectId,
+  public ProjectSaleItemData create(@PathVariable("projectId") ProjectId projectId,
     @RequestBody ProjectSaleItemRequests.CreateRequest request) {
     request.setProjectId(projectId);
-    projectSaleItemService.create(request);
+    return projectSaleItemService.create(request);
   }
 
 

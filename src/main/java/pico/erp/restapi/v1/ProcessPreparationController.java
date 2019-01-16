@@ -51,8 +51,9 @@ public class ProcessPreparationController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/preparations")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void create(@RequestBody ProcessPreparationRequests.CreateRequest request) {
-    preparationService.create(request);
+  public ProcessPreparationData create(
+    @RequestBody ProcessPreparationRequests.CreateRequest request) {
+    return preparationService.create(request);
   }
 
   @ApiOperation(value = "공정 유형 삭제")

@@ -58,10 +58,10 @@ public class BomMaterialController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/boms/{bomId}/materials")
   @PreAuthorize("hasRole('BOM_MANAGER')")
-  public void create(@PathVariable("bomId") BomId bomId,
+  public BomData create(@PathVariable("bomId") BomId bomId,
     @RequestBody BomMaterialRequests.CreateRequest request) {
     request.setBomId(bomId);
-    bomMaterialService.create(request);
+    return bomMaterialService.create(request);
   }
 
   @ApiOperation(value = "BOM 자재 삭제")

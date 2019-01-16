@@ -46,8 +46,8 @@ public class WarehouseSiteController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/sites")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody SiteRequests.CreateRequest request) {
-    siteService.create(request);
+  public SiteData create(@RequestBody SiteRequests.CreateRequest request) {
+    return siteService.create(request);
   }
 
 

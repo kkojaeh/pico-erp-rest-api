@@ -47,8 +47,8 @@ public class WarehouseRackController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/racks")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody RackRequests.CreateRequest request) {
-    rackService.create(request);
+  public RackData create(@RequestBody RackRequests.CreateRequest request) {
+    return rackService.create(request);
   }
 
 

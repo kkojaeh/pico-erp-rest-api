@@ -69,8 +69,8 @@ public class CompanyController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/companies")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
-  public void create(@RequestBody CreateRequest request) {
-    companyService.create(request);
+  public CompanyData create(@RequestBody CreateRequest request) {
+    return companyService.create(request);
   }
 
   @ApiOperation(value = "회사 삭제")

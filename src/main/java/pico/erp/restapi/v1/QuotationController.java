@@ -121,8 +121,8 @@ public class QuotationController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/quotations")
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
-  public void create(@RequestBody DraftRequest request) {
-    quotationService.draft(request);
+  public QuotationData create(@RequestBody DraftRequest request) {
+    return quotationService.draft(request);
   }
 
   @ApiOperation(value = "견적 삭제")

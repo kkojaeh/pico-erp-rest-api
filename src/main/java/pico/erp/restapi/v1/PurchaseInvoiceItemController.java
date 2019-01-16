@@ -41,10 +41,10 @@ public class PurchaseInvoiceItemController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/invoices/{invoiceId}/items")
   @PreAuthorize("hasAnyRole('PURCHASE_INVOICE_PUBLISHER', 'PURCHASE_INVOICE_MANAGER')")
-  public void create(@PathVariable("invoiceId") PurchaseInvoiceId invoiceId,
+  public PurchaseInvoiceItemData create(@PathVariable("invoiceId") PurchaseInvoiceId invoiceId,
     @RequestBody PurchaseInvoiceItemRequests.CreateRequest request) {
     request.setInvoiceId(invoiceId);
-    purchaseInvoiceItemService.create(request);
+    return purchaseInvoiceItemService.create(request);
   }
 
   @ApiOperation(value = "발주 송장 품목 삭제")

@@ -47,12 +47,12 @@ public class WarehouseTransactionRequestItemLotController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/transaction-requests/{requestId}/items/{requestItemId}/lots")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_TRANSACTION_REQUESTER')")
-  public void create(
+  public TransactionRequestItemLotData create(
     @PathVariable("requestId") TransactionRequestId requestId,
     @PathVariable("requestItemId") TransactionRequestItemId requestItemId,
     @RequestBody TransactionRequestItemLotRequests.CreateRequest request) {
     request.setRequestItemId(requestItemId);
-    transactionRequestItemLotService.create(request);
+    return transactionRequestItemLotService.create(request);
   }
 
 

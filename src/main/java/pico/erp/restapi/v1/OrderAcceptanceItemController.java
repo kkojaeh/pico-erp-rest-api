@@ -45,10 +45,11 @@ public class OrderAcceptanceItemController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/acceptances/{orderAcceptanceId}/items")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
-  public void create(@PathVariable("orderAcceptanceId") OrderAcceptanceId orderAcceptanceId,
+  public OrderAcceptanceItemData create(
+    @PathVariable("orderAcceptanceId") OrderAcceptanceId orderAcceptanceId,
     @RequestBody OrderAcceptanceItemRequests.CreateRequest request) {
     request.setOrderAcceptanceId(orderAcceptanceId);
-    orderAcceptanceItemService.create(request);
+    return orderAcceptanceItemService.create(request);
   }
 
   @ApiOperation(value = "주문 접수 품목 삭제")

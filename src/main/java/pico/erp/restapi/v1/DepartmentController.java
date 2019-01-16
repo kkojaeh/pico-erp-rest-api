@@ -76,8 +76,8 @@ public class DepartmentController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/departments")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  public void create(@RequestBody DepartmentRequests.CreateRequest request) {
-    departmentService.create(request);
+  public DepartmentData create(@RequestBody DepartmentRequests.CreateRequest request) {
+    return departmentService.create(request);
   }
 
   @ApiOperation(value = "부서 삭제")

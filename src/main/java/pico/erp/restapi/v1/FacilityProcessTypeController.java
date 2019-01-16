@@ -46,8 +46,9 @@ public class FacilityProcessTypeController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/process-types")
   @PreAuthorize("hasRole('FACILITY_MANAGER')")
-  public void create(@RequestBody FacilityProcessTypeRequests.CreateRequest request) {
-    facilityProcessTypeService.create(request);
+  public FacilityProcessTypeData create(
+    @RequestBody FacilityProcessTypeRequests.CreateRequest request) {
+    return facilityProcessTypeService.create(request);
   }
 
 

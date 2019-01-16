@@ -67,9 +67,9 @@ public class WorkScheduleController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/work-schedules")
   @PreAuthorize("hasRole('WORK_SCHEDULE_MANAGER')")
-  public void create(
+  public WorkScheduleData create(
     @RequestBody WorkScheduleRequests.CreateRequest request) {
-    workScheduleService.create(request);
+    return workScheduleService.create(request);
   }
 
   @ApiOperation(value = "작업일 삭제")

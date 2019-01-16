@@ -47,8 +47,8 @@ public class WarehouseBayController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/bays")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody BayRequests.CreateRequest request) {
-    bayService.create(request);
+  public BayData create(@RequestBody BayRequests.CreateRequest request) {
+    return bayService.create(request);
   }
 
 

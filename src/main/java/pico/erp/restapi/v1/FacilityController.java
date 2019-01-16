@@ -74,8 +74,8 @@ public class FacilityController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/facilities")
   @PreAuthorize("hasRole('FACILITY_MANAGER')")
-  public void create(@RequestBody FacilityRequests.CreateRequest request) {
-    facilityService.create(request);
+  public FacilityData create(@RequestBody FacilityRequests.CreateRequest request) {
+    return facilityService.create(request);
   }
 
 

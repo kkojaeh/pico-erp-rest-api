@@ -58,10 +58,10 @@ public class BomProcessController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/boms/{bomId}/processes")
   @PreAuthorize("hasRole('BOM_MANAGER')")
-  public void create(@PathVariable("bomId") BomId bomId,
+  public BomProcessData create(@PathVariable("bomId") BomId bomId,
     @RequestBody BomProcessRequests.CreateRequest request) {
     request.setBomId(bomId);
-    bomProcessService.create(request);
+    return bomProcessService.create(request);
   }
 
   @ApiOperation(value = "BOM 자재 삭제")

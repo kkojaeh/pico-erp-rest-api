@@ -66,8 +66,8 @@ public class ProjectController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/projects")
   @PreAuthorize("hasRole('PROJECT_MANAGER')")
-  public void create(@RequestBody ProjectRequests.CreateRequest request) {
-    projectService.create(request);
+  public ProjectData create(@RequestBody ProjectRequests.CreateRequest request) {
+    return projectService.create(request);
   }
 
 

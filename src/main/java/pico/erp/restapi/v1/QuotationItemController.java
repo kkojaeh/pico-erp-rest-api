@@ -49,10 +49,10 @@ public class QuotationItemController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/quotations/{quotationId}/items")
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
-  public void create(@PathVariable("quotationId") QuotationId quotationId,
+  public QuotationItemData create(@PathVariable("quotationId") QuotationId quotationId,
     @RequestBody QuotationItemRequests.CreateRequest request) {
     request.setQuotationId(quotationId);
-    quotationItemService.create(request);
+    return quotationItemService.create(request);
   }
 
   @ApiOperation(value = "견적 품목 삭제")

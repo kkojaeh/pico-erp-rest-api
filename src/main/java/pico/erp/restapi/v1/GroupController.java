@@ -89,8 +89,8 @@ public class GroupController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/groups")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  public void create(@RequestBody GroupRequests.CreateRequest request) {
-    groupService.create(request);
+  public GroupData create(@RequestBody GroupRequests.CreateRequest request) {
+    return groupService.create(request);
   }
 
   @ApiOperation(value = "그룹 삭제")

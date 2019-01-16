@@ -61,8 +61,8 @@ public class WarehouseStationController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/stations")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody StationRequests.CreateRequest request) {
-    stationService.create(request);
+  public StationData create(@RequestBody StationRequests.CreateRequest request) {
+    return stationService.create(request);
   }
 
   @ApiOperation(value = "창고 사이트 삭제")

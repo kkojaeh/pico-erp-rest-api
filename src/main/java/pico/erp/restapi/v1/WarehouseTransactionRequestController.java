@@ -88,8 +88,9 @@ public class WarehouseTransactionRequestController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/transaction-requests")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_TRANSACTION_REQUESTER')")
-  public void create(@RequestBody TransactionRequestRequests.CreateRequest request) {
-    transactionRequestService.create(request);
+  public TransactionRequestData create(
+    @RequestBody TransactionRequestRequests.CreateRequest request) {
+    return transactionRequestService.create(request);
   }
 
   @CacheControl(maxAge = 300)

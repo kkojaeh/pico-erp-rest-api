@@ -47,8 +47,8 @@ public class WarehouseLevelController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/levels")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody LevelRequests.CreateRequest request) {
-    levelService.create(request);
+  public LevelData create(@RequestBody LevelRequests.CreateRequest request) {
+    return levelService.create(request);
   }
 
 

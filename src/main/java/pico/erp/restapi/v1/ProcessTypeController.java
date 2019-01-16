@@ -92,8 +92,8 @@ public class ProcessTypeController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/process-types")
   @PreAuthorize("hasRole('PROCESS_TYPE_MANAGER')")
-  public void create(@RequestBody ProcessTypeRequests.CreateRequest request) {
-    processTypeService.create(request);
+  public ProcessTypeData create(@RequestBody ProcessTypeRequests.CreateRequest request) {
+    return processTypeService.create(request);
   }
 
   @ApiOperation(value = "공정 유형 삭제")

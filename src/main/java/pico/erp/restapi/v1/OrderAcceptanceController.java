@@ -71,8 +71,8 @@ public class OrderAcceptanceController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/acceptances")
   @PreAuthorize("hasRole('ORDER_ACCEPTANCE_MANAGER')")
-  public void create(@RequestBody OrderAcceptanceRequests.CreateRequest request) {
-    orderAcceptanceService.create(request);
+  public OrderAcceptanceData create(@RequestBody OrderAcceptanceRequests.CreateRequest request) {
+    return orderAcceptanceService.create(request);
   }
 
   @ApiOperation(value = "주문 접수 삭제")

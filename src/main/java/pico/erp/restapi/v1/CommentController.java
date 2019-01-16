@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import pico.erp.comment.CommentData;
 import pico.erp.comment.CommentId;
 import pico.erp.comment.CommentQuery;
 import pico.erp.comment.CommentRequests.AddRequest;
@@ -48,8 +49,8 @@ public class CommentController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/comments")
   @PreAuthorize("isAuthenticated()")
-  public void add(@RequestBody AddRequest request) {
-    commentService.add(request);
+  public CommentData add(@RequestBody AddRequest request) {
+    return commentService.add(request);
   }
 
   @ApiOperation(value = "댓글 삭제")

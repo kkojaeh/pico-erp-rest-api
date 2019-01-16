@@ -58,8 +58,8 @@ public class CompanyAddressController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/addresses")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
-  public void create(@RequestBody CompanyAddressRequests.CreateRequest request) {
-    companyAddressService.create(request);
+  public CompanyAddressData create(@RequestBody CompanyAddressRequests.CreateRequest request) {
+    return companyAddressService.create(request);
   }
 
 

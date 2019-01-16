@@ -50,10 +50,10 @@ public class QuotationItemAdditionController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/quotations/{quotationId}/item-additions")
   @PreAuthorize("hasRole('QUOTATION_MANAGER')")
-  public void create(@PathVariable("quotationId") QuotationId quotationId,
+  public QuotationItemAdditionData create(@PathVariable("quotationId") QuotationId quotationId,
     @RequestBody QuotationItemAdditionRequests.CreateRequest request) {
     request.setQuotationId(quotationId);
-    quotationItemAdditionService.create(request);
+    return quotationItemAdditionService.create(request);
   }
 
   @ApiOperation(value = "견적 품목 부가 삭제")

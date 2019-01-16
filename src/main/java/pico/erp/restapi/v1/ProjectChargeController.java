@@ -45,10 +45,10 @@ public class ProjectChargeController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/projects/{projectId}/charges")
   @PreAuthorize("hasRole('PROJECT_MANAGER')")
-  public void create(@PathVariable("projectId") ProjectId projectId,
+  public ProjectChargeData create(@PathVariable("projectId") ProjectId projectId,
     @RequestBody ProjectChargeRequests.CreateRequest request) {
     request.setProjectId(projectId);
-    projectChargeService.create(request);
+    return projectChargeService.create(request);
   }
 
   @ApiOperation(value = "프로젝트 비용 삭제")

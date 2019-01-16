@@ -45,10 +45,10 @@ public class PurchaseRequestItemController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/requests/{requestId}/items")
   @PreAuthorize("hasAnyRole('PURCHASE_REQUESTER', 'PURCHASE_REQUEST_MANAGER')")
-  public void create(@PathVariable("requestId") PurchaseRequestId requestId,
+  public PurchaseRequestItemData create(@PathVariable("requestId") PurchaseRequestId requestId,
     @RequestBody PurchaseRequestItemRequests.CreateRequest request) {
     request.setRequestId(requestId);
-    purchaseRequestItemService.create(request);
+    return purchaseRequestItemService.create(request);
   }
 
   @ApiOperation(value = "구매 요청 품목 삭제")

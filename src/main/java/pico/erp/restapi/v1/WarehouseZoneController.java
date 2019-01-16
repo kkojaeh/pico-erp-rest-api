@@ -47,8 +47,8 @@ public class WarehouseZoneController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/location/zones")
   @PreAuthorize("hasRole('WAREHOUSE_MANAGER')")
-  public void create(@RequestBody ZoneRequests.CreateRequest request) {
-    zoneService.create(request);
+  public ZoneData create(@RequestBody ZoneRequests.CreateRequest request) {
+    return zoneService.create(request);
   }
 
 
