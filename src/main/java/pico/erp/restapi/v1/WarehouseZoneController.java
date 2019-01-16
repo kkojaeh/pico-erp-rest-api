@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 import pico.erp.warehouse.location.site.SiteId;
 import pico.erp.warehouse.location.zone.ZoneData;
 import pico.erp.warehouse.location.zone.ZoneId;
@@ -58,6 +59,7 @@ public class WarehouseZoneController {
     zoneService.delete(new ZoneRequests.DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/zones/{id}", consumes = MediaType.ALL_VALUE)

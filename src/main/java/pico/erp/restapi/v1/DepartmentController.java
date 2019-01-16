@@ -95,6 +95,7 @@ public class DepartmentController {
     return SharedController.asResponse(departmentTransporter.exportExcel(request));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "부서 조회")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @GetMapping(value = "/departments/{id}", consumes = MediaType.ALL_VALUE)

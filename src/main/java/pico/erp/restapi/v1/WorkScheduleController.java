@@ -87,6 +87,7 @@ public class WorkScheduleController {
     workScheduleService.generate(request);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "작업일 조회")
   @PreAuthorize("hasAnyRole('WORK_SCHEDULE_MANAGER', 'WORK_SCHEDULE_ACCESSOR')")
   @GetMapping(value = "/work-schedules/{id}", consumes = MediaType.ALL_VALUE)
@@ -95,6 +96,7 @@ public class WorkScheduleController {
     return workScheduleService.get(id);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "작업일 조회")
   @PreAuthorize("hasAnyRole('WORK_SCHEDULE_MANAGER', 'WORK_SCHEDULE_ACCESSOR')")
   @GetMapping(value = "/categories/{id}", consumes = MediaType.ALL_VALUE)

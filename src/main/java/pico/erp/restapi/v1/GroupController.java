@@ -127,6 +127,7 @@ public class GroupController {
     return groupQuery.findAllGroupRoleGrantedOrNot(id);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "그룹 조회")
   @PreAuthorize("hasRole('USER_MANAGER')")
   @GetMapping(value = "/groups/{id}", consumes = MediaType.ALL_VALUE)

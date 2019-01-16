@@ -27,6 +27,7 @@ import pico.erp.notify.type.NotifyTypeRequests;
 import pico.erp.notify.type.NotifyTypeService;
 import pico.erp.notify.type.NotifyTypeView;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("notify-type-controller-v1")
@@ -43,6 +44,7 @@ public class NotifyTypeController {
   @Autowired
   private NotifyTypeQuery notifyTypeQuery;
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "알림 유형 조회")
   @PreAuthorize("hasRole('NOTIFY_MANAGER')")
   @GetMapping(value = "/types/{id}", consumes = MediaType.ALL_VALUE)

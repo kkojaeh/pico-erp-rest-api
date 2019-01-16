@@ -81,6 +81,7 @@ public class ProcessController {
     processService.delete(new DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "공정 조회")
   @PreAuthorize("hasAnyRole('PROCESS_MANAGER', 'PROCESS_ACCESSOR')")
   @GetMapping(value = "/processes/{id}", consumes = MediaType.ALL_VALUE)

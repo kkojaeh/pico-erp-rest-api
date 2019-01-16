@@ -27,6 +27,7 @@ import pico.erp.process.preparation.ProcessPreparationId;
 import pico.erp.process.preparation.ProcessPreparationRequests;
 import pico.erp.process.preparation.ProcessPreparationService;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("preprocess-controller-v1")
@@ -61,6 +62,7 @@ public class ProcessPreparationController {
     preparationService.delete(new ProcessPreparationRequests.DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "공정 유형 조회")
   @PreAuthorize("hasAnyRole('PROCESS_TYPE_MANAGER', 'PROCESS_ACCESSOR')")
   @GetMapping(value = "/preparations/{id}", consumes = MediaType.ALL_VALUE)

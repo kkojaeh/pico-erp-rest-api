@@ -17,6 +17,7 @@ import pico.erp.notify.subject.type.NotifySubjectTypeData;
 import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.subject.type.NotifySubjectTypeService;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("notify-subject-type-controller-v1")
@@ -29,6 +30,7 @@ public class NotifySubjectTypeController {
   @Autowired
   private NotifySubjectTypeService notifySubjectTypeService;
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "알림 주제 유형 조회")
   @PreAuthorize("hasRole('NOTIFY_MANAGER')")
   @GetMapping(value = "/subject-types/{id}", consumes = MediaType.ALL_VALUE)

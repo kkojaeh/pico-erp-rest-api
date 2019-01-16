@@ -25,6 +25,7 @@ import pico.erp.purchase.order.item.PurchaseOrderItemId;
 import pico.erp.purchase.order.item.PurchaseOrderItemRequests;
 import pico.erp.purchase.order.item.PurchaseOrderItemService;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("purchase-order-item-controller-v1")
@@ -55,6 +56,7 @@ public class PurchaseOrderItemController {
     purchaseOrderItemService.delete(new PurchaseOrderItemRequests.DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "발주 품목 조회")
   @PreAuthorize("hasAnyRole('PURCHASE_ORDER_CHARGER', 'PURCHASE_ORDER_MANAGER')")
   @GetMapping(value = "/items/{id}", consumes = MediaType.ALL_VALUE)

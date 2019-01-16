@@ -120,6 +120,7 @@ public class PurchaseRequestController {
     return purchaseRequestService.create(request);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "구매 요청 조회")
   @PreAuthorize("hasAnyRole('PURCHASE_REQUESTER', 'PURCHASE_REQUEST_ACCEPTER', 'PURCHASE_REQUEST_MANAGER')")
   @GetMapping(value = "/requests/{id}", consumes = MediaType.ALL_VALUE)

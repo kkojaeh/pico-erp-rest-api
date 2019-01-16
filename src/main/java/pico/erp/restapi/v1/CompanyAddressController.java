@@ -71,6 +71,7 @@ public class CompanyAddressController {
   }
 
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 주소지 조회")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
   @GetMapping(value = "/addresses/{id}", consumes = MediaType.ALL_VALUE)

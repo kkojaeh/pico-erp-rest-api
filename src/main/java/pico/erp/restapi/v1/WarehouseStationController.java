@@ -72,6 +72,7 @@ public class WarehouseStationController {
     stationService.delete(new StationRequests.DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "창고 사이트 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_ACCESSOR')")
   @GetMapping(value = "/location/stations/{id}", consumes = MediaType.ALL_VALUE)

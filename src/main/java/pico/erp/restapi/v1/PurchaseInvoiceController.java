@@ -102,6 +102,7 @@ public class PurchaseInvoiceController {
   }
   */
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "발주 송장 조회")
   @PreAuthorize("hasAnyRole('PURCHASE_INVOICE_PUBLISHER', 'PURCHASE_INVOICE_MANAGER')")
   @GetMapping(value = "/invoices/{id}", consumes = MediaType.ALL_VALUE)

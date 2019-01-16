@@ -104,6 +104,7 @@ public class PurchaseOrderController {
     return purchaseOrderService.generate(request);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "발주 조회")
   @PreAuthorize("hasAnyRole('PURCHASE_ORDER_CHARGER', 'PURCHASE_ORDER_MANAGER')")
   @GetMapping(value = "/orders/{id}", consumes = MediaType.ALL_VALUE)

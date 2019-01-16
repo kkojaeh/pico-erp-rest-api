@@ -153,6 +153,7 @@ public class QuotationController {
       );
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "견적 조회")
   @PreAuthorize("hasAnyRole('QUOTATION_MANAGER', 'QUOTATION_ACCESSOR')")
   @GetMapping(value = "/quotations/{id}", consumes = MediaType.ALL_VALUE)

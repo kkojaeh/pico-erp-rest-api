@@ -57,6 +57,7 @@ public class AttachmentController {
     return result;
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "첨부 조회")
   @PreAuthorize("isAuthenticated()")
   @GetMapping(value = "/attachments/{id}", consumes = MediaType.ALL_VALUE)

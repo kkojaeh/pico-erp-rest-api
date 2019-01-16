@@ -71,6 +71,7 @@ public class CompanyContactController {
     companyContactService.delete(new CompanyContactRequests.DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 연락처 조회")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
   @GetMapping(value = "/contacts/{id}", consumes = MediaType.ALL_VALUE)

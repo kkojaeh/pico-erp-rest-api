@@ -50,6 +50,7 @@ public class ProcessPreparationTypeController {
     return preparationTypeQuery.asLabels(keyword, labelQueryLimit);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "공정 유형 조회")
   @PreAuthorize("hasAnyRole('PROCESS_TYPE_MANAGER', 'PROCESS_ACCESSOR')")
   @GetMapping(value = "/preparation-types/{id}", consumes = MediaType.ALL_VALUE)

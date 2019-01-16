@@ -120,6 +120,7 @@ public class BomController {
     }
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "BOM 조회")
   @PreAuthorize("hasAnyRole('BOM_MANAGER', 'BOM_ACCESSOR')")
   @GetMapping(value = "/boms/{id}", consumes = MediaType.ALL_VALUE)

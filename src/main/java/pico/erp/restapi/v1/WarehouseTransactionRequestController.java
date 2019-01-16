@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 import pico.erp.warehouse.transaction.request.TransactionRequestData;
 import pico.erp.warehouse.transaction.request.TransactionRequestId;
 import pico.erp.warehouse.transaction.request.TransactionRequestQuery;
@@ -91,6 +92,7 @@ public class WarehouseTransactionRequestController {
     transactionRequestService.create(request);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "입/출고 조회")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_TRANSACTION_REQUESTER')")
   @GetMapping(value = "/transaction-requests/{id}", consumes = MediaType.ALL_VALUE)
@@ -98,6 +100,7 @@ public class WarehouseTransactionRequestController {
     return transactionRequestService.get(id);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "입/출고 검색")
   @PreAuthorize("hasAnyRole('WAREHOUSE_MANAGER', 'WAREHOUSE_TRANSACTION_REQUESTER')")
   @GetMapping(value = "/transaction-requests", consumes = MediaType.ALL_VALUE)

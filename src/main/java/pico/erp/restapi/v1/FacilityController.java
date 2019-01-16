@@ -87,6 +87,7 @@ public class FacilityController {
   }
 
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "설비 조회")
   @PreAuthorize("hasAnyRole('FACILITY_MANAGER', 'FACILITY_ACCESSOR')")
   @GetMapping(value = "/facilities/{id}", consumes = MediaType.ALL_VALUE)
@@ -94,6 +95,7 @@ public class FacilityController {
     return facilityService.get(id);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "설비 분류 조회")
   @PreAuthorize("hasAnyRole('FACILITY_MANAGER', 'FACILITY_ACCESSOR')")
   @GetMapping(value = "/categories/{id}", consumes = MediaType.ALL_VALUE)

@@ -26,6 +26,7 @@ import pico.erp.facility.process.type.FacilityProcessTypeId;
 import pico.erp.facility.process.type.FacilityProcessTypeRequests;
 import pico.erp.facility.process.type.FacilityProcessTypeService;
 import pico.erp.restapi.Versions;
+import pico.erp.restapi.web.CacheControl;
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
 @RestController("facility-process-type-controller-v1")
@@ -57,7 +58,7 @@ public class FacilityProcessTypeController {
     facilityProcessTypeService.delete(new FacilityProcessTypeRequests.DeleteRequest(id));
   }
 
-
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "설비 조회")
   @PreAuthorize("hasAnyRole('FACILITY_MANAGER', 'FACILITY_ACCESSOR')")
   @GetMapping(value = "/process-types/{id}", consumes = MediaType.ALL_VALUE)

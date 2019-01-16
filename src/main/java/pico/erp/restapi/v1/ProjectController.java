@@ -79,6 +79,7 @@ public class ProjectController {
   }
 
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "프로젝트 조회")
   @PreAuthorize("hasAnyRole('PROJECT_MANAGER', 'PROJECT_ACCESSOR')")
   @GetMapping(value = "/projects/{id}", consumes = MediaType.ALL_VALUE)

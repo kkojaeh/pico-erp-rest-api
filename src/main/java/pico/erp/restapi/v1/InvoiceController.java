@@ -56,6 +56,7 @@ public class InvoiceController {
   @Autowired
   private InvoiceQuery invoiceQuery;
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "송장 조회")
   @PreAuthorize("hasAnyRole('INVOICE_RECEIVER', 'INVOICE_MANAGER')")
   @GetMapping(value = "/invoices/{id}", consumes = MediaType.ALL_VALUE)

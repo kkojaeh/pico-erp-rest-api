@@ -82,6 +82,7 @@ public class OrderAcceptanceController {
     orderAcceptanceService.delete(new OrderAcceptanceRequests.DeleteRequest(id));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "주문 접수 조회")
   @PreAuthorize("hasAnyRole('ORDER_ACCEPTANCE_MANAGER', 'ORDER_ACCEPTANCE_ACCESSOR')")
   @GetMapping(value = "/acceptances/{id}", consumes = MediaType.ALL_VALUE)

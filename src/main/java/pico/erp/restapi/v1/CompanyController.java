@@ -89,6 +89,7 @@ public class CompanyController {
     return SharedController.asResponse(companyTransporter.exportExcel(request));
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 조회")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
   @GetMapping(value = "/companies/{id}", consumes = MediaType.ALL_VALUE)
@@ -96,6 +97,7 @@ public class CompanyController {
     return companyService.get(id);
   }
 
+  @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 조회(등록번호)")
   @PreAuthorize("hasRole('COMPANY_MANAGER')")
   @GetMapping(value = "/registration-numbers/{number}", consumes = MediaType.ALL_VALUE)
