@@ -60,7 +60,7 @@ public class PurchaseRequestItemController {
   }
 
   @ApiOperation(value = "구매 요청 품목 조회")
-  @PreAuthorize("hasAnyRole('PURCHASE_REQUESTER', 'PURCHASE_REQUEST_MANAGER')")
+  @PreAuthorize("hasAnyRole('PURCHASE_REQUESTER', 'PURCHASE_REQUEST_MANAGER', 'PURCHASE_REQUEST_ACCEPTER')")
   @GetMapping(value = "/requests/{requestId}/items", consumes = MediaType.ALL_VALUE)
   public List<PurchaseRequestItemData> getAll(
     @PathVariable("requestId") PurchaseRequestId requestId) {
