@@ -97,7 +97,7 @@ public class DepartmentController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "부서 조회")
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   @GetMapping(value = "/departments/{id}", consumes = MediaType.ALL_VALUE)
   public DepartmentData get(@PathVariable("id") DepartmentId id) {
     return departmentService.get(id);
@@ -117,7 +117,7 @@ public class DepartmentController {
 
 
   @ApiOperation(value = "부서 검색")
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   @GetMapping(value = "/departments", consumes = MediaType.ALL_VALUE)
   public Page<DepartmentView> retrieve(
     @ModelAttribute DepartmentView.Filter filter,

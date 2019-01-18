@@ -129,7 +129,7 @@ public class GroupController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "그룹 조회")
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   @GetMapping(value = "/groups/{id}", consumes = MediaType.ALL_VALUE)
   public GroupData get(@PathVariable("id") GroupId id) {
     return groupService.get(id);
@@ -164,7 +164,7 @@ public class GroupController {
   }
 
   @ApiOperation(value = "그룹 검색")
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   @GetMapping(value = "/groups", consumes = MediaType.ALL_VALUE)
   public Page<GroupView> retrieve(
     @ModelAttribute GroupView.Filter filter,
