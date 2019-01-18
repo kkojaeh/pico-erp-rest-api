@@ -121,7 +121,7 @@ public class GroupController {
 
   @ApiOperation(value = "그룹 권한 부여 상태 조회")
   @GetMapping(value = "/groups/{id}/roles", consumes = MediaType.ALL_VALUE)
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   public Collection<GroupRoleGrantedOrNotView> findAllGroupRoleGranted(
     @PathVariable(name = "id", required = false) GroupId id) {
     return groupQuery.findAllGroupRoleGrantedOrNot(id);
