@@ -112,7 +112,7 @@ public class PurchaseInvoiceController {
 
 
   @ApiOperation(value = "발주 송장 검색")
-  @PreAuthorize("hasAnyRole('PURCHASE_INVOICE_PUBLISHER', 'PURCHASE_INVOICE_MANAGER')")
+  @PreAuthorize("hasAnyRole('PURCHASE_INVOICE_PUBLISHER', 'PURCHASE_INVOICE_MANAGER', 'PURCHASE_ORDER_CHARGER', 'PURCHASE_ORDER_MANAGER')")
   @GetMapping(value = "/orders/{orderId}/invoices", consumes = MediaType.ALL_VALUE)
   public List<PurchaseInvoiceData> retrieve(@PathVariable("orderId") PurchaseOrderId orderId) {
     return purchaseInvoiceService.getAll(orderId);
