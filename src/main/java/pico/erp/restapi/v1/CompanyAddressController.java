@@ -73,14 +73,14 @@ public class CompanyAddressController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 주소지 조회")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/addresses/{id}", consumes = MediaType.ALL_VALUE)
   public CompanyAddressData get(@PathVariable("id") CompanyAddressId id) {
     return companyAddressService.get(id);
   }
 
   @ApiOperation(value = "회사 주소지 검색")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/addresses", consumes = MediaType.ALL_VALUE)
   public Page<CompanyAddressView> retrieve(
     @ModelAttribute CompanyAddressView.Filter filter,
@@ -98,7 +98,7 @@ public class CompanyAddressController {
   }
 
   @ApiOperation(value = "지정 회사 주소지 검색")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/companies/{companyId}/addresses", consumes = MediaType.ALL_VALUE)
   public List<CompanyAddressData> retrieveAddresses(
     @PathVariable("companyId") CompanyId companyId) {

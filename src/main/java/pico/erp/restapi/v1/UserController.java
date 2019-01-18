@@ -101,7 +101,7 @@ public class UserController {
 
   @ApiOperation(value = "사용자 권한 부여 상태 조회")
   @GetMapping(value = "/users/{id}/roles", consumes = MediaType.ALL_VALUE)
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   public Collection<UserRoleGrantedOrNotView> findAllUserRoleGranted(
     @PathVariable("id") UserId id) {
     return userQuery.findAllUserRoleGrantedOrNot(id);
@@ -113,11 +113,12 @@ public class UserController {
   @GetMapping(value = "/users/{id}", consumes = MediaType.ALL_VALUE)
   public UserData get(@PathVariable("id") UserId id,
     @AuthenticationPrincipal AuthorizedUser userDetails) {
-    boolean isManager = userDetails.hasRole(Roles.USER_MANAGER.getId());
+    boolean granted = userDetails
+      .hasAnyRole(Roles.USER_MANAGER.getId(), Roles.USER_ACCESSOR.getId());
 
     UserData user = userService.get(id);
 
-    if (!isManager) {
+    if (!granted) {
       user.setGroups(Collections.emptySet());
       user.setRoles(Collections.emptySet());
       user.setWholeRoles(Collections.emptySet());
@@ -153,7 +154,7 @@ public class UserController {
   }
 
   @ApiOperation(value = "사용자 검색")
-  @PreAuthorize("hasRole('USER_MANAGER')")
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
   @GetMapping(value = "/users", consumes = MediaType.ALL_VALUE)
   public Page<UserView> retrieve(@ModelAttribute UserView.Filter filter,
     @PageableDefault Pageable pageable) {

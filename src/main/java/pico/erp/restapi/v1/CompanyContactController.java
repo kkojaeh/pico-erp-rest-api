@@ -73,14 +73,14 @@ public class CompanyContactController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 연락처 조회")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/contacts/{id}", consumes = MediaType.ALL_VALUE)
   public CompanyContactData get(@PathVariable("id") CompanyContactId id) {
     return companyContactService.get(id);
   }
 
   @ApiOperation(value = "회사 연락처 검색")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/contacts", consumes = MediaType.ALL_VALUE)
   public Page<CompanyContactView> retrieve(
     @ModelAttribute CompanyContactView.Filter filter,
@@ -98,7 +98,7 @@ public class CompanyContactController {
   }
 
   @ApiOperation(value = "지정 회사 연락처 검색")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/companies/{companyId}/contacts", consumes = MediaType.ALL_VALUE)
   public List<CompanyContactData> retrieveContracts(
     @PathVariable("companyId") CompanyId companyId) {

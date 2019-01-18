@@ -91,7 +91,7 @@ public class CompanyController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 조회")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/companies/{id}", consumes = MediaType.ALL_VALUE)
   public CompanyData get(@PathVariable("id") CompanyId id) {
     return companyService.get(id);
@@ -99,7 +99,7 @@ public class CompanyController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "회사 조회(등록번호)")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/registration-numbers/{number}", consumes = MediaType.ALL_VALUE)
   public CompanyData get(@PathVariable("number") RegistrationNumber number) {
     return companyService.get(number);
@@ -124,7 +124,7 @@ public class CompanyController {
   }
 
   @ApiOperation(value = "회사 검색")
-  @PreAuthorize("hasRole('COMPANY_MANAGER')")
+  @PreAuthorize("hasAnyRole('COMPANY_MANAGER', 'COMPANY_ACCESSOR')")
   @GetMapping(value = "/companies", consumes = MediaType.ALL_VALUE)
   public Page<CompanyView> retrieve(@ModelAttribute CompanyView.Filter filter,
     Pageable pageable) {
