@@ -47,14 +47,14 @@ public class ItemSpecController {
   @ApiOperation(value = "품목 스펙 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/specs")
-  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER')")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER', 'ITEM_ACCESSOR')")
   public ItemSpecData create(@RequestBody ItemSpecRequests.CreateRequest request) {
     return itemSpecService.create(request);
   }
 
   @ApiOperation(value = "품목 스펙 삭제")
   @DeleteMapping("/specs/{id}")
-  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER')")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'BOM_MANAGER', 'ITEM_ACCESSOR')")
   public void delete(@PathVariable("id") ItemSpecId id) {
     itemSpecService.delete(
       new ItemSpecRequests.DeleteRequest(id)
