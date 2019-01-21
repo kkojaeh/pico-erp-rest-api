@@ -61,7 +61,7 @@ public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
   @Override
   public String getSummary() {
     return String
-      .format("%d (%d*%d) / %d", grammage, Math.max(width, height), Math.min(width, height),
+      .format("%d (%d*%d) / %d", grammage, width, height,
         incisionCount);
   }
 
