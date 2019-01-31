@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import pico.erp.item.ItemId;
 import pico.erp.process.ProcessData;
 import pico.erp.process.ProcessId;
 import pico.erp.process.ProcessQuery;
@@ -128,6 +129,15 @@ public class ProcessController {
     return processQuery.retrieve(filter, pageable);
   }
 
+  @ApiOperation(value = "공정 순서 수정")
+  @PutMapping("/processes/{id}/order")
+  @PreAuthorize("hasRole('BOM_MANAGER')")
+  public void changeOrder(@PathVariable("id") ProcessId id,
+    @RequestBody ProcessRequests.ChangeOrderRequest request) {
+    request.setId(id);
+    processService.changeOrder(request);
+  }
+
   @ApiOperation(value = "공정 수정")
   @PutMapping("/processes/{id}")
   @PreAuthorize("hasRole('PROCESS_MANAGER')")
@@ -140,10 +150,18 @@ public class ProcessController {
   @ApiOperation(value = "공정 계획 완료")
   @PutMapping("/processes/{id}/complete-plan")
   @PreAuthorize("hasRole('PROCESS_MANAGER')")
-  public void update(@PathVariable("id") ProcessId id,
+  public void completePlan(@PathVariable("id") ProcessId id,
     @RequestBody ProcessRequests.CompletePlanRequest request) {
     request.setId(id);
     processService.completePlan(request);
+  }
+
+  @ApiOperation(value = "품목 전체 공정")
+  @PreAuthorize("hasAnyRole('PROCESS_MANAGER', 'PROCESS_ACCESSOR')")
+  @GetMapping(value = "/items/{itemId}/processes", consumes = MediaType.ALL_VALUE)
+  public List<ProcessData> getAll(
+    @PathVariable("itemId") ItemId itemId) {
+    return processService.getAll(itemId);
   }
 
 }

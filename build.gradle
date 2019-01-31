@@ -67,6 +67,8 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-invoice:api:${invoiceVersion}")
   compile("com.github.kkojaeh.pico-erp-notify:api:${notifyVersion}")
   compile("com.github.kkojaeh.pico-erp-notify:mattermost:${notifyVersion}")
+  compile("com.github.kkojaeh.pico-erp-production-request:api:${productionRequestVersion}")
+  compile("com.github.kkojaeh.pico-erp-production-plan:api:${productionPlanVersion}")
 
 
   compileOnly("com.github.kkojaeh.pico-erp-attachment:impl:${attachmentVersion}")
@@ -110,6 +112,10 @@ dependencies {
   runtime("com.github.kkojaeh.pico-erp-warehouse:test:${warehouseVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-notify:impl:${notifyVersion}")
+
+  runtime("com.github.kkojaeh.pico-erp-production-request:test:${productionRequestVersion}")
+
+  runtime("com.github.kkojaeh.pico-erp-production-plan:test:${productionPlanVersion}")
 
   compile('com.google.firebase:firebase-admin:6.1.0')
 
