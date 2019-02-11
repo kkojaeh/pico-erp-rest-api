@@ -102,6 +102,7 @@ import pico.erp.item.ItemApi;
 import pico.erp.notify.NotifyApi;
 import pico.erp.order.acceptance.OrderAcceptanceApi;
 import pico.erp.process.ProcessApi;
+import pico.erp.product.specification.ProductSpecificationApi;
 import pico.erp.production.plan.ProductionPlanApi;
 import pico.erp.production.request.ProductionRequestApi;
 import pico.erp.project.ProjectApi;
@@ -235,7 +236,8 @@ public class RestApiApplication implements ApplicationStarter {
       InvoiceApi.ID,
       PurchaseInvoiceApi.ID,
       ProductionRequestApi.ID,
-      ProductionPlanApi.ID
+      ProductionPlanApi.ID,
+      ProductSpecificationApi.ID
     ).collect(Collectors.toSet());
   }
 

@@ -8,7 +8,7 @@ import pico.erp.process.info.ProcessInfo;
 @Attributes(title = "코팅", description = "코팅 공정에 필요한 정보")
 public class CoatingProcessInfo implements ProcessInfo {
 
-  @Attributes(title = "비고")
+  @Attributes(title = "비고", format = "textarea")
   private String remark;
 
 }

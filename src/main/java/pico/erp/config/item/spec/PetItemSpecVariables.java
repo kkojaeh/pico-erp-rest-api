@@ -13,10 +13,10 @@ import pico.erp.shared.data.UnitKind;
 @Attributes(title = "PET 스펙", description = "PET 정보")
 public class PetItemSpecVariables implements ItemSpecVariables {
 
-  @Attributes(title = "두께(㎛) [1000㎛ = 1mm | 200 ≦ n ≦ 2000] ", minimum = 200, maximum = 2000, maxLength = 4, required = true, format = "number")
+  @Attributes(title = "두께(㎛)", description = "[1000㎛ = 1mm | 200 ≦ n ≦ 2000]", minimum = 200, maximum = 2000, maxLength = 4, required = true, format = "number")
   private Integer thickness = 1000;
 
-  @Attributes(title = "폭(mm) [0 ≦ n ≦ 2000] ", minimum = 0, maximum = 2000, maxLength = 4, required = true, format = "number")
+  @Attributes(title = "폭(mm)", description = "[0 ≦ n ≦ 2000]", minimum = 0, maximum = 2000, maxLength = 4, required = true, format = "number")
   private Integer width = 1000;
 
   @Attributes(title = "색상", enums = {"투명", "금색(펄)", "진금색", "연금색"}, required = true)

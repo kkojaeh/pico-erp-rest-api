@@ -8,7 +8,7 @@ import pico.erp.process.info.ProcessInfo;
 @Attributes(title = "형압", description = "형압 공정에 필요한 정보")
 public class EmbossingProcessInfo implements ProcessInfo {
 
-  @Attributes(title = "비고")
+  @Attributes(title = "비고", format = "textarea")
   private String remark;
 
 }

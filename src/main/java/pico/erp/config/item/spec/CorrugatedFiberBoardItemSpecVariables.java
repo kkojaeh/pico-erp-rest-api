@@ -12,10 +12,10 @@ import pico.erp.shared.data.UnitKind;
 @Attributes(title = "골판지 스펙", description = "골판지 정보")
 public class CorrugatedFiberBoardItemSpecVariables implements ItemSpecVariables {
 
-  @Attributes(title = "가로(mm) [545 ≦ n ≦ 1500]", minimum = 100, maximum = 1500, maxLength = 4, required = true, format = "number")
+  @Attributes(title = "가로(mm)", description = "[545 ≦ n ≦ 1500]", minimum = 100, maximum = 1500, maxLength = 4, required = true, format = "number")
   private Integer width = 100;
 
-  @Attributes(title = "세로(mm) [364 ≦ n ≦ 720]", minimum = 100, maximum = 1500, maxLength = 4, required = true, format = "number")
+  @Attributes(title = "세로(mm)", description = "[364 ≦ n ≦ 720]", minimum = 100, maximum = 1500, maxLength = 4, required = true, format = "number")
   private Integer height = 100;
 
   @SchemaIgnore
