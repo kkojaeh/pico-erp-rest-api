@@ -13,3 +13,4 @@ logging:
     org:
       hibernate:
         stat: DEBUG
+        cache: DEBUG
