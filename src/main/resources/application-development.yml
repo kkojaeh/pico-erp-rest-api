@@ -6,3 +6,10 @@ attachment:
     s3:
       bucket-name: ${ATTACHMENT_AWS_3S_BUCKET_NAME}
       region: ${ATTACHMENT_AWS_3S_REGION}
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        stat: DEBUG
