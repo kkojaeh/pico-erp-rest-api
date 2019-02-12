@@ -39,6 +39,7 @@ import pico.erp.shared.data.AuthorizedUser;
 import pico.erp.shared.data.LabeledValuable;
 import pico.erp.user.UserApi.Roles;
 import pico.erp.user.UserData;
+import pico.erp.user.UserGroupIncludedOrNotView;
 import pico.erp.user.UserId;
 import pico.erp.user.UserQuery;
 import pico.erp.user.UserRequests;
@@ -49,6 +50,9 @@ import pico.erp.user.UserRoleGrantedOrNotView;
 import pico.erp.user.UserService;
 import pico.erp.user.UserTransporter;
 import pico.erp.user.UserView;
+import pico.erp.user.group.GroupId;
+import pico.erp.user.group.GroupRequests;
+import pico.erp.user.group.GroupService;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -64,6 +68,10 @@ public class UserController {
   @Lazy
   @Autowired
   private UserService userService;
+
+  @Lazy
+  @Autowired
+  private GroupService groupService;
 
   @Lazy
   @Autowired
@@ -168,6 +176,36 @@ public class UserController {
     @RequestBody RevokeRoleRequest request) {
     request.setId(id);
     userService.revokeRole(request);
+  }
+
+  @ApiOperation(value = "사용자 권한 부여")
+  @PostMapping("/users/{id}/groups/{groupId}")
+  @PreAuthorize("hasRole('USER_MANAGER')")
+  public void belongToGroup(@PathVariable("id") UserId id,
+    @PathVariable("groupId") GroupId groupId,
+    @RequestBody GroupRequests.AddUserRequest request) {
+    request.setId(groupId);
+    request.setUserId(id);
+    groupService.addUser(request);
+  }
+
+  @ApiOperation(value = "사용자 그룹 포함 상태 조회")
+  @GetMapping(value = "/users/{id}/groups", consumes = MediaType.ALL_VALUE)
+  @PreAuthorize("hasAnyRole('USER_MANAGER', 'USER_ACCESSOR')")
+  public Collection<UserGroupIncludedOrNotView> findAllUserGroupIncludedOrNot(
+    @PathVariable("id") UserId id) {
+    return userQuery.findAllUserGroupIncludedOrNot(id);
+  }
+
+  @ApiOperation(value = "사용자 권한 폐지")
+  @DeleteMapping("/users/{id}/groups/{groupId}")
+  @PreAuthorize("hasRole('USER_MANAGER')")
+  public void withdrawFromGroup(@PathVariable("id") UserId id,
+    @PathVariable("groupId") GroupId groupId,
+    @RequestBody GroupRequests.RemoveUserRequest request) {
+    request.setId(groupId);
+    request.setUserId(id);
+    groupService.removeUser(request);
   }
 
   @ApiOperation(value = "사용자 수정")
