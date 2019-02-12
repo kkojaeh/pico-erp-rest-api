@@ -174,7 +174,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
   SharedConfiguration.class,
   JndiConnectionFactoryAutoConfiguration.class,
   ActiveMQAutoConfiguration.class,
-  JmsAutoConfiguration.class,
+  JmsAutoConfiguration.class
 })
 public class RestApiApplication implements ApplicationStarter {
 

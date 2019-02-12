@@ -140,7 +140,7 @@ dependencies {
   compile('org.springframework.boot:spring-boot-starter-web')
 
   // hibernate second level cache by memcached for 5.2.x
-  runtime('com.github.mihaicostin:hibernate-l2-memcached:5.2.10.0')
+  runtime('com.github.mihaicostin:hibernate-l2-memcached:5.2.17.0')
 
   runtime('mysql:mysql-connector-java')
 
