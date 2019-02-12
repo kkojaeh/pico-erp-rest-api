@@ -178,7 +178,7 @@ public class UserController {
     userService.revokeRole(request);
   }
 
-  @ApiOperation(value = "사용자 권한 부여")
+  @ApiOperation(value = "사용자 그룹 포함")
   @PostMapping("/users/{id}/groups/{groupId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void belongToGroup(@PathVariable("id") UserId id,
@@ -197,7 +197,7 @@ public class UserController {
     return userQuery.findAllUserGroupIncludedOrNot(id);
   }
 
-  @ApiOperation(value = "사용자 권한 폐지")
+  @ApiOperation(value = "사용자 그룹 제외")
   @DeleteMapping("/users/{id}/groups/{groupId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void withdrawFromGroup(@PathVariable("id") UserId id,
