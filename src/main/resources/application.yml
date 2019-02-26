@@ -58,6 +58,16 @@ spring:
       receive-timeout: 1000
       time-to-live: 36000
 
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:sender}
+    password: ${SPRING_MAIL_PASSWORD:sender}
+    properties:
+      mail.transport.protocol: smtp
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
 security:
   sessions: never
   enable-csrf: false
@@ -92,6 +102,9 @@ attachment:
     default-height: 100
   storage:
     root-dir: ${ATTACHMENT_FILE_SYSTEM_ROOT_DIR:#{systemProperties['java.io.tmpdir']}/pico-attachment-storage}
+  aws-s3:
+    bucket-name: ${ATTACHMENT_AWS_3S_BUCKET_NAME}
+    region: ${ATTACHMENT_AWS_3S_REGION:ap-northeast-2}
 
 sentry:
   exception:
@@ -111,3 +124,25 @@ notify:
       "pr-accepter": "pr-accepter"
       "invoice-receiver": "invoice-receiver"
 
+fax:
+  aws-s3:
+    bucket-name: ${FAX_AWS_3S_BUCKET_NAME}
+    region: ${FAX_AWS_3S_REGION:ap-northeast-2}
+  twilio:
+    account-sid: ${TWILIO_ACCOUNT_SID}
+    auth-token: ${TWILIO_AUTH_TOKEN}
+    fax-from: ${TWILIO_FAX_FROM}
+
+document:
+  storage:
+    root-dir: ${DOCUMENT_FILE_SYSTEM_ROOT_DIR:#{systemProperties['java.io.tmpdir']}/pico-document-storage}
+  aws-s3:
+    bucket-name: ${DOCUMENT_AWS_3S_BUCKET_NAME}
+    region: ${DOCUMENT_AWS_3S_REGION:ap-northeast-2}
+  logo:
+    resource: classpath:document/logo.png
+    content-type: image/png
+
+delivery:
+  from-email: ${DELIVERY_FROM_EMAIL}
+  from-name: ${DELIVERY_FROM_NAME}

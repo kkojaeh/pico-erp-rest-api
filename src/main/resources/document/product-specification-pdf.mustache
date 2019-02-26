@@ -1,0 +1,202 @@
+{
+  "pageSize":"A4",
+  "pageMargins":[
+    20,
+    30,
+    20,
+    30
+  ],
+  "content":[
+    {
+      "margin":[
+        0,
+        5
+      ],
+      "alignment":"justify",
+      "columns":[
+        {
+          "image":"{{data.logo}}",
+          "width":150
+        },
+        {
+          "text":"사양서",
+          "style":"header",
+          "alignment":"center"
+        },
+        {
+          "text":"",
+          "width":150
+        }
+      ]
+    },
+    {
+      "margin":[
+        0,
+        5
+      ],
+      "alignment":"justify",
+      "columns":[
+        {
+          "text":"품목 정보",
+          "alignment":"left",
+          "style":"subHeader"
+        },
+        {
+          "text":"버전 {{data.content.revision}} - {{#dateFormatter}}{{data.content.committedDate}}{{/dateFormatter}}",
+          "alignment":"right"
+        }
+      ]
+    },
+    {
+      "table":{
+        "headerRows":0,
+        "widths":[
+          "30%",
+          "70%"
+        ],
+        "body":[
+          [
+            "코드",
+            "{{data.item.code.value}}"
+          ],
+          [
+            "이름",
+            "{{data.item.name}}"
+          ],
+          [
+            "바코드",
+            "{{data.item.barcodeNumber}}"
+          ],
+          [
+            "설명",
+            "{{data.content.description}}"
+          ]
+        ]
+      }
+    },
+    {
+      "margin":[
+        0,
+        5
+      ],
+      "text":"공정 정보",
+      "alignment":"left",
+      "style":"subHeader"
+    },
+    (function(){
+      const processes = [];
+
+      {{#data.processes}}
+        processes.push({
+          "width":"50%",
+          "stack":[
+            {
+              "text":"{{process.name}}",
+              "alignment":"left",
+              "style":"subHeader"
+            },
+            {
+              "table":{
+                "headerRows":0,
+                "widths":[
+                  "30%",
+                  "70%"
+                ],
+                "body":[
+                {{#properties}}
+                  [
+                    "{{key}}",
+                    "{{value}}"
+                  ],
+                {{/properties}}
+                ]
+              }
+            }
+          ]
+        })
+      {{/data.processes}}
+      const rows = []
+      let row
+      processes.forEach((process, index) => {
+        if(index % 2 == 0){
+          row = {
+            "margin":[
+              0,
+              5
+            ],
+            "columnGap":10,
+            "columns":[]
+          }
+          rows.push(row)
+        }
+        row.columns.push(process)
+      })
+      return rows
+    })(),
+    {
+      "text":"",
+      pageBreak: 'after'
+    },
+{{#data.bluePrints}}
+    {
+      "text":"도면 - {{name}}",
+      "alignment":"left",
+      "style":"subHeader"
+    },
+    {
+      image: '{{data}}',
+      width: 500
+    },
+{{/data.bluePrints}}
+{{#data.images}}
+    {
+      "text":"사진 - {{name}}",
+      "alignment":"left",
+      "style":"subHeader"
+    },
+    {
+      image: '{{data}}',
+      width: 500
+    },
+{{/data.images}}
+  ],
+  "styles":{
+    "header":{
+      "fontSize":20,
+      "bold":true,
+      "margin":[
+        0,
+        0,
+        0,
+        10
+      ]
+    },
+    "subHeader":{
+      "fontSize":15,
+      "bold":true,
+      "margin":[
+        0,
+        10,
+        0,
+        5
+      ]
+    },
+    "tableExample":{
+      "margin":[
+        0,
+        5,
+        0,
+        15
+      ]
+    },
+    "tableHeader":{
+      "bold":true,
+      "fontSize":13,
+      "color":"black"
+    }
+  },
+  "defaultStyle":{
+    "fontSize":10,
+    "font":"Malgun Gothic"
+  }
+}

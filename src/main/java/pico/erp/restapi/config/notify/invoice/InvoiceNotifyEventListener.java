@@ -34,7 +34,7 @@ public class InvoiceNotifyEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + InvoiceEvents.CreatedEvent.CHANNEL)
   public void onInvoiceCreated(InvoiceEvents.CreatedEvent event) {
-    val id = event.getInvoiceId();
+    val id = event.getId();
 
     notifyService.notify(
       NotifyRequests.NotifyGroupRequest.builder()

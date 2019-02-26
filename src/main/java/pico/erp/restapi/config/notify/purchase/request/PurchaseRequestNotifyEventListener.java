@@ -39,7 +39,7 @@ public class PurchaseRequestNotifyEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + PurchaseRequestEvents.AcceptedEvent.CHANNEL)
   public void onPurchaseRequestAccepted(PurchaseRequestEvents.AcceptedEvent event) {
-    val id = event.getPurchaseRequestId();
+    val id = event.getId();
     val purchaseRequest = purchaseRequestService.get(id);
 
     notifyService.notify(
@@ -63,7 +63,7 @@ public class PurchaseRequestNotifyEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + PurchaseRequestEvents.CommittedEvent.CHANNEL)
   public void onPurchaseRequestCommitted(PurchaseRequestEvents.CommittedEvent event) {
-    val id = event.getPurchaseRequestId();
+    val id = event.getId();
     notifyService.notify(
       NotifyRequests.NotifyGroupRequest.builder()
         .groupId(purchaseRequestProperties.getAccepterGroup().getId())
@@ -77,7 +77,7 @@ public class PurchaseRequestNotifyEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + PurchaseRequestEvents.CompletedEvent.CHANNEL)
   public void onPurchaseRequestCompleted(PurchaseRequestEvents.CompletedEvent event) {
-    val id = event.getPurchaseRequestId();
+    val id = event.getId();
     val purchaseRequest = purchaseRequestService.get(id);
 
     notifyService.notify(
@@ -93,7 +93,7 @@ public class PurchaseRequestNotifyEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + PurchaseRequestEvents.RejectedEvent.CHANNEL)
   public void onPurchaseRequestRejected(PurchaseRequestEvents.RejectedEvent event) {
-    val id = event.getPurchaseRequestId();
+    val id = event.getId();
     val purchaseRequest = purchaseRequestService.get(id);
 
     notifyService.notify(

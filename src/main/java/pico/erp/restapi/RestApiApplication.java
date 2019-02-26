@@ -48,6 +48,7 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfigur
 import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.autoconfigure.jms.JndiConnectionFactoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration;
+import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.EmbeddedServletContainerAutoConfiguration;
@@ -174,7 +175,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
   SharedConfiguration.class,
   JndiConnectionFactoryAutoConfiguration.class,
   ActiveMQAutoConfiguration.class,
-  JmsAutoConfiguration.class
+  JmsAutoConfiguration.class,
+  MailSenderAutoConfiguration.class
 })
 public class RestApiApplication implements ApplicationStarter {
 

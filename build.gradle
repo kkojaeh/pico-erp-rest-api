@@ -50,11 +50,11 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-user:api:${userVersion}")
   compile("com.github.kkojaeh.pico-erp-audit:api:${auditVersion}")
   compile("com.github.kkojaeh.pico-erp-company:api:${companyVersion}")
-  compile("com.github.kkojaeh.pico-erp-attachment:api:${attachmentVersion}")
-  compile("com.github.kkojaeh.pico-erp-process:api:${processVersion}")
+
+
   compile("com.github.kkojaeh.pico-erp-project:api:${projectVersion}")
   compile("com.github.kkojaeh.pico-erp-quotation:api:${quotationVersion}")
-  compile("com.github.kkojaeh.pico-erp-item:api:${itemVersion}")
+  
   compile("com.github.kkojaeh.pico-erp-comment:api:${commentVersion}")
   compile("com.github.kkojaeh.pico-erp-facility:api:${facilityVersion}")
   compile("com.github.kkojaeh.pico-erp-work-schedule:api:${workScheduleVersion}")
@@ -69,25 +69,64 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-notify:mattermost:${notifyVersion}")
   compile("com.github.kkojaeh.pico-erp-production-request:api:${productionRequestVersion}")
   compile("com.github.kkojaeh.pico-erp-production-plan:api:${productionPlanVersion}")
-
   compile("com.github.kkojaeh.pico-erp-product-specification:api:${productSpecificationVersion}")
+  compile("com.github.kkojaeh.pico-erp-outsourcing-request:api:${outsourcingRequestVersion}")
+  compile("com.github.kkojaeh.pico-erp-outsourcing-order:api:${outsourcingOrderVersion}")
+  compile("com.github.kkojaeh.pico-erp-outsourcing-invoice:api:${outsourcingInvoiceVersion}")
+  compile("com.github.kkojaeh.pico-erp-outsourced-invoice:api:${outsourcedInvoiceVersion}")
+
+  // FAX
+  compile("com.github.kkojaeh.pico-erp-fax:api:${faxVersion}")
+  compile("com.github.kkojaeh.pico-erp-fax:twilio-aws-s3:${faxVersion}")
+  runtime("com.github.kkojaeh.pico-erp-fax:impl:${faxVersion}")
+
+  // e-document
+  compile("com.github.kkojaeh.pico-erp-e-document:api:${documentVersion}")
+  compile("com.github.kkojaeh.pico-erp-e-document:file:${documentVersion}")
+  compile("com.github.kkojaeh.pico-erp-e-document:aws-s3:${documentVersion}")
+  compile("com.github.kkojaeh.pico-erp-e-document:pdfmake:${documentVersion}")
+  compile("com.github.kkojaeh.pico-erp-e-document:impl:${documentVersion}")
 
 
-  compileOnly("com.github.kkojaeh.pico-erp-attachment:impl:${attachmentVersion}")
-  compileOnly("com.github.kkojaeh.pico-erp-item:impl:${itemVersion}")
-  compileOnly("com.github.kkojaeh.pico-erp-process:impl:${processVersion}")
+  // delivery
+  compile("com.github.kkojaeh.pico-erp-delivery:api:${deliveryVersion}")
+  runtime("com.github.kkojaeh.pico-erp-delivery:impl:${deliveryVersion}")
+  compile("com.github.kkojaeh.pico-erp-delivery:fax:${deliveryVersion}")
+  compile("com.github.kkojaeh.pico-erp-delivery:spring-mail:${deliveryVersion}")
+
+  // attachment
+  compile("com.github.kkojaeh.pico-erp-attachment:api:${attachmentVersion}")
+  compile("com.github.kkojaeh.pico-erp-attachment:file:${attachmentVersion}")
+  compile("com.github.kkojaeh.pico-erp-attachment:aws-s3:${attachmentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-attachment:test:${attachmentVersion}")
+
+
+
+
+  // process
+  compile("com.github.kkojaeh.pico-erp-process:api:${processVersion}")
+  compile("com.github.kkojaeh.pico-erp-process:jjschema:${processVersion}")
+  runtime("com.github.kkojaeh.pico-erp-process:test:${processVersion}")
+
+
+  // item
+  compile("com.github.kkojaeh.pico-erp-item:api:${itemVersion}")
+  compile("com.github.kkojaeh.pico-erp-item:jjschema:${itemVersion}")
+  runtime("com.github.kkojaeh.pico-erp-item:test:${itemVersion}")
+
+
 
   runtime("com.github.kkojaeh.pico-erp-company:test:${companyVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-attachment:test:${attachmentVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-process:test:${processVersion}")
+
+
 
   runtime("com.github.kkojaeh.pico-erp-project:test:${projectVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-quotation:test:${quotationVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-item:test:${itemVersion}")
+  
 
   runtime("com.github.kkojaeh.pico-erp-comment:test:${commentVersion}")
 
@@ -121,6 +160,11 @@ dependencies {
 
   runtime("com.github.kkojaeh.pico-erp-product-specification:test:${productSpecificationVersion}")
 
+  runtime("com.github.kkojaeh.pico-erp-outsourcing-request:test:${outsourcingRequestVersion}")
+  runtime("com.github.kkojaeh.pico-erp-outsourcing-order:test:${outsourcingOrderVersion}")
+  runtime("com.github.kkojaeh.pico-erp-outsourcing-invoice:test:${outsourcingInvoiceVersion}")
+  runtime("com.github.kkojaeh.pico-erp-outsourced-invoice:test:${outsourcedInvoiceVersion}")
+
   compile('com.google.firebase:firebase-admin:6.1.0')
 
   compile('org.springframework.boot:spring-boot-starter-actuator')
@@ -143,6 +187,8 @@ dependencies {
   runtime('com.github.mihaicostin:hibernate-l2-memcached:5.2.17.0')
 
   runtime('mysql:mysql-connector-java')
+
+  compile('org.springframework.boot:spring-boot-starter-mail')
 
 }
 
