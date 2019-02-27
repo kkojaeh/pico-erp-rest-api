@@ -38,7 +38,7 @@ public class DocumentController {
 
   @SneakyThrows
   @ApiOperation(value = "문서 다운로드")
-  @PreAuthorize("hasRole('DOCUMENT_ACCESSOR')")
+  @PreAuthorize("hasRole('DOCUMENT_ACCESSOR', 'DOCUMENT_MANAGER')")
   @GetMapping(value = "/documents/{id}/download", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> download(@PathVariable("id") DocumentId id) {
     val inputStream = documentService.load(id);
