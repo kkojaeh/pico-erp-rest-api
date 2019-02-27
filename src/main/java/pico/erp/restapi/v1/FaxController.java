@@ -9,11 +9,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pico.erp.document.DocumentId;
 import pico.erp.fax.FaxRequests;
 import pico.erp.fax.FaxService;
 import pico.erp.restapi.Versions;
@@ -33,7 +31,7 @@ public class FaxController {
   @ApiOperation(value = "FAX 재전송 처리")
   @PreAuthorize("hasRole('FAX_MANAGER')")
   @PutMapping(value = "/revalidate", consumes = MediaType.ALL_VALUE)
-  public void download(@PathVariable("id") DocumentId id) {
+  public void revalidate() {
     faxService.revalidate(
       FaxRequests.RevalidateRequest.builder()
         .build()
