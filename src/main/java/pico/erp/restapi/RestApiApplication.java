@@ -18,6 +18,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import io.sentry.Sentry;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -205,14 +206,20 @@ public class RestApiApplication implements ApplicationStarter {
   }
 
   public static void main(String[] args) {
-    ApplicationIntegrator integrator = new ApplicationIntegratorImpl();
-    ServiceLoader<ApplicationStarter> loader = ServiceLoader.load(ApplicationStarter.class);
-    List<ApplicationStarter> starters = new LinkedList<>();
-    loader.forEach(starters::add);
-    ApplicationStarter.sort(starters).forEach(starter -> integrator.add(starter.start(args)));
-    integrator.integrate()
-      .integrateMessageSource()
-      .complete();
+    try {
+      ApplicationIntegrator integrator = new ApplicationIntegratorImpl();
+      ServiceLoader<ApplicationStarter> loader = ServiceLoader.load(ApplicationStarter.class);
+      List<ApplicationStarter> starters = new LinkedList<>();
+      loader.forEach(starters::add);
+      ApplicationStarter.sort(starters).forEach(starter -> integrator.add(starter.start(args)));
+      integrator.integrate()
+        .integrateMessageSource()
+        .complete();
+    } catch (Throwable t) {
+      Sentry.init();
+      Sentry.capture(t);
+      throw t;
+    }
   }
 
   @Override
