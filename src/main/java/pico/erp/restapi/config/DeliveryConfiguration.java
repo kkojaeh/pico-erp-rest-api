@@ -27,7 +27,7 @@ public class DeliveryConfiguration {
 
   @Public
   @Bean
-  @Profile({"!production", "!development"})
+  @Profile({"default", "test"})
   public MailDeliverySendService noOpMailDeliverySendService() {
     return new MailDeliverySendService() {
 

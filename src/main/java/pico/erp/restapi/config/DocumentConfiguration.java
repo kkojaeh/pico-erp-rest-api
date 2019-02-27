@@ -119,7 +119,7 @@ public class DocumentConfiguration {
 
   @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
   @Configuration
-  @Profile({"!development", "!production"})
+  @Profile({"default", "test"})
   public static class DocumentTemplateInitializer implements ApplicationInitializer {
 
     @Value("classpath:document/outsourcing-order-draft-pdf.mustache")

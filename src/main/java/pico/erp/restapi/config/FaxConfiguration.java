@@ -49,7 +49,7 @@ public class FaxConfiguration {
 
   @Public
   @Bean
-  @Profile({"!production", "!development"})
+  @Profile({"default", "test"})
   public FaxExecuteService noOpFaxExecuteService() {
     return new FaxExecuteService() {
 
