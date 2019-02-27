@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
-import pico.erp.delivery.TwilioAwsS3FaxDeliverySendService;
+import pico.erp.delivery.FaxDeliverySendServiceImpl;
 import pico.erp.delivery.message.DeliveryMessage;
 import pico.erp.delivery.send.DeliverySendRequests.SendRequest;
 import pico.erp.delivery.send.FaxDeliverySendService;
@@ -54,7 +54,7 @@ public class DeliveryConfiguration {
   @Public
   @Bean
   public FaxDeliverySendService twilioAwsS3FaxDeliverySendService() {
-    return new TwilioAwsS3FaxDeliverySendService();
+    return new FaxDeliverySendServiceImpl();
   }
 
 }
