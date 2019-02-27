@@ -2,7 +2,6 @@ package pico.erp.restapi.config;
 
 import lombok.Setter;
 import lombok.val;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ public class DeliveryConfiguration {
 
   @Public
   @Bean
-  @ConditionalOnMissingBean(MailDeliverySendService.class)
+  @Profile({"!production", "!development"})
   public MailDeliverySendService noOpMailDeliverySendService() {
     return new MailDeliverySendService() {
 
