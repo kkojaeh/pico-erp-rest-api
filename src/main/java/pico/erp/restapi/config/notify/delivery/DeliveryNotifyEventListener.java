@@ -11,12 +11,8 @@ import pico.erp.delivery.result.DeliveryResultEvents;
 import pico.erp.delivery.result.DeliveryResultService;
 import pico.erp.notify.NotifyRequests;
 import pico.erp.notify.NotifyService;
-import pico.erp.purchase.request.PurchaseRequestEvents;
 import pico.erp.purchase.request.PurchaseRequestProperties;
 import pico.erp.purchase.request.PurchaseRequestService;
-import pico.erp.restapi.config.notify.purchase.request.PurchaseRequestCommittedNotifyTypeDefinition;
-import pico.erp.restapi.config.notify.purchase.request.PurchaseRequestCompletedNotifyTypeDefinition;
-import pico.erp.restapi.config.notify.purchase.request.PurchaseRequestRejectedNotifyTypeDefinition;
 
 @SuppressWarnings("unused")
 @Component
@@ -56,52 +52,6 @@ public class DeliveryNotifyEventListener {
       NotifyRequests.NotifyUserRequest.builder()
         .userId(result.getRequesterId())
         .typeId(DeliveryErrorOccurredNotifyTypeDefinition.ID)
-        .key(id)
-        .build()
-    );
-  }
-
-  @EventListener
-  @JmsListener(destination = LISTENER_NAME + "."
-    + PurchaseRequestEvents.CommittedEvent.CHANNEL)
-  public void onPurchaseRequestCommitted(PurchaseRequestEvents.CommittedEvent event) {
-    val id = event.getId();
-    notifyService.notify(
-      NotifyRequests.NotifyGroupRequest.builder()
-        .groupId(purchaseRequestProperties.getAccepterGroup().getId())
-        .typeId(PurchaseRequestCommittedNotifyTypeDefinition.ID)
-        .key(id)
-        .build()
-    );
-  }
-
-  @EventListener
-  @JmsListener(destination = LISTENER_NAME + "."
-    + PurchaseRequestEvents.CompletedEvent.CHANNEL)
-  public void onPurchaseRequestCompleted(PurchaseRequestEvents.CompletedEvent event) {
-    val id = event.getId();
-    val purchaseRequest = purchaseRequestService.get(id);
-
-    notifyService.notify(
-      NotifyRequests.NotifyUserRequest.builder()
-        .userId(purchaseRequest.getRequesterId())
-        .typeId(PurchaseRequestCompletedNotifyTypeDefinition.ID)
-        .key(id)
-        .build()
-    );
-  }
-
-  @EventListener
-  @JmsListener(destination = LISTENER_NAME + "."
-    + PurchaseRequestEvents.RejectedEvent.CHANNEL)
-  public void onPurchaseRequestRejected(PurchaseRequestEvents.RejectedEvent event) {
-    val id = event.getId();
-    val purchaseRequest = purchaseRequestService.get(id);
-
-    notifyService.notify(
-      NotifyRequests.NotifyUserRequest.builder()
-        .userId(purchaseRequest.getRequesterId())
-        .typeId(PurchaseRequestRejectedNotifyTypeDefinition.ID)
         .key(id)
         .build()
     );

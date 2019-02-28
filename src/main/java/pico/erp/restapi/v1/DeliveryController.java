@@ -39,7 +39,7 @@ public class DeliveryController {
 
   @SneakyThrows
   @ApiOperation(value = "전달 처리")
-  @PreAuthorize("hasRole('DELIVERY_CHARGER')")
+  @PreAuthorize("hasAnyRole('DELIVERY_CHARGER', 'DELIVERY_MANAGER')")
   @PostMapping(value = "/deliveries/{id}/deliver", consumes = MediaType.ALL_VALUE)
   public DeliveryResultData deliver(@PathVariable("id") DeliveryId id,
     @RequestBody DeliveryRequests.DeliverRequest request,
@@ -51,7 +51,7 @@ public class DeliveryController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "전달 조회")
-  @PreAuthorize("hasRole('DELIVERY_ACCESSOR')")
+  @PreAuthorize("hasAnyRole('DELIVERY_ACCESSOR', 'DELIVERY_CHARGER', 'DELIVERY_MANAGER')")
   @GetMapping(value = "/deliveries/{id}", consumes = MediaType.ALL_VALUE)
   public DeliveryData get(@PathVariable("id") DeliveryId id) {
     return deliveryService.get(id);

@@ -32,7 +32,7 @@ public class DeliveryResultController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "전달 결과 조회")
-  @PreAuthorize("hasRole('DELIVERY_ACCESSOR')")
+  @PreAuthorize("hasAnyRole('DELIVERY_ACCESSOR', 'DELIVERY_CHARGER', 'DELIVERY_MANAGER')")
   @GetMapping(value = "/deliveries/{id}/results", consumes = MediaType.ALL_VALUE)
   public List<DeliveryResultData> getAll(@PathVariable("id") DeliveryId id) {
     return deliveryResultService.getAll(id);
