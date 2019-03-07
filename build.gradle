@@ -49,11 +49,11 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-shared:impl:${sharedVersion}")
   compile("com.github.kkojaeh.pico-erp-user:api:${userVersion}")
   compile("com.github.kkojaeh.pico-erp-audit:api:${auditVersion}")
-  compile("com.github.kkojaeh.pico-erp-company:api:${companyVersion}")
 
 
-  compile("com.github.kkojaeh.pico-erp-project:api:${projectVersion}")
-  compile("com.github.kkojaeh.pico-erp-quotation:api:${quotationVersion}")
+
+
+
   
   compile("com.github.kkojaeh.pico-erp-comment:api:${commentVersion}")
   compile("com.github.kkojaeh.pico-erp-facility:api:${facilityVersion}")
@@ -114,16 +114,29 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-item:jjschema:${itemVersion}")
   runtime("com.github.kkojaeh.pico-erp-item:test:${itemVersion}")
 
+  // production-order
+  compile("com.github.kkojaeh.pico-erp-production-order:api:${productionOrderVersion}")
+  runtime("com.github.kkojaeh.pico-erp-production-order:test:${productionOrderVersion}")
+
+  // production-execution
+  compile("com.github.kkojaeh.pico-erp-production-execution:api:${productionExecutionVersion}")
+  runtime("com.github.kkojaeh.pico-erp-production-execution:test:${productionExecutionVersion}")
+
+  // production-mediator
+  compile("com.github.kkojaeh.pico-erp-production-mediator:api:${productionMediatorVersion}")
+  runtime("com.github.kkojaeh.pico-erp-production-mediator:impl:${productionMediatorVersion}")
 
 
+  // company
+  compile("com.github.kkojaeh.pico-erp-company:api:${companyVersion}")
   runtime("com.github.kkojaeh.pico-erp-company:test:${companyVersion}")
 
-
-
-
-
+  // project
+  compile("com.github.kkojaeh.pico-erp-project:api:${projectVersion}")
   runtime("com.github.kkojaeh.pico-erp-project:test:${projectVersion}")
 
+  // quotation
+  compile("com.github.kkojaeh.pico-erp-quotation:api:${quotationVersion}")
   runtime("com.github.kkojaeh.pico-erp-quotation:test:${quotationVersion}")
 
   
