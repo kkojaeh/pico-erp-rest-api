@@ -38,7 +38,7 @@ public class DocumentController {
 
   @SneakyThrows
   @ApiOperation(value = "문서 다운로드")
-  @PreAuthorize("hasRole('DOCUMENT_ACCESSOR', 'DOCUMENT_MANAGER')")
+  @PreAuthorize("hasAnyRole('DOCUMENT_ACCESSOR', 'DOCUMENT_MANAGER')")
   @GetMapping(value = "/documents/{id}/download", consumes = MediaType.ALL_VALUE)
   public ResponseEntity<InputStreamResource> download(@PathVariable("id") DocumentId id) {
     val inputStream = documentService.load(id);
@@ -56,7 +56,7 @@ public class DocumentController {
 
   @CacheControl(maxAge = 300)
   @ApiOperation(value = "문서 조회")
-  @PreAuthorize("hasRole('DOCUMENT_ACCESSOR')")
+  @PreAuthorize("hasAnyRole('DOCUMENT_ACCESSOR')")
   @GetMapping(value = "/documents/{id}", consumes = MediaType.ALL_VALUE)
   public DocumentData get(@PathVariable("id") DocumentId id) {
     return documentService.get(id);
