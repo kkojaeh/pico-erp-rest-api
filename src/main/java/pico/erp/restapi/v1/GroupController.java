@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pico.erp.restapi.Versions;
 import pico.erp.restapi.web.CacheControl;
 import pico.erp.shared.data.LabeledValuable;
+import pico.erp.user.UserId;
 import pico.erp.user.group.GroupData;
 import pico.erp.user.group.GroupId;
 import pico.erp.user.group.GroupJoinedUserView;
@@ -42,6 +43,7 @@ import pico.erp.user.group.GroupRoleGrantedOrNotView;
 import pico.erp.user.group.GroupService;
 import pico.erp.user.group.GroupTransporter;
 import pico.erp.user.group.GroupView;
+import pico.erp.user.role.RoleId;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -68,11 +70,13 @@ public class GroupController {
   private GroupTransporter groupTransporter;
 
   @ApiOperation(value = "그룹 사용자 추가")
-  @PostMapping("/groups/{id}/users")
+  @PostMapping("/groups/{id}/users/{userId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void addUser(@PathVariable("id") GroupId id,
+    @PathVariable("userId") UserId userId,
     @RequestBody GroupRequests.AddUserRequest request) {
     request.setId(id);
+    request.setUserId(userId);
     groupService.addUser(request);
   }
 
@@ -136,11 +140,13 @@ public class GroupController {
   }
 
   @ApiOperation(value = "그룹 권한 부여")
-  @PostMapping("/groups/{id}/roles")
+  @PostMapping("/groups/{id}/roles/{roleId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
-  public void grantRole(@PathVariable(name = "id", required = false) GroupId id,
+  public void grantRole(@PathVariable("id") GroupId id,
+    @PathVariable("roleId") RoleId roleId,
     @RequestBody GroupRequests.GrantRoleRequest request) {
     request.setId(id);
+    request.setRoleId(roleId);
     groupService.grantRole(request);
   }
 
@@ -155,11 +161,13 @@ public class GroupController {
   }
 
   @ApiOperation(value = "그룹 사용자 제거")
-  @DeleteMapping("/groups/{id}/users")
+  @DeleteMapping("/groups/{id}/users/{userId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void removeUser(@PathVariable("id") GroupId id,
+    @PathVariable("userId") UserId userId,
     @RequestBody GroupRequests.RemoveUserRequest request) {
     request.setId(id);
+    request.setUserId(userId);
     groupService.removeUser(request);
   }
 
@@ -173,11 +181,13 @@ public class GroupController {
   }
 
   @ApiOperation(value = "그룹 권한 폐지")
-  @DeleteMapping("/groups/{id}/roles")
+  @DeleteMapping("/groups/{id}/roles/{roleId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void revokeRole(@PathVariable("id") GroupId id,
+    @PathVariable("roleId") RoleId roleId,
     @RequestBody GroupRequests.RevokeRoleRequest request) {
     request.setId(id);
+    request.setRoleId(roleId);
     groupService.revokeRole(request);
   }
 

@@ -53,6 +53,7 @@ import pico.erp.user.UserView;
 import pico.erp.user.group.GroupId;
 import pico.erp.user.group.GroupRequests;
 import pico.erp.user.group.GroupService;
+import pico.erp.user.role.RoleId;
 
 
 @Api(produces = Versions.V1_JSON, consumes = Versions.V1_JSON)
@@ -143,11 +144,13 @@ public class UserController {
   }
 
   @ApiOperation(value = "사용자 권한 부여")
-  @PostMapping("/users/{id}/roles")
+  @PostMapping("/users/{id}/roles/{roleId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void grantRole(@PathVariable("id") UserId id,
+    @PathVariable("roleId") RoleId roleId,
     @RequestBody GrantRoleRequest request) {
     request.setId(id);
+    request.setRoleId(roleId);
     userService.grantRole(request);
   }
 
@@ -170,11 +173,13 @@ public class UserController {
   }
 
   @ApiOperation(value = "사용자 권한 폐지")
-  @DeleteMapping("/users/{id}/roles")
+  @DeleteMapping("/users/{id}/roles/{roleId}")
   @PreAuthorize("hasRole('USER_MANAGER')")
   public void revokeRole(@PathVariable("id") UserId id,
+    @PathVariable("roleId") RoleId roleId,
     @RequestBody RevokeRoleRequest request) {
     request.setId(id);
+    request.setRoleId(roleId);
     userService.revokeRole(request);
   }
 
