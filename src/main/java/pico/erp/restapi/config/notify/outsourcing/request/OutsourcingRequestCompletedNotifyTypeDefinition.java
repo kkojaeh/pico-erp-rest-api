@@ -11,6 +11,7 @@ import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
 import pico.erp.outsourcing.request.OutsourcingRequestId;
 import pico.erp.outsourcing.request.OutsourcingRequestService;
+import pico.erp.process.ProcessService;
 import pico.erp.restapi.config.notify.NotifyContextFactory;
 import pico.erp.shared.Public;
 
@@ -33,6 +34,10 @@ public class OutsourcingRequestCompletedNotifyTypeDefinition implements
   @Autowired
   private ItemService itemService;
 
+  @Lazy
+  @Autowired
+  private ProcessService processService;
+
   @Autowired
   private NotifyContextFactory contextFactory;
 
@@ -43,9 +48,11 @@ public class OutsourcingRequestCompletedNotifyTypeDefinition implements
     val request = outsourcingRequestService.get(key);
     val receiver = companyService.get(request.getReceiverId());
     val item = itemService.get(request.getItemId());
+    val process = processService.get(request.getProcessId());
     data.put("request", request);
     data.put("item", item);
     data.put("receiver", receiver);
+    data.put("process", process);
     return context;
   }
 
