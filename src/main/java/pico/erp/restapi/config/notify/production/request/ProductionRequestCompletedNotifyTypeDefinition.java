@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import pico.erp.company.CompanyService;
+import pico.erp.item.ItemService;
 import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
@@ -28,6 +29,10 @@ public class ProductionRequestCompletedNotifyTypeDefinition implements
   @Autowired
   private CompanyService companyService;
 
+  @Lazy
+  @Autowired
+  private ItemService itemService;
+
   @Autowired
   private NotifyContextFactory contextFactory;
 
@@ -35,9 +40,11 @@ public class ProductionRequestCompletedNotifyTypeDefinition implements
   public Object createContext(ProductionRequestId key) {
     val context = contextFactory.factory();
     val data = context.getData();
-    val productionRequest = productionRequestService.get(key);
-    val receiver = companyService.get(productionRequest.getReceiverId());
-    data.put("productionRequest", productionRequest);
+    val request = productionRequestService.get(key);
+    val item = itemService.get(request.getItemId());
+    val receiver = companyService.get(request.getReceiverId());
+    data.put("request", request);
+    data.put("item", item);
     data.put("receiver", receiver);
     return context;
   }

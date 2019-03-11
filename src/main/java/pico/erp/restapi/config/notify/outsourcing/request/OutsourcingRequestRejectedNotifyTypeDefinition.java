@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import pico.erp.company.CompanyService;
+import pico.erp.item.ItemService;
 import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
@@ -29,15 +30,22 @@ public class OutsourcingRequestRejectedNotifyTypeDefinition implements
 
   @Lazy
   @Autowired
+  private ItemService itemService;
+
+  @Lazy
+  @Autowired
   private CompanyService companyService;
+
 
   @Override
   public Object createContext(OutsourcingRequestId key) {
     val context = contextFactory.factory();
     val data = context.getData();
-    val outsourcingRequest = outsourcingRequestService.get(key);
-    val receiver = companyService.get(outsourcingRequest.getReceiverId());
-    data.put("outsourcingRequest", outsourcingRequest);
+    val request = outsourcingRequestService.get(key);
+    val receiver = companyService.get(request.getReceiverId());
+    val item = itemService.get(request.getItemId());
+    data.put("request", request);
+    data.put("item", item);
     data.put("receiver", receiver);
     return context;
   }
