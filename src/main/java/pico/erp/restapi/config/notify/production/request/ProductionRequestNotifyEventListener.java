@@ -49,14 +49,6 @@ public class ProductionRequestNotifyEventListener {
         .key(id)
         .build()
     );
-
-    notifyService.notify(
-      NotifyRequests.NotifyGroupRequest.builder()
-        .groupId(productionOrderProperties.getChargerGroup().getId())
-        .typeId(ProductionRequestAwaitOrderNotifyTypeDefinition.ID)
-        .key(id)
-        .build()
-    );
   }
 
   @EventListener
@@ -84,22 +76,6 @@ public class ProductionRequestNotifyEventListener {
       NotifyRequests.NotifyUserRequest.builder()
         .userId(productionRequest.getRequesterId())
         .typeId(ProductionRequestCompletedNotifyTypeDefinition.ID)
-        .key(id)
-        .build()
-    );
-  }
-
-  @EventListener
-  @JmsListener(destination = LISTENER_NAME + "."
-    + ProductionRequestEvents.RejectedEvent.CHANNEL)
-  public void onProductionRequestRejected(ProductionRequestEvents.RejectedEvent event) {
-    val id = event.getId();
-    val productionRequest = productionRequestService.get(id);
-
-    notifyService.notify(
-      NotifyRequests.NotifyUserRequest.builder()
-        .userId(productionRequest.getRequesterId())
-        .typeId(ProductionRequestRejectedNotifyTypeDefinition.ID)
         .key(id)
         .build()
     );
