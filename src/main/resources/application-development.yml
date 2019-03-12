@@ -3,4 +3,4 @@ server:
 
 document:
   pdfmake:
-    workspace: /pdfmake-workspace
+    workspace: /var/app/pdfmake-workspace
