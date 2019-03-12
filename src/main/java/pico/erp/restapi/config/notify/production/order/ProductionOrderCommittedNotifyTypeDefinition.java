@@ -17,10 +17,10 @@ import pico.erp.shared.Public;
 
 @Public
 @Component
-public class ProductionOrderPreparedNotifyTypeDefinition implements
+public class ProductionOrderCommittedNotifyTypeDefinition implements
   NotifyTypeDefinition<ProductionOrderId, Object> {
 
-  public static final NotifyTypeId ID = NotifyTypeId.from("production-order-prepared");
+  public static final NotifyTypeId ID = NotifyTypeId.from("production-order-committed");
 
   @Lazy
   @Autowired
@@ -68,7 +68,7 @@ public class ProductionOrderPreparedNotifyTypeDefinition implements
 
   @Override
   public String getName() {
-    return "생산 지시 준비완료 알림";
+    return "생산 지시 제출 알림";
   }
 
   @Override
