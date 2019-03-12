@@ -10,6 +10,7 @@ import pico.erp.notify.NotifyRequests;
 import pico.erp.notify.NotifyService;
 import pico.erp.production.execution.ProductionExecutionProperties;
 import pico.erp.production.order.ProductionOrderEvents;
+import pico.erp.production.order.ProductionOrderProperties;
 
 @SuppressWarnings("unused")
 @Component
@@ -23,6 +24,10 @@ public class ProductionOrderNotifyEventListener {
 
   @Lazy
   @Autowired
+  private ProductionOrderProperties productionOrderProperties;
+
+  @Lazy
+  @Autowired
   private ProductionExecutionProperties productionExecutionProperties;
 
   @EventListener
@@ -30,11 +35,24 @@ public class ProductionOrderNotifyEventListener {
     + ProductionOrderEvents.PreparedEvent.CHANNEL)
   public void onProductionOrderPrepared(ProductionOrderEvents.PreparedEvent event) {
     val id = event.getId();
-
     notifyService.notify(
       NotifyRequests.NotifyGroupRequest.builder()
         .groupId(productionExecutionProperties.getExecutorGroup().getId())
         .typeId(ProductionOrderPreparedNotifyTypeDefinition.ID)
+        .key(id)
+        .build()
+    );
+  }
+
+  @EventListener
+  @JmsListener(destination = LISTENER_NAME + "."
+    + ProductionOrderEvents.PreparedEvent.CHANNEL)
+  public void onProductionOrderCommitted(ProductionOrderEvents.PreparedEvent event) {
+    val id = event.getId();
+    notifyService.notify(
+      NotifyRequests.NotifyGroupRequest.builder()
+        .groupId(productionOrderProperties.getAccepterGroup().getId())
+        .typeId(ProductionOrderCommittedNotifyTypeDefinition.ID)
         .key(id)
         .build()
     );
