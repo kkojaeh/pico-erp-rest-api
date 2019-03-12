@@ -64,16 +64,14 @@ public class ProductionPlanDetailController {
   @ApiOperation(value = "구매 요청 품목 삭제")
   @DeleteMapping("/details/{id}")
   @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
-  public void delete(@PathVariable("planId") ProductionPlanId planId,
-    @PathVariable("id") ProductionPlanDetailId id) {
+  public void delete(@PathVariable("id") ProductionPlanDetailId id) {
     productionPlanDetailService.delete(new ProductionPlanDetailRequests.DeleteRequest(id));
   }
 
   @ApiOperation(value = "구매 요청 품목 확정")
   @PutMapping("/details/{id}/determine")
   @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
-  public void determine(@PathVariable("planId") ProductionPlanId planId,
-    @PathVariable("id") ProductionPlanDetailId id,
+  public void determine(@PathVariable("id") ProductionPlanDetailId id,
     @RequestBody ProductionPlanDetailRequests.DetermineRequest request) {
     request.setId(id);
     productionPlanDetailService.determine(request);
