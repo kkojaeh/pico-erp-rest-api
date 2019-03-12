@@ -46,8 +46,8 @@ public class ProductionOrderNotifyEventListener {
 
   @EventListener
   @JmsListener(destination = LISTENER_NAME + "."
-    + ProductionOrderEvents.PreparedEvent.CHANNEL)
-  public void onProductionOrderCommitted(ProductionOrderEvents.PreparedEvent event) {
+    + ProductionOrderEvents.CommittedEvent.CHANNEL)
+  public void onProductionOrderCommitted(ProductionOrderEvents.CommittedEvent event) {
     val id = event.getId();
     notifyService.notify(
       NotifyRequests.NotifyGroupRequest.builder()
