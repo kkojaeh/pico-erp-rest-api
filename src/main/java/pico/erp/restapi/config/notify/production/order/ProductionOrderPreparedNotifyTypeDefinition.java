@@ -9,21 +9,22 @@ import pico.erp.item.ItemService;
 import pico.erp.notify.subject.type.NotifySubjectTypeId;
 import pico.erp.notify.type.NotifyTypeDefinition;
 import pico.erp.notify.type.NotifyTypeId;
-import pico.erp.production.request.ProductionRequestId;
-import pico.erp.production.request.ProductionRequestService;
+import pico.erp.process.ProcessService;
+import pico.erp.production.order.ProductionOrderId;
+import pico.erp.production.order.ProductionOrderService;
 import pico.erp.restapi.config.notify.NotifyContextFactory;
 import pico.erp.shared.Public;
 
 @Public
 @Component
 public class ProductionOrderPreparedNotifyTypeDefinition implements
-  NotifyTypeDefinition<ProductionRequestId, Object> {
+  NotifyTypeDefinition<ProductionOrderId, Object> {
 
   public static final NotifyTypeId ID = NotifyTypeId.from("production-order-prepared");
 
   @Lazy
   @Autowired
-  private ProductionRequestService productionRequestService;
+  private ProductionOrderService productionOrderService;
 
   @Lazy
   @Autowired
@@ -33,25 +34,31 @@ public class ProductionOrderPreparedNotifyTypeDefinition implements
   @Autowired
   private ItemService itemService;
 
+  @Lazy
+  @Autowired
+  private ProcessService processService;
+
   @Autowired
   private NotifyContextFactory contextFactory;
 
   @Override
-  public Object createContext(ProductionRequestId key) {
+  public Object createContext(ProductionOrderId key) {
     val context = contextFactory.factory();
     val data = context.getData();
-    val request = productionRequestService.get(key);
-    val item = itemService.get(request.getItemId());
-    val receiver = companyService.get(request.getReceiverId());
-    data.put("request", request);
+    val order = productionOrderService.get(key);
+    val item = itemService.get(order.getItemId());
+    val receiver = companyService.get(order.getReceiverId());
+    val process = processService.get(order.getProcessId());
+    data.put("order", order);
     data.put("item", item);
+    data.put("process", process);
     data.put("receiver", receiver);
     return context;
   }
 
   @Override
-  public ProductionRequestId createKey(String key) {
-    return ProductionRequestId.from(key);
+  public ProductionOrderId createKey(String key) {
+    return ProductionOrderId.from(key);
   }
 
   @Override
