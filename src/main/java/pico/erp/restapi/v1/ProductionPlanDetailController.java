@@ -54,16 +54,15 @@ public class ProductionPlanDetailController {
 
   @ApiOperation(value = "구매 요청 품목 생성")
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping("/plans/{planId}/details")
+  @PostMapping("/details")
   @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
-  public ProductionPlanDetailData create(@PathVariable("planId") ProductionPlanId planId,
+  public ProductionPlanDetailData create(
     @RequestBody ProductionPlanDetailRequests.CreateRequest request) {
-    request.setPlanId(planId);
     return productionPlanDetailService.create(request);
   }
 
   @ApiOperation(value = "구매 요청 품목 삭제")
-  @DeleteMapping("/plans/{planId}/details/{id}")
+  @DeleteMapping("/details/{id}")
   @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
   public void delete(@PathVariable("planId") ProductionPlanId planId,
     @PathVariable("id") ProductionPlanDetailId id) {
@@ -71,7 +70,7 @@ public class ProductionPlanDetailController {
   }
 
   @ApiOperation(value = "구매 요청 품목 확정")
-  @PutMapping("/plans/{planId}/details/{id}/determine")
+  @PutMapping("/details/{id}/determine")
   @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
   public void determine(@PathVariable("planId") ProductionPlanId planId,
     @PathVariable("id") ProductionPlanDetailId id,
@@ -117,10 +116,18 @@ public class ProductionPlanDetailController {
       );
   }
 
-  @ApiOperation(value = "구매 요청 품목 수정")
-  @PutMapping("/plans/{planId}/details/{id}")
+  @CacheControl(maxAge = 300)
+  @ApiOperation(value = "생산 계획 조회")
   @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
-  public void update(@PathVariable("planId") ProductionPlanId planId,
+  @GetMapping(value = "/details/{id}", consumes = MediaType.ALL_VALUE)
+  public ProductionPlanDetailData get(@PathVariable("id") ProductionPlanDetailId id) {
+    return productionPlanDetailService.get(id);
+  }
+
+  @ApiOperation(value = "구매 요청 품목 수정")
+  @PutMapping("/details/{id}")
+  @PreAuthorize("hasAnyRole('PRODUCTION_PLAN_CHARGER', 'PRODUCTION_PLAN_MANAGER')")
+  public void update(
     @PathVariable("id") ProductionPlanDetailId id,
     @RequestBody ProductionPlanDetailRequests.UpdateRequest request) {
     request.setId(id);
