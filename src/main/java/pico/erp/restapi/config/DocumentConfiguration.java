@@ -43,9 +43,6 @@ public class DocumentConfiguration {
   @Getter
   Logo logo = new Logo();
 
-  @Getter
-  Pdfmake pdfmake = new Pdfmake();
-
   @Public
   @Bean
   @Profile({"production", "development"})
@@ -85,9 +82,10 @@ public class DocumentConfiguration {
   @SneakyThrows
   @Public
   @Bean
-  public DocumentMakerDefinition documentMakerDefinition() {
+  public DocumentMakerDefinition documentMakerDefinition(
+    @Value("${document.pdfmake.workspace}") File workspace) {
     val config = PdfmakeDocumentMakerDefinition.Config.builder()
-      .workspace(pdfmake.workspace)
+      .workspace(workspace)
       .build();
     return new PdfmakeDocumentMakerDefinition(config);
   }
@@ -101,13 +99,6 @@ public class DocumentConfiguration {
       .rootDirectory(rootDirectory)
       .build();
     return new FileSystemDocumentStorageStrategy(config);
-  }
-
-  public static class Pdfmake {
-
-    @Setter
-    File workspace;
-
   }
 
   public static class AwsS3 {
