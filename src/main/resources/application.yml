@@ -139,6 +139,8 @@ document:
   aws-s3:
     bucket-name: ${DOCUMENT_AWS_3S_BUCKET_NAME}
     region: ${DOCUMENT_AWS_3S_REGION:ap-northeast-2}
+  pdfmake:
+    workspace: ${DOCUMENT_PDFMAKE_DIR:#{systemProperties['java.io.tmpdir']}/pdfmake-workspace}
   logo:
     resource: classpath:document/logo.png
     content-type: image/png

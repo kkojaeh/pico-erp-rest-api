@@ -1,2 +1,6 @@
 server:
   port: 5000
+
+document:
+  pdfmake:
+    workspace: /pdfmake-workspace
