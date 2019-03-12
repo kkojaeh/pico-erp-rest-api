@@ -8,6 +8,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import pico.erp.notify.NotifyRequests;
 import pico.erp.notify.NotifyService;
+import pico.erp.production.plan.ProductionPlanProperties;
 import pico.erp.production.request.ProductionRequestEvents;
 import pico.erp.production.request.ProductionRequestProperties;
 import pico.erp.production.request.ProductionRequestService;
@@ -30,6 +31,10 @@ public class ProductionRequestNotifyEventListener {
   @Autowired
   private ProductionRequestProperties productionRequestProperties;
 
+  @Lazy
+  @Autowired
+  private ProductionPlanProperties productionPlanProperties;
+
   @EventListener
   @JmsListener(destination = LISTENER_NAME + "."
     + ProductionRequestEvents.AcceptedEvent.CHANNEL)
@@ -44,6 +49,15 @@ public class ProductionRequestNotifyEventListener {
         .key(id)
         .build()
     );
+
+    notifyService.notify(
+      NotifyRequests.NotifyGroupRequest.builder()
+        .groupId(productionPlanProperties.getChargerGroup().getId())
+        .typeId(ProductionRequestAwaitPlanNotifyTypeDefinition.ID)
+        .key(id)
+        .build()
+    );
+
   }
 
   @EventListener
