@@ -8,7 +8,6 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import pico.erp.notify.NotifyRequests;
 import pico.erp.notify.NotifyService;
-import pico.erp.production.order.ProductionOrderProperties;
 import pico.erp.production.request.ProductionRequestEvents;
 import pico.erp.production.request.ProductionRequestProperties;
 import pico.erp.production.request.ProductionRequestService;
@@ -30,10 +29,6 @@ public class ProductionRequestNotifyEventListener {
   @Lazy
   @Autowired
   private ProductionRequestProperties productionRequestProperties;
-
-  @Lazy
-  @Autowired
-  private ProductionOrderProperties productionOrderProperties;
 
   @EventListener
   @JmsListener(destination = LISTENER_NAME + "."
