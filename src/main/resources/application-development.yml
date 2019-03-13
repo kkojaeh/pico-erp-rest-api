@@ -16,4 +16,4 @@ logging:
         cache: DEBUG
         SQL: DEBUG
         type: TRACE
-          BasicTypeRegistry: WARN
+        type.BasicTypeRegistry: WARN
