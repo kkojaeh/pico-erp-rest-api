@@ -50,10 +50,10 @@ public class ProductionExecutionController {
   @Autowired
   private ProductionExecutionQuery productionExecutionQuery;
 
-  @ApiOperation(value = "구매 요청 생성")
+  @ApiOperation(value = "생산 진행 생성")
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping("/executions")
-  @PreAuthorize("hasAnyRole('OUTSOURCING_REQUESTER', 'OUTSOURCING_REQUEST_MANAGER')")
+  @PreAuthorize("hasAnyRole('PRODUCTION_EXECUTOR', 'PRODUCTION_EXECUTE_MANAGER')")
   public ProductionExecutionData create(
     @RequestBody ProductionExecutionRequests.CreateRequest request,
     @AuthenticationPrincipal AuthorizedUser userDetails) {
@@ -69,10 +69,10 @@ public class ProductionExecutionController {
     return productionExecutionService.get(id);
   }
 
-  @ApiOperation(value = "송장 수령")
+  @ApiOperation(value = "생산 진행 수정")
   @PutMapping("/executions/{id}")
   @PreAuthorize("hasAnyRole('PRODUCTION_EXECUTOR', 'PRODUCTION_EXECUTE_MANAGER')")
-  public void receive(@PathVariable("id") ProductionExecutionId id,
+  public void update(@PathVariable("id") ProductionExecutionId id,
     @RequestBody ProductionExecutionRequests.UpdateRequest request) {
     request.setId(id);
     productionExecutionService.update(request);
