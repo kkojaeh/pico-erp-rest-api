@@ -4,3 +4,7 @@ server:
 document:
   pdfmake:
     workspace: /var/app/pdfmake-workspace
+
+logging:
+  level:
+    pico.erp.shared: DEBUG

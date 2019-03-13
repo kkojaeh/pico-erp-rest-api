@@ -89,8 +89,8 @@ management:
 
 logging:
   level:
-    org:
-      springframework: INFO
+    org.springframework: INFO
+    pico.erp.shared: DEBUG
 
 label:
   query:
