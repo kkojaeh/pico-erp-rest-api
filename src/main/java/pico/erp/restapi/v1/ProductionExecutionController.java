@@ -62,7 +62,7 @@ public class ProductionExecutionController {
   }
 
   @CacheControl(maxAge = 300)
-  @ApiOperation(value = "송장 조회")
+  @ApiOperation(value = "생산 진행 조회")
   @PreAuthorize("hasAnyRole('PRODUCTION_EXECUTOR', 'PRODUCTION_EXECUTE_MANAGER')")
   @GetMapping(value = "/executions/{id}", consumes = MediaType.ALL_VALUE)
   public ProductionExecutionData get(@PathVariable("id") ProductionExecutionId id) {
@@ -78,7 +78,7 @@ public class ProductionExecutionController {
     productionExecutionService.update(request);
   }
 
-  @ApiOperation(value = "송장 검색")
+  @ApiOperation(value = "생산 진행 검색")
   @PreAuthorize("hasAnyRole('PRODUCTION_EXECUTOR', 'PRODUCTION_EXECUTE_MANAGER')")
   @GetMapping(value = "/executions", consumes = MediaType.ALL_VALUE)
   public Page<ProductionExecutionView> retrieve(ProductionExecutionView.Filter filter,
