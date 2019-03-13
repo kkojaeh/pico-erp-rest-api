@@ -94,17 +94,28 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import pico.erp.attachment.AttachmentApi;
 import pico.erp.audit.AuditApi;
 import pico.erp.bom.BomApi;
 import pico.erp.comment.CommentApi;
 import pico.erp.company.CompanyApi;
+import pico.erp.delivery.DeliveryApi;
+import pico.erp.document.DocumentApi;
 import pico.erp.facility.FacilityApi;
+import pico.erp.fax.FaxApi;
 import pico.erp.invoice.InvoiceApi;
 import pico.erp.item.ItemApi;
 import pico.erp.notify.NotifyApi;
 import pico.erp.order.acceptance.OrderAcceptanceApi;
+import pico.erp.outsourced.invoice.OutsourcedInvoiceApi;
+import pico.erp.outsourcing.invoice.OutsourcingInvoiceApi;
+import pico.erp.outsourcing.order.OutsourcingOrderApi;
+import pico.erp.outsourcing.request.OutsourcingRequestApi;
 import pico.erp.process.ProcessApi;
 import pico.erp.product.specification.ProductSpecificationApi;
+import pico.erp.production.execution.ProductionExecutionApi;
+import pico.erp.production.mediator.ProductionMediatorApi;
+import pico.erp.production.order.ProductionOrderApi;
 import pico.erp.production.plan.ProductionPlanApi;
 import pico.erp.production.request.ProductionRequestApi;
 import pico.erp.project.ProjectApi;
@@ -226,27 +237,37 @@ public class RestApiApplication implements ApplicationStarter {
   public Set<ApplicationId> getDependencies() {
     return Stream.of(
       AuditApi.ID,
-      UserApi.ID,
-      CompanyApi.ID,
-      ProcessApi.ID,
-      ProjectApi.ID,
-      QuotationApi.ID,
-      ItemApi.ID,
       CommentApi.ID,
-      FacilityApi.ID,
-      WorkScheduleApi.ID,
-      OrderAcceptanceApi.ID,
-      WarehouseApi.ID,
-      BomApi.ID,
-      PurchaseRequestApi.ID,
-      WarehouseApi.ID,
-      PurchaseOrderApi.ID,
+      UserApi.ID,
       NotifyApi.ID,
+      WorkScheduleApi.ID,
+      CompanyApi.ID,
+      AttachmentApi.ID,
+      ProcessApi.ID,
+      ItemApi.ID,
+      ProjectApi.ID,
+      BomApi.ID,
+      QuotationApi.ID,
+      OrderAcceptanceApi.ID,
+      FacilityApi.ID,
+      WarehouseApi.ID,
       InvoiceApi.ID,
-      PurchaseInvoiceApi.ID,
-      ProductionRequestApi.ID,
       ProductionPlanApi.ID,
-      ProductSpecificationApi.ID
+      ProductionRequestApi.ID,
+      PurchaseRequestApi.ID,
+      PurchaseOrderApi.ID,
+      PurchaseInvoiceApi.ID,
+      ProductSpecificationApi.ID,
+      OutsourcingRequestApi.ID,
+      OutsourcingOrderApi.ID,
+      OutsourcingInvoiceApi.ID,
+      OutsourcedInvoiceApi.ID,
+      DocumentApi.ID,
+      FaxApi.ID,
+      DeliveryApi.ID,
+      ProductionOrderApi.ID,
+      ProductionExecutionApi.ID,
+      ProductionMediatorApi.ID
     ).collect(Collectors.toSet());
   }
 
