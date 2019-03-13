@@ -7,4 +7,13 @@ document:
 
 logging:
   level:
-    pico.erp: DEBUG
+    pico.erp
+    shared: DEBUG
+    production: DEBUG
+    org:
+      hibernate:
+        stat: DEBUG
+        cache: DEBUG
+        SQL: DEBUG
+        type: TRACE
+          BasicTypeRegistry: WARN
