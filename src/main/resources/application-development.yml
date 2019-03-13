@@ -10,8 +10,3 @@ logging:
     pico.erp:
       shared: DEBUG
       restapi: INFO
-    org:
-      hibernate:
-        stat: DEBUG
-        cache: DEBUG
-        SQL: DEBUG
