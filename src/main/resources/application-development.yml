@@ -7,9 +7,9 @@ document:
 
 logging:
   level:
-    pico.erp
-    shared: DEBUG
-    production: DEBUG
+    pico.erp:
+      shared: DEBUG
+      production: DEBUG
     org:
       hibernate:
         stat: DEBUG
