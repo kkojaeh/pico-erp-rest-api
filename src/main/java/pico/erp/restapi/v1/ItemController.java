@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import pico.erp.item.ItemCode;
 import pico.erp.item.ItemData;
 import pico.erp.item.ItemId;
 import pico.erp.item.ItemQuery;
@@ -127,6 +128,14 @@ public class ItemController {
   @GetMapping(value = "/items/{id}", consumes = MediaType.ALL_VALUE)
   public ItemData get(@PathVariable("id") ItemId id) {
     return itemService.get(id);
+  }
+
+  @CacheControl(maxAge = 300)
+  @ApiOperation(value = "품목 조회")
+  @PreAuthorize("hasAnyRole('ITEM_MANAGER', 'ITEM_ACCESSOR')")
+  @GetMapping(value = "/codes/{id}", consumes = MediaType.ALL_VALUE)
+  public ItemData get(@PathVariable("id") ItemCode code) {
+    return itemService.get(code);
   }
 
   @SneakyThrows

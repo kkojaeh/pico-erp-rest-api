@@ -7,6 +7,5 @@ document:
 
 logging:
   level:
-    pico.erp:
-      shared: DEBUG
-      restapi: INFO
+    pico.erp: DEBUG
+    pico.erp.restapi: INFO

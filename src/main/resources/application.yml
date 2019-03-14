@@ -91,6 +91,7 @@ logging:
   level:
     org.springframework: INFO
     pico.erp: DEBUG
+    pico.erp.restapi: INFO
 
 label:
   query:
