@@ -1,24 +1,5 @@
 buildscript {
-  dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
-    classpath("net.ltgt.gradle:gradle-apt-plugin:0.18")
-    classpath("com.bmuschko:gradle-clover-plugin:2.1.3")
-    classpath("io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE")
-    classpath("net.researchgate:gradle-release:2.6.0")
-    classpath("gradle.plugin.io.github.divinespear:jpa-schema-gradle-plugin:0.3.5.1")
-  }
-  repositories {
-    flatDir dirs: "${buildDir}/lib"
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-    mavenCentral()
-    jcenter()
-    google()
-    maven {
-      url "https://jitpack.io"
-    }
-  }
+  apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/spring-boot-2/buildscript.gradle'
 }
 
 apply plugin: 'java'
@@ -38,28 +19,35 @@ ext {
   linkScmDevConnection = 'scm:git:ssh://git@github.com/kkojaeh/pico-erp-rest-api.git'
 }
 
-apply from: 'https://github.com/kkojaeh/pico-erp-gradle/raw/master/parent.gradle'
-apply from: 'https://github.com/kkojaeh/pico-erp-gradle/raw/master/impl.gradle'
+apply from: 'https://github.com/kkojaeh/pico-erp-gradle/raw/spring-boot-2/parent.gradle'
+apply from: 'https://github.com/kkojaeh/pico-erp-gradle/raw/spring-boot-2/impl.gradle'
 
 dependencies {
 
   compile("org.projectlombok:lombok:${lombokVersion}")
 
-  // api
+  // shared
   compile("com.github.kkojaeh.pico-erp-shared:impl:${sharedVersion}")
+
+  // user
   compile("com.github.kkojaeh.pico-erp-user:api:${userVersion}")
-  compile("com.github.kkojaeh.pico-erp-audit:api:${auditVersion}")
+  runtime("com.github.kkojaeh.pico-erp-user:test:${userVersion}")
 
-
-
-
-
-  
+  // comment
   compile("com.github.kkojaeh.pico-erp-comment:api:${commentVersion}")
+  runtime("com.github.kkojaeh.pico-erp-comment:test:${commentVersion}")
+
+  // warehouse
+  compile("com.github.kkojaeh.pico-erp-warehouse:api:${warehouseVersion}")
+  runtime("com.github.kkojaeh.pico-erp-warehouse:test:${warehouseVersion}")
+
+  // work-schedule
+  runtime("com.github.kkojaeh.pico-erp-work-schedule:test:${workScheduleVersion}")
+
   compile("com.github.kkojaeh.pico-erp-facility:api:${facilityVersion}")
   compile("com.github.kkojaeh.pico-erp-work-schedule:api:${workScheduleVersion}")
   compile("com.github.kkojaeh.pico-erp-order-acceptance:api:${orderAcceptanceVersion}")
-  compile("com.github.kkojaeh.pico-erp-warehouse:api:${warehouseVersion}")
+
   compile("com.github.kkojaeh.pico-erp-bom:api:${bomVersion}")
   compile("com.github.kkojaeh.pico-erp-purchase-request:api:${purchaseRequestVersion}")
   compile("com.github.kkojaeh.pico-erp-purchase-order:api:${purchaseOrderVersion}")
@@ -87,7 +75,6 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-e-document:pdfmake:${documentVersion}")
   compile("com.github.kkojaeh.pico-erp-e-document:impl:${documentVersion}")
 
-
   // delivery
   compile("com.github.kkojaeh.pico-erp-delivery:api:${deliveryVersion}")
   runtime("com.github.kkojaeh.pico-erp-delivery:impl:${deliveryVersion}")
@@ -100,14 +87,10 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-attachment:aws-s3:${attachmentVersion}")
   runtime("com.github.kkojaeh.pico-erp-attachment:test:${attachmentVersion}")
 
-
-
-
   // process
   compile("com.github.kkojaeh.pico-erp-process:api:${processVersion}")
   compile("com.github.kkojaeh.pico-erp-process:jjschema:${processVersion}")
   runtime("com.github.kkojaeh.pico-erp-process:test:${processVersion}")
-
 
   // item
   compile("com.github.kkojaeh.pico-erp-item:api:${itemVersion}")
@@ -126,7 +109,6 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-production-mediator:api:${productionMediatorVersion}")
   runtime("com.github.kkojaeh.pico-erp-production-mediator:impl:${productionMediatorVersion}")
 
-
   // company
   compile("com.github.kkojaeh.pico-erp-company:api:${companyVersion}")
   runtime("com.github.kkojaeh.pico-erp-company:test:${companyVersion}")
@@ -139,17 +121,15 @@ dependencies {
   compile("com.github.kkojaeh.pico-erp-quotation:api:${quotationVersion}")
   runtime("com.github.kkojaeh.pico-erp-quotation:test:${quotationVersion}")
 
-  
 
-  runtime("com.github.kkojaeh.pico-erp-comment:test:${commentVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-work-schedule:test:${workScheduleVersion}")
+
+
+
 
   runtime("com.github.kkojaeh.pico-erp-bom:test:${bomVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-user:test:${userVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-audit:test:${auditVersion}")
 
   runtime("com.github.kkojaeh.pico-erp-order-acceptance:test:${orderAcceptanceVersion}")
 
@@ -163,7 +143,7 @@ dependencies {
 
   runtime("com.github.kkojaeh.pico-erp-invoice:test:${invoiceVersion}")
 
-  runtime("com.github.kkojaeh.pico-erp-warehouse:test:${warehouseVersion}")
+
 
   runtime("com.github.kkojaeh.pico-erp-notify:impl:${notifyVersion}")
 
@@ -263,9 +243,13 @@ bootJar {
   // 파일 명 중복으로 인해 추가
   eachFile {
     details ->
-      if(details.file.file && details.file.name.endsWith('.jar')){
+      if (details.file.file && details.file.name.endsWith('.jar')) {
         def groupName = details.file.parentFile.parentFile.parentFile.parentFile.name
         details.name = "${groupName}-${details.name}"
       }
   }
 }
+/*
+configurations.all {
+  resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}*/

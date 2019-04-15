@@ -38,8 +38,8 @@ public class CorrugatedFiberBoardItemSpecVariables implements ItemSpecVariables 
   @Override
   public BigDecimal calculateUnitCost(ItemInfo item) {
     return item.getBaseUnitCost()
-      .multiply(new BigDecimal(width).divide(new BigDecimal(1000)))
-      .multiply(new BigDecimal(height).divide(new BigDecimal(1000)));
+      .multiply(new BigDecimal(width).divide(new BigDecimal(1000), 4, BigDecimal.ROUND_HALF_UP))
+      .multiply(new BigDecimal(height).divide(new BigDecimal(1000), 4, BigDecimal.ROUND_HALF_UP));
   }
 
   @Override

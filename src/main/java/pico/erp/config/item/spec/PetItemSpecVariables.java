@@ -38,13 +38,14 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   public BigDecimal calculatePurchaseQuantity(BigDecimal quantity) {
     val weightConstant = new BigDecimal(1.4);
     val lengthCentimeter = quantity.multiply(new BigDecimal(100)); // 1m
-    val thicknessCentimeter = new BigDecimal(thickness).divide(new BigDecimal(10000));
-    val widthCentimeter = new BigDecimal(width).divide(BigDecimal.TEN);
+    val thicknessCentimeter = new BigDecimal(thickness)
+      .divide(new BigDecimal(10000), 4, BigDecimal.ROUND_HALF_UP);
+    val widthCentimeter = new BigDecimal(width).divide(BigDecimal.TEN, 2, BigDecimal.ROUND_HALF_UP);
     return lengthCentimeter
       .multiply(thicknessCentimeter)
       .multiply(widthCentimeter)
       .multiply(weightConstant)
-      .divide(new BigDecimal(1000))
+      .divide(new BigDecimal(1000), 4, BigDecimal.ROUND_HALF_UP)
       .setScale(0, BigDecimal.ROUND_HALF_UP);
   }
 
@@ -57,13 +58,14 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   public BigDecimal calculateUnitCost(ItemInfo item) {
     val weightConstant = new BigDecimal(1.4);
     val lengthCentimeter = new BigDecimal(100); // 1m
-    val thicknessCentimeter = new BigDecimal(thickness).divide(new BigDecimal(10000));
-    val widthCentimeter = new BigDecimal(width).divide(BigDecimal.TEN);
+    val thicknessCentimeter = new BigDecimal(thickness)
+      .divide(new BigDecimal(10000), 5, BigDecimal.ROUND_HALF_UP);
+    val widthCentimeter = new BigDecimal(width).divide(BigDecimal.TEN, 2, BigDecimal.ROUND_HALF_UP);
     val kilogramPerMeter = lengthCentimeter
       .multiply(thicknessCentimeter)
       .multiply(widthCentimeter)
       .multiply(weightConstant)
-      .divide(new BigDecimal(1000));
+      .divide(new BigDecimal(1000), 4, BigDecimal.ROUND_HALF_UP);
 
     val costPerKilogram = item.getBaseUnitCost().add(new BigDecimal(colorCost));
     return kilogramPerMeter.multiply(costPerKilogram)
@@ -75,7 +77,7 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   public String getSummary() {
     return String.format("%s %s*%04d %s",
       side,
-      new BigDecimal(thickness).divide(new BigDecimal(1000)).setScale(3, BigDecimal.ROUND_HALF_UP)
+      new BigDecimal(thickness).divide(new BigDecimal(1000), 3, BigDecimal.ROUND_HALF_UP)
         .toString(),
       width,
       color);

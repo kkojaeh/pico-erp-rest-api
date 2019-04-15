@@ -51,9 +51,10 @@ public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
     double paperConstant = 0.5;
     BigDecimal unitCost = item.getBaseUnitCost().multiply(
       new BigDecimal(grammage)
-        .multiply(new BigDecimal(width).divide(new BigDecimal(1000)))
-        .multiply(new BigDecimal(height).divide(new BigDecimal(1000)))
-        .divide(new BigDecimal(incisionCount).multiply(new BigDecimal(paperConstant)))
+        .multiply(new BigDecimal(width).divide(new BigDecimal(1000), 4, BigDecimal.ROUND_HALF_UP))
+        .multiply(new BigDecimal(height).divide(new BigDecimal(1000), 4, BigDecimal.ROUND_HALF_UP))
+        .divide(new BigDecimal(incisionCount).multiply(new BigDecimal(paperConstant)), 4,
+          BigDecimal.ROUND_HALF_UP)
     );
     return unitCost.setScale(2, BigDecimal.ROUND_HALF_UP);
   }

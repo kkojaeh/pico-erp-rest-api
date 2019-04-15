@@ -1,0 +1,24 @@
+spring:
+  main:
+    web-application-type: none
+  banner:
+    location: classpath:web-parent/banner.txt
+  data:
+    jpa:
+      repositories:
+        enabled: false
+  datasource:
+    name: parent-datasource
+    url: ${DATASOURCE_URL:jdbc:p6spy:hsqldb:mem:web-parent}
+    driver-class-name: ${DATASOURCE_DRIVER_CLASS_NAME:com.p6spy.engine.spy.P6SpyDriver}
+    username: ${DATASOURCE_USERNAME:as}
+    password: ${DATASOURCE_PASSWORD:null}
+    hikari:
+      maximum-pool-size: 50
+  flyway:
+    enabled: false
+
+logging:
+  level:
+    org:
+      springframework: INFO

@@ -1,0 +1,153 @@
+server:
+  port: 8080
+
+spring:
+  banner:
+    location: classpath:rest/banner.txt
+  application:
+    name: pico-rest-api-server
+  http:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 300MB
+  data:
+    web:
+      pageable:
+        default-page-size: 20 # 적용 안된 spring-boot 2 부터 반영됨
+        max-page-size: 100 # 적용 안된 spring-boot 2 부터 반영됨
+  messages:
+    cache-seconds: 60
+    basename: messages, org.springframework.security.messages
+    encoding: UTF-8
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  activemq:
+    broker-url: ${ACTIVE_MQ_BROKER_URL:vm://embedded?brokerConfig=xbean:embedded-activemq.xml}
+    user: ${ACTIVE_MQ_USER:}
+    password: ${ACTIVE_MQ_PASSWORD:}
+    in-memory: ${ACTIVE_MQ_IN_MEMORY:true}
+    non-blocking-redelivery: false
+    packages:
+      trust-all: false
+      trusted: pico.erp
+    pool:
+      block-if-full: true
+      block-if-full-timeout: -1
+      create-connection-on-startup: true
+      enabled: false
+      expiry-timeout: 0
+      idle-timeout: 30000
+      max-connections: 1
+      maximum-active-session-per-connection: 100
+      reconnect-on-exception: true
+      time-between-expiration-check: -1
+      use-anonymous-producers: false
+
+  jms:
+    listener:
+      acknowledge-mode: auto
+      auto-startup: true
+      concurrency: 1
+      max-concurrency: 1
+    pub-sub-domain: false
+    template:
+      default-destination:
+      delivery-mode: non_persistent
+      priority: 100
+      qos-enabled: false
+      receive-timeout: 1000
+      time-to-live: 36000
+
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:sender}
+    password: ${SPRING_MAIL_PASSWORD:sender}
+    properties:
+      mail.transport.protocol: smtp
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+security:
+  sessions: never
+  enable-csrf: false
+  basic:
+    enabled: false
+
+firebase:
+  service:
+    account:
+      key:
+        location: ${FIREBASE_SERVICE_ACCOUNT_KEY_LOCATION:file:${HOME}/.firebase/pico-erp-dev-firebase-adminsdk.json}
+
+endpoints:
+  enabled: true
+
+management:
+  security:
+    enabled: false
+
+logging:
+  level:
+    org.springframework: INFO
+    pico.erp: DEBUG
+    pico.erp.restapi: INFO
+
+label:
+  query:
+    limit: 10
+
+attachment:
+  thumbnail:
+    default-width: 140
+    default-height: 100
+  storage:
+    root-dir: ${ATTACHMENT_FILE_SYSTEM_ROOT_DIR:#{systemProperties['java.io.tmpdir']}/pico-attachment-storage}
+  aws-s3:
+    bucket-name: ${ATTACHMENT_AWS_3S_BUCKET_NAME}
+    region: ${ATTACHMENT_AWS_3S_REGION:ap-northeast-2}
+
+sentry:
+  exception:
+    exclude-patterns: pico.erp.*
+
+client:
+  location-origin: ${CLIENT_LOCATION_ORIGIN:http://localhost:8081}
+
+notify:
+  mattermost:
+    url: ${NOTIFY_MATTERMOST_URL}
+    access-token: ${NOTIFY_MATTERMOST_ACCESS_TOKEN}
+    team-name: ${NOTIFY_MATTERMOST_TEAM_NAME}
+    sender-email: ${NOTIFY_MATTERMOST_SENDER_EMAIL}
+    group-channel-names:
+      "po-charger": "po-charger"
+      "pr-accepter": "pr-accepter"
+      "invoice-receiver": "invoice-receiver"
+
+fax:
+  aws-s3:
+    bucket-name: ${FAX_AWS_3S_BUCKET_NAME}
+    region: ${FAX_AWS_3S_REGION:ap-northeast-2}
+  twilio:
+    account-sid: ${TWILIO_ACCOUNT_SID}
+    auth-token: ${TWILIO_AUTH_TOKEN}
+    fax-from: ${TWILIO_FAX_FROM}
+
+document:
+  storage:
+    root-dir: ${DOCUMENT_FILE_SYSTEM_ROOT_DIR:#{systemProperties['java.io.tmpdir']}/pico-document-storage}
+  aws-s3:
+    bucket-name: ${DOCUMENT_AWS_3S_BUCKET_NAME}
+    region: ${DOCUMENT_AWS_3S_REGION:ap-northeast-2}
+  pdfmake:
+    workspace: ${DOCUMENT_PDFMAKE_DIR:#{systemProperties['java.io.tmpdir']}/pdfmake-workspace}
+  logo:
+    resource: classpath:document/logo.png
+    content-type: image/png
+
+delivery:
+  from-email: ${DELIVERY_FROM_EMAIL}
+  from-name: ${DELIVERY_FROM_NAME}
